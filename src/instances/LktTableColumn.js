@@ -7,6 +7,7 @@ export class LktTableColumn {
         this.hidden = false;
         this.formatter = undefined;
         this.checkEmpty = undefined;
+        this.colspan = undefined;
     }
 
     setIsSortable(status = true) {
@@ -26,6 +27,11 @@ export class LktTableColumn {
 
     setEmptyChecker(checker = undefined) {
         this.checkEmpty = checker;
+        return this;
+    }
+
+    setColSpan(checker = undefined) {
+        this.colspan = undefined;
         return this;
     }
 }

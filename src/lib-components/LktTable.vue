@@ -1,64 +1,65 @@
 <template>
     <div>
-        <h1>Table</h1>
-        <input type="text" v-model="input">
-        <ul>
-            <li>list start</li>
-        <li v-for="(item, i) in value" v-bind:key="uniqueId + '_' +  i">
-            {{item}}
-        </li>
-            <li>list finish</li>
-        </ul>
         <div v-if="hasData" data-lkt="table" :data-sortable="sortable">
             <table>
                 <thead>
                 <tr>
                     <th v-if="sortable" data-role="drag-indicator"></th>
-                    <th v-if="HiddenColumns.length > 0"></th>
-                    <template v-for="column in VisibleColumns" v-on:click="sort(column)">
+                    <th v-if="hiddenColumns.length > 0"></th>
+                    <template v-for="column in visibleColumns">
                         <th :data-column="column.key"
                             v-if="emptyColumns.indexOf(column.key) === -1"
                             v-bind:data-sortable="column.sortable === true"
                             v-bind:data-sort="column.sortable === true && SortBy === column.key ? SortDirection : ''"
                             v-bind:colspan="getVerticalColSpan(column)"
                             v-bind:title="column.label"
+                            v-on:click="sort(column)"
                         >
                             <div>{{ column.label }}</div>
                         </th>
                     </template>
                 </tr>
                 </thead>
-                <draggable v-if="sortable" v-model="Items" v-bind:group="dragGroup" @start="drag=true" @end="drag=false"
-                           tag="tbody" data-lkt="sortable-table" handle="[data-handle-drag]" :move="checkValidDrag">
-                    <lkt-table-row
-                        v-for="(item, i) in Items"
-                        v-bind:i="i"
-                        v-bind:item="item"
-                        v-bind:hidden-columns="HiddenColumns"
-                        v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
-                        v-bind:visible-columns="VisibleColumns"
-                        v-bind:empty-columns="emptyColumns"
-                        v-bind:hidden-is-visible="Hidden['tr_'+i] === true"
-                    ></lkt-table-row>
+                <draggable v-if="sortable"
+                           v-model="Items"
+                           v-bind:group="dragGroup"
+                           v-bind:move="checkValidDrag"
+                           v-on:start="drag=true"
+                           v-on:end="drag=false"
+                           tag="tbody"
+                           data-lkt="sortable-table"
+                           handle="[data-handle-drag]">
+                    <template #item="{element}">
+<!--                        <LktTableRow-->
+<!--                            v-bind:key="uniqueId + '-'  + 0"-->
+<!--                            v-bind:i="0"-->
+<!--                            v-bind:item="element"-->
+<!--                            v-bind:hidden-columns="hiddenColumns"-->
+<!--                            v-bind:hidden-columns-col-span="hiddenColumnsColSpan"-->
+<!--                            v-bind:is-draggable="draggableChecker ? draggableChecker(element) : true"-->
+<!--                            v-bind:visible-columns="visibleColumns"-->
+<!--                            v-bind:empty-columns="emptyColumns"-->
+<!--                            v-bind:hidden-is-visible="Hidden['tr_'+0] === true"-->
+<!--                            v-on:click="click"-->
+<!--                        ></LktTableRow>-->
+                        <div>{{element.name}}</div>
+                    </template>
                 </draggable>
 
                 <tbody v-else>
-                <tr><td>{{Items}}</td></tr>
-                <tr><td>{{Items2}}</td></tr>
-                <tr v-for="(item, i) in Items2" v-bind:key="uniqueId + '_' +  i">
-                    <td>{{item}}</td>
-                </tr>
-                <template v-for="(item, i) in Items">
-                    <LktTableRow
-                        v-bind:i="i"
-                        v-bind:item="item"
-                        v-bind:hidden-columns="HiddenColumns"
-                        v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
-                        v-bind:visible-columns="VisibleColumns"
-                        v-bind:empty-columns="emptyColumns"
-                        v-bind:hidden-is-visible="Hidden['tr_'+i] === true"
-                    ></LktTableRow>
-                </template>
+                <LktTableRow
+                    v-for="(item, i) in Items"
+                    v-bind:key="uniqueId + '-'  + i"
+                    v-bind:i="i"
+                    v-bind:item="item"
+                    v-bind:hidden-columns="hiddenColumns"
+                    v-bind:hidden-columns-col-span="hiddenColumnsColSpan"
+                    v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
+                    v-bind:visible-columns="visibleColumns"
+                    v-bind:empty-columns="emptyColumns"
+                    v-bind:hidden-is-visible="Hidden['tr_'+i] === true"
+                    v-on:click="click"
+                ></LktTableRow>
                 </tbody>
             </table>
         </div>
@@ -71,7 +72,12 @@
 <script>
 import draggable from "vuedraggable";
 import {generateRandomString, isFunction, isUndefined} from "lkt-tools";
-import {defaultTableSorter} from "@/functions/table-functions";
+import {
+    defaultTableSorter,
+    getVerticalColSpan,
+    getHorizontalColSpan,
+    getDefaultSortColumn
+} from "@/functions/table-functions";
 import LktTableRow from "@/lib-components/LktTableRow.vue";
 import {defineComponent} from "vue";
 
@@ -79,8 +85,8 @@ export default defineComponent({
     name: "LktTable",
     components: {LktTableRow, draggable},
     props: {
-        value: {type: Array, default() { return [];}},
-        columns: {type: Array, default() { return [];}},
+        value: {type: Array, default: () => []},
+        columns: {type: Array, default: () => []},
         sorter: {type: Function},
         sortable: {type: Boolean, default: false},
         hideEmptyColumns: {type: Boolean, default: false},
@@ -93,14 +99,12 @@ export default defineComponent({
 
         return {
             Sorter,
-            SortBy: '',
+            SortBy: getDefaultSortColumn(this.columns),
             SortDirection: 'asc',
             Items: this.value,
-            Items2: [1, 2, 3],
             Hidden: {},
             drag: false,
             dragGroup: generateRandomString(16),
-            ready: false,
             input: '',
             uniqueId: generateRandomString(12)
         };
@@ -133,14 +137,14 @@ export default defineComponent({
             });
             return r;
         },
-        VisibleColumns() {
+        visibleColumns() {
             return this.columns.filter(c => c.hidden !== true);
         },
-        HiddenColumns() {
+        hiddenColumns() {
             return this.columns.filter(c => c.hidden === true);
         },
-        HiddenColumnsColSpan() {
-            let r = this.VisibleColumns.length + 1;
+        hiddenColumnsColSpan() {
+            let r = this.visibleColumns.length + 1;
             if (this.sortable) {
                 ++r;
             }
@@ -148,22 +152,16 @@ export default defineComponent({
         }
     },
     watch: {
-        // columns: {
-        //     handler(v) {
-        //         this.$forceUpdate();
-        //     }, deep: true,
-        // },
-        // value: {
-        //     handler(v) {
-        //         this.Items = v;
-        //     }, deep: true,
-        // },
-        // Items: {
-        //     handler(v) {
-        //         this.$forceUpdate();
-        //         this.$emit('input', v);
-        //     }, deep: true,
-        // }
+        value: {
+            handler(v) {
+                this.Items = v;
+            }, deep: true,
+        },
+        Items: {
+            handler(v) {
+                this.$emit('input', v);
+            }, deep: true,
+        }
     },
     methods: {
         getItemByEvent(e) {
@@ -184,29 +182,8 @@ export default defineComponent({
 
             return undefined;
         },
-        getVerticalColSpan(column) {
-            if (!column.colspan) {
-                return false;
-            }
-            let max = this.columns.length;
-            this.Items.forEach(item => {
-                let i = this.getHorizontalColSpan(column, item);
-                if (i > 0 && i < max) {
-                    max = i;
-                }
-            });
-
-            return max;
-        },
-        getHorizontalColSpan(column, item) {
-            if (!column.colspan) {
-                return false;
-            }
-            if (typeof column.colspan === 'function') {
-                return column.colspan(item);
-            }
-            return column.colspan;
-        },
+        getVerticalColSpan,
+        getHorizontalColSpan,
         sort(column) {
             if (column.sortable === true) {
                 this.Items = this.Items.sort((a, b) => {
@@ -217,23 +194,13 @@ export default defineComponent({
                 this.$emit('sort', [this.SortBy, this.SortDirection]);
             }
         },
-        click(e, item, column) {
-            this.$emit('click', {
-                event: e,
-                item: item,
-                column: column,
-            });
+        click($event) {
+            this.$emit('click', $event);
         },
         show(e, i) {
             let k = 'tr_' + i;
             this.Hidden[k] = isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
         }
     },
-    mounted() {
-        // setTimeout(() => {
-        //     this.ready = true;
-        //     this.$forceUpdate();
-        // }, 2000);
-    }
 })
 </script>

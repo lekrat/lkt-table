@@ -12,8 +12,8 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./build/lkt-table.es.js",
-      "require": "./build/lkt-table.umd.js"
+      "import": "./dist/lkt-table.es.js",
+      "require": "./dist/lkt-table.umd.js"
     },
     "./dist/style.css": "./dist/style.css"
   },
@@ -76,9 +76,11 @@
   "peerDependencies": {
     "lkt-tools": "git+https://gitlab.com/lkt-ui/lkt-tools.git",
     "vue": "^3.0.5",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^4.1.0"
   },
   "engines": {
     "node": ">=12"
+  },
+  "dependencies": {
   }
 }

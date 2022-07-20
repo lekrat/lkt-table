@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vitest/config';
 
 const src = resolve(__dirname, 'src');
-const outDir = resolve(__dirname, 'build');
+const outDir = resolve(__dirname, 'dist');
 const test = resolve(__dirname, 'test');
 const snapshots = resolve(__dirname, 'snapshots');
 
@@ -21,10 +21,12 @@ export default defineConfig({
         outDir,
         minify: false,
         rollupOptions: {
-            external: [ 'vue', 'vuedragabble', 'lkt-tools' ],
+            external: [ 'vue', 'vuedraggable', 'lkt-tools' ],
             output: {
                 globals: {
-                    vue: 'Vue'
+                    vue: 'Vue',
+                    vuedraggable: 'draggable',
+                    "lkt-tools": 'lktTools'
                 },
                 sourcemapExcludeSources: true
             }
