@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vitest/config';
 
 const src = resolve(__dirname, 'src');
+const outDir = resolve(__dirname, 'build');
 const test = resolve(__dirname, 'test');
 const snapshots = resolve(__dirname, 'snapshots');
 
@@ -17,6 +18,7 @@ export default defineConfig({
             name: 'LktTable',
             fileName: (format) => `lkt-table.${ format }.js`
         },
+        outDir,
         minify: false,
         rollupOptions: {
             external: [ 'vue', 'vuedragabble', 'lkt-tools' ],
