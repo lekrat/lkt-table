@@ -1,4 +1,4 @@
-
+# LKT Table
 Vue component (Vue.js 3.0) allowing a simple yet powerful table component.
 
 ## Features
@@ -25,7 +25,7 @@ npm i -S lkt-table
 In your main.js
 ```js
   import LktTable from 'lkt-table';
-  ...
+  
   app.use(LktTable);
 ```
 
@@ -54,10 +54,10 @@ export default {
 ```
 
 
-### With `column slots`:
+### With `custom column slots`:
 ```html
 <LktTable v-model:value="myArray" v-bind:columns="columns">
-    <template v-slot:name="item"></template
+    <template v-slot:name="{item}">{{item.name}}</template
 </LktTable>
 ```
 
