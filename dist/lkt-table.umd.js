@@ -1,5 +1,5 @@
 (function(global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require("vuedraggable"), require("lkt-tools"), require("vue")) : typeof define === "function" && define.amd ? define(["exports", "vuedraggable", "lkt-tools", "vue"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.LktTable = {}, global.draggable, global.lktTools, global.Vue));
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require("vuedraggable"), require("lkt-tools"), require("vue")) : typeof define === "function" && define.amd ? define(["exports", "vuedraggable", "lkt-tools", "vue"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.LktTable = {}, global.draggable, global.LktTools, global.Vue));
 })(this, function(exports2, draggable, lktTools, vue) {
   "use strict";
   const _interopDefaultLegacy = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
@@ -35,8 +35,8 @@
       return this;
     }
   }
-  const createLktTableColumn = (key, label, formatter = void 0, sortable = true, hidden = false) => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).setIsHidden(hidden).setFormatter(formatter);
+  const createColumn = (key, label, sortable = true) => {
+    return new LktTableColumn(key, label).setIsSortable(sortable);
   };
   const defaultTableSorter = (a, b, c, sortDirection) => {
     if (!c) {
@@ -66,13 +66,13 @@
     }
     return item[column.key];
   };
-  const getVerticalColSpan = (column) => {
+  const getVerticalColSpan = (column, amountOfColumns) => {
     if (!column.colspan) {
       return false;
     }
-    let max = globalThis.columns.length;
+    let max = amountOfColumns;
     globalThis.Items.forEach((item) => {
-      let i = globalThis.getHorizontalColSpan(column, item);
+      let i = getHorizontalColSpan(column, item);
       if (i > 0 && i < max) {
         max = i;
       }
@@ -80,10 +80,10 @@
     return max;
   };
   const getHorizontalColSpan = (column, item) => {
-    if (!column.colspan) {
+    if (column.colspan === false) {
       return false;
     }
-    if (typeof column.colspan === "function") {
+    if (lktTools.isFunction(column.colspan)) {
       return column.colspan(item);
     }
     return column.colspan;
@@ -113,7 +113,11 @@
   };
   const getDefaultSortColumn = (columns = []) => {
     if (columns.length > 0) {
-      return columns[0].key;
+      for (let i = 0; i < columns.length; ++i) {
+        if (columns[i].sortable === true) {
+          return columns[i].key;
+        }
+      }
     }
     return "";
   };
@@ -128,34 +132,13 @@
     name: "LktTableRow",
     emits: ["click", "show"],
     props: {
-      isDraggable: {
-        type: Boolean,
-        default: true
-      },
-      i: {
-        type: [Number, Boolean],
-        default: 0
-      },
-      hiddenColumnsColSpan: {
-        type: Number,
-        default: 0
-      },
-      visibleColumns: {
-        type: Array,
-        default: () => []
-      },
-      hiddenColumns: {
-        type: Array,
-        default: () => []
-      },
-      emptyColumns: {
-        type: Array,
-        default: () => []
-      },
-      hiddenIsVisible: {
-        type: Boolean,
-        default: false
-      },
+      isDraggable: { type: Boolean, default: true },
+      i: { type: [Number, Boolean], default: 0 },
+      hiddenColumnsColSpan: { type: Number, default: 0 },
+      visibleColumns: { type: Array, default: () => [] },
+      hiddenColumns: { type: Array, default: () => [] },
+      emptyColumns: { type: Array, default: () => [] },
+      hiddenIsVisible: { type: Boolean, default: false },
       item: {
         type: Object,
         default: () => {
@@ -187,7 +170,7 @@
   const _hoisted_6$1 = ["colspan"];
   const _hoisted_7 = ["data-column"];
   const _hoisted_8 = ["data-i"];
-  const _hoisted_9 = ["onClick", "data-column", "title"];
+  const _hoisted_9 = ["data-column", "title", "onClick"];
   function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
       vue.createElementVNode("tr", {
@@ -238,9 +221,9 @@
             vue.createElementVNode("tr", { "data-i": $props.i }, [
               (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList($props.hiddenColumns, (column, i) => {
                 return vue.openBlock(), vue.createElementBlock("td", {
-                  onClick: ($event) => _ctx.$emit("click", { $event, item: $props.item, column }),
                   "data-column": column.key,
-                  title: $options.getColumnDisplayContent(column, $props.item, i)
+                  title: $options.getColumnDisplayContent(column, $props.item, i),
+                  onClick: ($event) => _ctx.$emit("click", { $event, item: $props.item, column })
                 }, [
                   !!_ctx.$slots[column.key] ? vue.renderSlot(_ctx.$slots, column.key, {
                     key: 0,
@@ -290,6 +273,17 @@
       };
     },
     computed: {
+      slots() {
+        let r = {};
+        let haystack = {};
+        if (this.$slots) {
+          haystack = Object.assign(haystack, this.$slots);
+        }
+        for (let k in haystack) {
+          r[k] = haystack[k];
+        }
+        return r;
+      },
       hasData() {
         return this.Items.length > 0;
       },
@@ -375,8 +369,8 @@
       click($event) {
         this.$emit("click", $event);
       },
-      show(e, i) {
-        let k = "tr_" + i;
+      show($event) {
+        let k = "tr_" + $event.i;
         this.Hidden[k] = lktTools.isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
       }
     }
@@ -394,8 +388,8 @@
     "data-lkt": "empty-table"
   };
   function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_draggable = vue.resolveComponent("draggable");
     const _component_LktTableRow = vue.resolveComponent("LktTableRow");
+    const _component_draggable = vue.resolveComponent("draggable");
     return vue.openBlock(), vue.createElementBlock("div", null, [
       _ctx.hasData ? (vue.openBlock(), vue.createElementBlock("div", {
         key: 0,
@@ -414,7 +408,7 @@
                     "data-column": column.key,
                     "data-sortable": column.sortable === true,
                     "data-sort": column.sortable === true && _ctx.SortBy === column.key ? _ctx.SortDirection : "",
-                    colspan: _ctx.getVerticalColSpan(column),
+                    colspan: _ctx.getVerticalColSpan(column, this.columns.length),
                     title: column.label,
                     onClick: ($event) => _ctx.sort(column)
                   }, [
@@ -436,10 +430,35 @@
             "data-lkt": "sortable-table",
             handle: "[data-handle-drag]"
           }, {
-            item: vue.withCtx(({ element }) => [
-              vue.createElementVNode("div", null, vue.toDisplayString(element.name), 1)
+            item: vue.withCtx(({ element, index }) => [
+              (vue.openBlock(), vue.createBlock(_component_LktTableRow, {
+                key: _ctx.uniqueId + "-" + index,
+                i: index,
+                item: element,
+                "hidden-columns": _ctx.hiddenColumns,
+                "hidden-columns-col-span": _ctx.hiddenColumnsColSpan,
+                "is-draggable": _ctx.draggableChecker ? _ctx.draggableChecker(element) : true,
+                "visible-columns": _ctx.visibleColumns,
+                "empty-columns": _ctx.emptyColumns,
+                "hidden-is-visible": _ctx.Hidden["tr_" + index] === true,
+                onClick: _ctx.click,
+                onShow: _ctx.show
+              }, vue.createSlots({ _: 2 }, [
+                vue.renderList(_ctx.slots, (slot, column) => {
+                  return {
+                    name: column,
+                    fn: vue.withCtx((row) => [
+                      vue.renderSlot(_ctx.$slots, column, {
+                        item: row.item,
+                        value: row.value,
+                        column: row.column
+                      })
+                    ])
+                  };
+                })
+              ]), 1032, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick", "onShow"]))
             ]),
-            _: 1
+            _: 3
           }, 8, ["modelValue", "group", "move"])) : (vue.openBlock(), vue.createElementBlock("tbody", _hoisted_5, [
             (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.Items, (item, i) => {
               return vue.openBlock(), vue.createBlock(_component_LktTableRow, {
@@ -452,8 +471,22 @@
                 "visible-columns": _ctx.visibleColumns,
                 "empty-columns": _ctx.emptyColumns,
                 "hidden-is-visible": _ctx.Hidden["tr_" + i] === true,
-                onClick: _ctx.click
-              }, null, 8, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick"]);
+                onClick: _ctx.click,
+                onShow: _ctx.show
+              }, vue.createSlots({ _: 2 }, [
+                vue.renderList(_ctx.slots, (slot, column) => {
+                  return {
+                    name: column,
+                    fn: vue.withCtx((row) => [
+                      vue.renderSlot(_ctx.$slots, column, {
+                        item: row.item,
+                        value: row.value,
+                        column: row.column
+                      })
+                    ])
+                  };
+                })
+              ]), 1032, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick", "onShow"]);
             }), 128))
           ]))
         ])
@@ -468,7 +501,7 @@
       app.component("LktTable", table);
     }
   };
-  exports2.createLktTableColumn = createLktTableColumn;
+  exports2.createColumn = createColumn;
   exports2.default = LktTable;
   Object.defineProperties(exports2, { __esModule: { value: true }, [Symbol.toStringTag]: { value: "Module" } });
 });

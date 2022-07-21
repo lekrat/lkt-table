@@ -26,7 +26,7 @@ export default defineConfig({
                 globals: {
                     vue: 'Vue',
                     vuedraggable: 'draggable',
-                    "lkt-tools": 'lktTools'
+                    "lkt-tools": 'LktTools'
                 },
                 sourcemapExcludeSources: true
             }

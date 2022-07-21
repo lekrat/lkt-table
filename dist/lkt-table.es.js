@@ -1,6 +1,6 @@
 import draggable from "vuedraggable";
 import { isFunction, isObject, isUndefined, generateRandomString } from "lkt-tools";
-import { openBlock, createElementBlock, Fragment, createElementVNode, normalizeClass, createCommentVNode, renderList, renderSlot, createTextVNode, toDisplayString, withDirectives, vShow, defineComponent, resolveComponent, createBlock, withCtx } from "vue";
+import { openBlock, createElementBlock, Fragment, createElementVNode, normalizeClass, createCommentVNode, renderList, renderSlot, createTextVNode, toDisplayString, withDirectives, vShow, defineComponent, resolveComponent, createBlock, withCtx, createSlots } from "vue";
 class LktTableColumn {
   constructor(key = "", label = "") {
     this.key = key;
@@ -32,8 +32,8 @@ class LktTableColumn {
     return this;
   }
 }
-const createLktTableColumn = (key, label, formatter = void 0, sortable = true, hidden = false) => {
-  return new LktTableColumn(key, label).setIsSortable(sortable).setIsHidden(hidden).setFormatter(formatter);
+const createColumn = (key, label, sortable = true) => {
+  return new LktTableColumn(key, label).setIsSortable(sortable);
 };
 const defaultTableSorter = (a, b, c, sortDirection) => {
   if (!c) {
@@ -63,13 +63,13 @@ const getColumnDisplayContent = (column, item, i) => {
   }
   return item[column.key];
 };
-const getVerticalColSpan = (column) => {
+const getVerticalColSpan = (column, amountOfColumns) => {
   if (!column.colspan) {
     return false;
   }
-  let max = globalThis.columns.length;
+  let max = amountOfColumns;
   globalThis.Items.forEach((item) => {
-    let i = globalThis.getHorizontalColSpan(column, item);
+    let i = getHorizontalColSpan(column, item);
     if (i > 0 && i < max) {
       max = i;
     }
@@ -77,10 +77,10 @@ const getVerticalColSpan = (column) => {
   return max;
 };
 const getHorizontalColSpan = (column, item) => {
-  if (!column.colspan) {
+  if (column.colspan === false) {
     return false;
   }
-  if (typeof column.colspan === "function") {
+  if (isFunction(column.colspan)) {
     return column.colspan(item);
   }
   return column.colspan;
@@ -110,7 +110,11 @@ const canRenderColumn = (column, emptyColumns, item) => {
 };
 const getDefaultSortColumn = (columns = []) => {
   if (columns.length > 0) {
-    return columns[0].key;
+    for (let i = 0; i < columns.length; ++i) {
+      if (columns[i].sortable === true) {
+        return columns[i].key;
+      }
+    }
   }
   return "";
 };
@@ -125,34 +129,13 @@ const _sfc_main$1 = {
   name: "LktTableRow",
   emits: ["click", "show"],
   props: {
-    isDraggable: {
-      type: Boolean,
-      default: true
-    },
-    i: {
-      type: [Number, Boolean],
-      default: 0
-    },
-    hiddenColumnsColSpan: {
-      type: Number,
-      default: 0
-    },
-    visibleColumns: {
-      type: Array,
-      default: () => []
-    },
-    hiddenColumns: {
-      type: Array,
-      default: () => []
-    },
-    emptyColumns: {
-      type: Array,
-      default: () => []
-    },
-    hiddenIsVisible: {
-      type: Boolean,
-      default: false
-    },
+    isDraggable: { type: Boolean, default: true },
+    i: { type: [Number, Boolean], default: 0 },
+    hiddenColumnsColSpan: { type: Number, default: 0 },
+    visibleColumns: { type: Array, default: () => [] },
+    hiddenColumns: { type: Array, default: () => [] },
+    emptyColumns: { type: Array, default: () => [] },
+    hiddenIsVisible: { type: Boolean, default: false },
     item: {
       type: Object,
       default: () => {
@@ -184,7 +167,7 @@ const _hoisted_5$1 = {
 const _hoisted_6$1 = ["colspan"];
 const _hoisted_7 = ["data-column"];
 const _hoisted_8 = ["data-i"];
-const _hoisted_9 = ["onClick", "data-column", "title"];
+const _hoisted_9 = ["data-column", "title", "onClick"];
 function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     createElementVNode("tr", {
@@ -235,9 +218,9 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
           createElementVNode("tr", { "data-i": $props.i }, [
             (openBlock(true), createElementBlock(Fragment, null, renderList($props.hiddenColumns, (column, i) => {
               return openBlock(), createElementBlock("td", {
-                onClick: ($event) => _ctx.$emit("click", { $event, item: $props.item, column }),
                 "data-column": column.key,
-                title: $options.getColumnDisplayContent(column, $props.item, i)
+                title: $options.getColumnDisplayContent(column, $props.item, i),
+                onClick: ($event) => _ctx.$emit("click", { $event, item: $props.item, column })
               }, [
                 !!_ctx.$slots[column.key] ? renderSlot(_ctx.$slots, column.key, {
                   key: 0,
@@ -287,6 +270,17 @@ const _sfc_main = defineComponent({
     };
   },
   computed: {
+    slots() {
+      let r = {};
+      let haystack = {};
+      if (this.$slots) {
+        haystack = Object.assign(haystack, this.$slots);
+      }
+      for (let k in haystack) {
+        r[k] = haystack[k];
+      }
+      return r;
+    },
     hasData() {
       return this.Items.length > 0;
     },
@@ -372,8 +366,8 @@ const _sfc_main = defineComponent({
     click($event) {
       this.$emit("click", $event);
     },
-    show(e, i) {
-      let k = "tr_" + i;
+    show($event) {
+      let k = "tr_" + $event.i;
       this.Hidden[k] = isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
     }
   }
@@ -391,8 +385,8 @@ const _hoisted_6 = {
   "data-lkt": "empty-table"
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_draggable = resolveComponent("draggable");
   const _component_LktTableRow = resolveComponent("LktTableRow");
+  const _component_draggable = resolveComponent("draggable");
   return openBlock(), createElementBlock("div", null, [
     _ctx.hasData ? (openBlock(), createElementBlock("div", {
       key: 0,
@@ -411,7 +405,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   "data-column": column.key,
                   "data-sortable": column.sortable === true,
                   "data-sort": column.sortable === true && _ctx.SortBy === column.key ? _ctx.SortDirection : "",
-                  colspan: _ctx.getVerticalColSpan(column),
+                  colspan: _ctx.getVerticalColSpan(column, this.columns.length),
                   title: column.label,
                   onClick: ($event) => _ctx.sort(column)
                 }, [
@@ -433,10 +427,35 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           "data-lkt": "sortable-table",
           handle: "[data-handle-drag]"
         }, {
-          item: withCtx(({ element }) => [
-            createElementVNode("div", null, toDisplayString(element.name), 1)
+          item: withCtx(({ element, index }) => [
+            (openBlock(), createBlock(_component_LktTableRow, {
+              key: _ctx.uniqueId + "-" + index,
+              i: index,
+              item: element,
+              "hidden-columns": _ctx.hiddenColumns,
+              "hidden-columns-col-span": _ctx.hiddenColumnsColSpan,
+              "is-draggable": _ctx.draggableChecker ? _ctx.draggableChecker(element) : true,
+              "visible-columns": _ctx.visibleColumns,
+              "empty-columns": _ctx.emptyColumns,
+              "hidden-is-visible": _ctx.Hidden["tr_" + index] === true,
+              onClick: _ctx.click,
+              onShow: _ctx.show
+            }, createSlots({ _: 2 }, [
+              renderList(_ctx.slots, (slot, column) => {
+                return {
+                  name: column,
+                  fn: withCtx((row) => [
+                    renderSlot(_ctx.$slots, column, {
+                      item: row.item,
+                      value: row.value,
+                      column: row.column
+                    })
+                  ])
+                };
+              })
+            ]), 1032, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick", "onShow"]))
           ]),
-          _: 1
+          _: 3
         }, 8, ["modelValue", "group", "move"])) : (openBlock(), createElementBlock("tbody", _hoisted_5, [
           (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.Items, (item, i) => {
             return openBlock(), createBlock(_component_LktTableRow, {
@@ -449,8 +468,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               "visible-columns": _ctx.visibleColumns,
               "empty-columns": _ctx.emptyColumns,
               "hidden-is-visible": _ctx.Hidden["tr_" + i] === true,
-              onClick: _ctx.click
-            }, null, 8, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick"]);
+              onClick: _ctx.click,
+              onShow: _ctx.show
+            }, createSlots({ _: 2 }, [
+              renderList(_ctx.slots, (slot, column) => {
+                return {
+                  name: column,
+                  fn: withCtx((row) => [
+                    renderSlot(_ctx.$slots, column, {
+                      item: row.item,
+                      value: row.value,
+                      column: row.column
+                    })
+                  ])
+                };
+              })
+            ]), 1032, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick", "onShow"]);
           }), 128))
         ]))
       ])
@@ -466,6 +499,6 @@ const LktTable = {
   }
 };
 export {
-  createLktTableColumn,
+  createColumn,
   LktTable as default
 };

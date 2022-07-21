@@ -11,7 +11,7 @@
                             v-if="emptyColumns.indexOf(column.key) === -1"
                             v-bind:data-sortable="column.sortable === true"
                             v-bind:data-sort="column.sortable === true && SortBy === column.key ? SortDirection : ''"
-                            v-bind:colspan="getVerticalColSpan(column)"
+                            v-bind:colspan="getVerticalColSpan(column, this.columns.length)"
                             v-bind:title="column.label"
                             v-on:click="sort(column)"
                         >
@@ -29,20 +29,31 @@
                            tag="tbody"
                            data-lkt="sortable-table"
                            handle="[data-handle-drag]">
-                    <template #item="{element}">
-<!--                        <LktTableRow-->
-<!--                            v-bind:key="uniqueId + '-'  + 0"-->
-<!--                            v-bind:i="0"-->
-<!--                            v-bind:item="element"-->
-<!--                            v-bind:hidden-columns="hiddenColumns"-->
-<!--                            v-bind:hidden-columns-col-span="hiddenColumnsColSpan"-->
-<!--                            v-bind:is-draggable="draggableChecker ? draggableChecker(element) : true"-->
-<!--                            v-bind:visible-columns="visibleColumns"-->
-<!--                            v-bind:empty-columns="emptyColumns"-->
-<!--                            v-bind:hidden-is-visible="Hidden['tr_'+0] === true"-->
-<!--                            v-on:click="click"-->
-<!--                        ></LktTableRow>-->
-                        <div>{{element.name}}</div>
+                    <template #item="{element, index}">
+                        <LktTableRow
+                            v-bind:key="uniqueId + '-'  + index"
+                            v-bind:i="index"
+                            v-bind:item="element"
+                            v-bind:hidden-columns="hiddenColumns"
+                            v-bind:hidden-columns-col-span="hiddenColumnsColSpan"
+                            v-bind:is-draggable="draggableChecker ? draggableChecker(element) : true"
+                            v-bind:visible-columns="visibleColumns"
+                            v-bind:empty-columns="emptyColumns"
+                            v-bind:hidden-is-visible="Hidden['tr_'+index] === true"
+                            v-on:click="click"
+                            v-on:show="show"
+                        >
+                            <template
+                                v-for="(slot, column) in slots"
+                                v-slot:[column]="row">
+                                <slot
+                                    v-bind:name="column"
+                                    v-bind:item="row.item"
+                                    v-bind:value="row.value"
+                                    v-bind:column="row.column"
+                                ></slot>
+                            </template>
+                        </LktTableRow>
                     </template>
                 </draggable>
 
@@ -59,7 +70,19 @@
                     v-bind:empty-columns="emptyColumns"
                     v-bind:hidden-is-visible="Hidden['tr_'+i] === true"
                     v-on:click="click"
-                ></LktTableRow>
+                    v-on:show="show"
+                >
+                    <template
+                        v-for="(slot, column) in slots"
+                        v-slot:[column]="row">
+                        <slot
+                            v-bind:name="column"
+                            v-bind:item="row.item"
+                            v-bind:value="row.value"
+                            v-bind:column="row.column"
+                        ></slot>
+                    </template>
+                </LktTableRow>
                 </tbody>
             </table>
         </div>
@@ -110,6 +133,19 @@ export default defineComponent({
         };
     },
     computed: {
+        slots() {
+            let r = {};
+            let i = 0;
+            let haystack = {};
+            if (this.$slots) {
+                haystack = Object.assign(haystack, this.$slots);
+            }
+            for (let k in haystack) {
+                r[k] = haystack[k];
+                ++i;
+            }
+            return r;
+        },
         hasData() {
             return this.Items.length > 0;
         },
@@ -197,8 +233,8 @@ export default defineComponent({
         click($event) {
             this.$emit('click', $event);
         },
-        show(e, i) {
-            let k = 'tr_' + i;
+        show($event) {
+            let k = 'tr_' + $event.i;
             this.Hidden[k] = isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
         }
     },

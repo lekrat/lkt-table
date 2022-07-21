@@ -5,16 +5,11 @@ import {LktTableColumn} from "@/instances/LktTableColumn";
  *
  * @param key
  * @param label
- * @param formatter
  * @param sortable
- * @param hidden
  * @returns {LktTableColumn}
  */
-export const createLktTableColumn = (key, label, formatter = undefined, sortable = true, hidden = false) => {
-    return new LktTableColumn(key, label)
-        .setIsSortable(sortable)
-        .setIsHidden(hidden)
-        .setFormatter(formatter);
+export const createColumn = (key, label, sortable = true) => {
+    return new LktTableColumn(key, label).setIsSortable(sortable);
 }
 
 /**
@@ -68,15 +63,16 @@ export const getColumnDisplayContent = (column, item, i) => {
 /**
  *
  * @param column
+ * @param amountOfColumns
  * @returns {boolean|number}
  */
-export const getVerticalColSpan = (column) => {
+export const getVerticalColSpan = (column, amountOfColumns) => {
     if (!column.colspan) {
         return false;
     }
-    let max = this.columns.length;
+    let max = amountOfColumns;
     this.Items.forEach(item => {
-        let i = this.getHorizontalColSpan(column, item);
+        let i = getHorizontalColSpan(column, item);
         if (i > 0 && i < max) {
             max = i;
         }
@@ -92,10 +88,10 @@ export const getVerticalColSpan = (column) => {
  * @returns {boolean|*}
  */
 export const getHorizontalColSpan = (column, item) => {
-    if (!column.colspan) {
+    if (column.colspan === false) {
         return false;
     }
-    if (typeof column.colspan === 'function') {
+    if (isFunction(column.colspan)) {
         return column.colspan(item);
     }
     return column.colspan;
@@ -137,7 +133,11 @@ export const canRenderColumn = (column, emptyColumns, item) => {
 
 export const getDefaultSortColumn = (columns = []) => {
     if (columns.length > 0) {
-        return columns[0].key;
+        for (let i = 0; i < columns.length; ++i) {
+            if (columns[i].sortable === true) {
+                return columns[i].key;
+            }
+        }
     }
     return '';
 }

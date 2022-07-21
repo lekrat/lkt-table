@@ -13,8 +13,11 @@
                 v-on:click="$emit('click', {$event, item, column})"
             >
                 <template v-if="!!$slots[column.key]">
-                    <slot v-bind:name="column.key" v-bind:value="item[column.key]" v-bind:item="item"
-                          v-bind:column="column" v-bind:i="i"></slot>
+                    <slot v-bind:name="column.key"
+                          v-bind:value="item[column.key]"
+                          v-bind:item="item"
+                          v-bind:column="column"
+                          v-bind:i="i"></slot>
                 </template>
                 <template v-else-if="item">
                     {{ getColumnDisplayContent(column, item, i) }}
@@ -32,12 +35,15 @@
                 </tr>
                 <tr :data-i="i">
                     <td v-for="(column, i) in hiddenColumns"
-                        v-on:click="$emit('click', {$event, item, column})"
                         v-bind:data-column="column.key"
-                        v-bind:title="getColumnDisplayContent (column, item, i)">
+                        v-bind:title="getColumnDisplayContent (column, item, i)"
+                        v-on:click="$emit('click', {$event, item, column})">
                         <template v-if="!!$slots[column.key]">
-                            <slot v-bind:name="column.key" v-bind:value="item[column.key]"
-                                  v-bind:item="item" v-bind:column="column" v-bind:i="i"></slot>
+                            <slot v-bind:name="column.key"
+                                  v-bind:value="item[column.key]"
+                                  v-bind:item="item"
+                                  v-bind:column="column"
+                                  v-bind:i="i"></slot>
                         </template>
                         <template v-else>
                             {{ getColumnDisplayContent(column, item, i) }}
@@ -50,40 +56,26 @@
 </template>
 
 <script>
-import {getColumnDisplayContent, getHorizontalColSpan, getVerticalColSpan, canRenderColumn} from "@/functions/table-functions";
+import {
+    getColumnDisplayContent,
+    getHorizontalColSpan,
+    getVerticalColSpan,
+    canRenderColumn
+} from "@/functions/table-functions";
 
 export default {
     name: "LktTableRow",
     emits: ['click', 'show'],
     props: {
-        isDraggable: {
-            type: Boolean,
-            default: true,
-        },
-        i: {
-            type: [Number, Boolean],
-            default: 0,
-        },
-        hiddenColumnsColSpan: {
-            type: Number,
-            default: 0,
-        },
-        visibleColumns: {
-            type: Array, default: () => [],
-        },
-        hiddenColumns: {
-            type: Array, default: () => [],
-        },
-        emptyColumns: {
-            type: Array, default: () => [],
-        },
-        hiddenIsVisible: {
-            type: Boolean,
-            default: false,
-        },
+        isDraggable: {type: Boolean, default: true,},
+        i: {type: [Number, Boolean], default: 0,},
+        hiddenColumnsColSpan: {type: Number, default: 0,},
+        visibleColumns: {type: Array, default: () => [],},
+        hiddenColumns: {type: Array, default: () => [],},
+        emptyColumns: {type: Array, default: () => [],},
+        hiddenIsVisible: {type: Boolean, default: false,},
         item: {
-            type: Object,
-            default: () => {
+            type: Object, default: () => {
                 return {};
             },
         },
