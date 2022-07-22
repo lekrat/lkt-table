@@ -55,13 +55,13 @@
     </tr>
 </template>
 
-<script>
+<script lang="ts">
 import {
     getColumnDisplayContent,
     getHorizontalColSpan,
     getVerticalColSpan,
     canRenderColumn
-} from "@/functions/table-functions";
+} from "../functions/table-functions";
 
 export default {
     name: "LktTableRow",
@@ -70,9 +70,9 @@ export default {
         isDraggable: {type: Boolean, default: true,},
         i: {type: [Number, Boolean], default: 0,},
         hiddenColumnsColSpan: {type: Number, default: 0,},
-        visibleColumns: {type: Array, default: () => [],},
-        hiddenColumns: {type: Array, default: () => [],},
-        emptyColumns: {type: Array, default: () => [],},
+        visibleColumns: {type: Array, default: (): Array<any> => [],},
+        hiddenColumns: {type: Array, default: (): Array<any> => [],},
+        emptyColumns: {type: Array, default: (): Array<any> => [],},
         hiddenIsVisible: {type: Boolean, default: false,},
         item: {
             type: Object, default: () => {

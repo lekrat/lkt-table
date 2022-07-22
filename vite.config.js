@@ -1,25 +1,23 @@
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
-import { defineConfig } from 'vitest/config';
-
 const src = resolve(__dirname, 'src');
 const outDir = resolve(__dirname, 'dist');
 const test = resolve(__dirname, 'test');
 const snapshots = resolve(__dirname, 'snapshots');
 
-export default defineConfig({
+export default {
     plugins: [ vue() ],
     resolve: {
         alias: { '@': src, '@test': test }
     },
     build: {
         lib: {
-            entry: `${ src }/index.js`,
+            entry: `${ src }/index.ts`,
             name: 'LktTable',
             fileName: (format) => `lkt-table.${ format }.js`
         },
         outDir,
-        minify: false,
+        minify: true,
         rollupOptions: {
             external: [ 'vue', 'vuedraggable', 'lkt-tools' ],
             output: {
@@ -41,4 +39,4 @@ export default defineConfig({
             return `${ snapshots }/${ path[0] }/${ path[1] }${ snapExtension }`;
         }
     }
-});
+};

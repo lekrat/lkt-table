@@ -1,15 +1,14 @@
 import {isFunction, isObject, isUndefined} from "lkt-tools";
-import {LktTableColumn} from "@/instances/LktTableColumn";
+import {LktTableColumn} from "../instances/LktTableColumn";
 
 /**
  *
  * @param key
  * @param label
- * @param sortable
  * @returns {LktTableColumn}
  */
-export const createColumn = (key, label, sortable = true) => {
-    return new LktTableColumn(key, label).setIsSortable(sortable);
+export const createColumn = (key: string, label: string): LktTableColumn => {
+    return new LktTableColumn(key, label);
 }
 
 /**
@@ -20,7 +19,7 @@ export const createColumn = (key, label, sortable = true) => {
  * @param sortDirection
  * @returns {number}
  */
-export const defaultTableSorter = (a, b, c, sortDirection) => {
+export const defaultTableSorter = (a: any, b: any, c: LktTableColumn, sortDirection: string) => {
     if (!c) {
         return 0;
     }
@@ -52,7 +51,7 @@ export const defaultTableSorter = (a, b, c, sortDirection) => {
  * @param i
  * @returns {*}
  */
-export const getColumnDisplayContent = (column, item, i) => {
+export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: number) => {
 
     if (isFunction(column.formatter)) {
         return column.formatter(item[column.key], item, column, i);
@@ -64,14 +63,14 @@ export const getColumnDisplayContent = (column, item, i) => {
  *
  * @param column
  * @param amountOfColumns
- * @returns {boolean|number}
+ * @param items
  */
-export const getVerticalColSpan = (column, amountOfColumns) => {
+export const getVerticalColSpan = (column: LktTableColumn, amountOfColumns: number, items: Array<any>) => {
     if (!column.colspan) {
-        return false;
+        return -1;
     }
     let max = amountOfColumns;
-    this.Items.forEach(item => {
+    items.forEach(item => {
         let i = getHorizontalColSpan(column, item);
         if (i > 0 && i < max) {
             max = i;
@@ -87,11 +86,12 @@ export const getVerticalColSpan = (column, amountOfColumns) => {
  * @param item
  * @returns {boolean|*}
  */
-export const getHorizontalColSpan = (column, item) => {
+export const getHorizontalColSpan = (column: LktTableColumn, item: any) => {
     if (column.colspan === false) {
         return false;
     }
     if (isFunction(column.colspan)) {
+        //@ts-ignore
         return column.colspan(item);
     }
     return column.colspan;
@@ -103,7 +103,7 @@ export const getHorizontalColSpan = (column, item) => {
  * @param item
  * @returns {boolean}
  */
-export const canRenderColumn = (column, emptyColumns, item) => {
+export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], item: any) => {
     if (!isObject(column) || !column.key) {
         return false;
     }
@@ -119,19 +119,18 @@ export const canRenderColumn = (column, emptyColumns, item) => {
 
     if (!isUndefined(column.colspan)) {
         if (isFunction(column.colspan)) {
+            //@ts-ignore
             colspan = parseInt(column.colspan());
         } else {
+            //@ts-ignore
             colspan = parseInt(column.colspan);
         }
     }
 
-    if (colspan > 0) {
-        return true;
-    }
-    return false;
+    return colspan > 0;
 }
 
-export const getDefaultSortColumn = (columns = []) => {
+export const getDefaultSortColumn = (columns: LktTableColumn[] = []) => {
     if (columns.length > 0) {
         for (let i = 0; i < columns.length; ++i) {
             if (columns[i].sortable === true) {

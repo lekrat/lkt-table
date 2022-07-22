@@ -1,6 +1,14 @@
 export class LktTableColumn {
 
-    constructor(key = '', label = '') {
+    key: string;
+    label: string;
+    sortable: boolean;
+    hidden: boolean;
+    formatter: Function|undefined;
+    checkEmpty: Function|undefined;
+    colspan: Function|boolean|number|undefined;
+
+    constructor(key: string = '', label: string = '') {
         this.key = key;
         this.label = label;
         this.sortable = true;
@@ -10,27 +18,27 @@ export class LktTableColumn {
         this.colspan = undefined;
     }
 
-    setIsSortable(status = true) {
+    setIsSortable(status: boolean = true): this {
         this.sortable = status;
         return this;
     }
 
-    setIsHidden(status = true) {
+    setIsHidden(status: boolean = true): this {
         this.hidden = status;
         return this;
     }
 
-    setFormatter(formatter = undefined) {
+    setFormatter(formatter: any = undefined): this {
         this.formatter = formatter;
         return this;
     }
 
-    setEmptyChecker(checker = undefined) {
+    setEmptyChecker(checker: any = undefined): this {
         this.checkEmpty = checker;
         return this;
     }
 
-    setColSpan(checker = undefined) {
+    setColSpan(checker: any = undefined): this {
         this.colspan = undefined;
         return this;
     }

@@ -11,7 +11,7 @@
                             v-if="emptyColumns.indexOf(column.key) === -1"
                             v-bind:data-sortable="column.sortable === true"
                             v-bind:data-sort="column.sortable === true && SortBy === column.key ? SortDirection : ''"
-                            v-bind:colspan="getVerticalColSpan(column, this.columns.length)"
+                            v-bind:colspan="getVerticalColSpan(column, columns.length, Items)"
                             v-bind:title="column.label"
                             v-on:click="sort(column)"
                         >
@@ -39,7 +39,7 @@
                             v-bind:is-draggable="draggableChecker ? draggableChecker(element) : true"
                             v-bind:visible-columns="visibleColumns"
                             v-bind:empty-columns="emptyColumns"
-                            v-bind:hidden-is-visible="Hidden['tr_'+index] === true"
+                            v-bind:hidden-is-visible="isVisible(index)"
                             v-on:click="click"
                             v-on:show="show"
                         >
@@ -68,12 +68,12 @@
                     v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
                     v-bind:visible-columns="visibleColumns"
                     v-bind:empty-columns="emptyColumns"
-                    v-bind:hidden-is-visible="Hidden['tr_'+i] === true"
+                    v-bind:hidden-is-visible="isVisible(i)"
                     v-on:click="click"
                     v-on:show="show"
                 >
                     <template
-                        v-for="(slot, column) in slots"
+                        v-for="(_, column) in slots"
                         v-slot:[column]="row">
                         <slot
                             v-bind:name="column"
@@ -92,29 +92,30 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import draggable from "vuedraggable";
-import {generateRandomString, isFunction, isUndefined} from "lkt-tools";
+import {generateRandomString, getSlots, isFunction, isUndefined} from "lkt-tools";
 import {
     defaultTableSorter,
     getVerticalColSpan,
     getHorizontalColSpan,
     getDefaultSortColumn
-} from "@/functions/table-functions";
-import LktTableRow from "@/lib-components/LktTableRow.vue";
+} from "../functions/table-functions";
+import LktTableRow from "../lib-components/LktTableRow.vue";
 import {defineComponent} from "vue";
+import {LktTableColumn} from "../instances/LktTableColumn";
 
 export default defineComponent({
     name: "LktTable",
     components: {LktTableRow, draggable},
     props: {
-        value: {type: Array, default: () => []},
-        columns: {type: Array, default: () => []},
+        value: {type: Array, default: ():Array<any> => []},
+        columns: {type: Array, default: ():LktTableColumn[] => []},
         sorter: {type: Function},
         sortable: {type: Boolean, default: false},
         hideEmptyColumns: {type: Boolean, default: false},
-        draggableChecker: {type: Function, default: (item) => true},
-        checkValidDrag: {type: Function, default: (evt) => true}
+        draggableChecker: {type: Function, default: (item: any) => true},
+        checkValidDrag: {type: Function, default: (evt: any) => true}
     },
     emits: ['input', 'sort'],
     data() {
@@ -122,18 +123,19 @@ export default defineComponent({
 
         return {
             Sorter,
+            //@ts-ignore
             SortBy: getDefaultSortColumn(this.columns),
             SortDirection: 'asc',
             Items: this.value,
             Hidden: {},
             drag: false,
             dragGroup: generateRandomString(16),
-            input: '',
             uniqueId: generateRandomString(12)
         };
     },
     computed: {
         slots() {
+            return getSlots(this.$slots, '');
             let r = {};
             let i = 0;
             let haystack = {};
@@ -141,6 +143,7 @@ export default defineComponent({
                 haystack = Object.assign(haystack, this.$slots);
             }
             for (let k in haystack) {
+                //@ts-ignore
                 r[k] = haystack[k];
                 ++i;
             }
@@ -153,12 +156,12 @@ export default defineComponent({
             if (!this.hideEmptyColumns) {
                 return [];
             }
-            let r = [];
-            this.columns.forEach(column => {
+            let r: string[] = [];
+            this.columns.forEach((column: LktTableColumn) => {
                 let key = column.key;
 
                 let ok = false;
-                this.Items.forEach(item => {
+                this.Items.forEach((item: any) => {
                     if (isFunction(item.checkEmpty)) {
                         return item.checkEmpty(item);
                     }
@@ -174,10 +177,10 @@ export default defineComponent({
             return r;
         },
         visibleColumns() {
-            return this.columns.filter(c => c.hidden !== true);
+            return this.columns.filter((c: LktTableColumn) => c.hidden !== true);
         },
         hiddenColumns() {
-            return this.columns.filter(c => c.hidden === true);
+            return this.columns.filter((c: LktTableColumn) => c.hidden === true);
         },
         hiddenColumnsColSpan() {
             let r = this.visibleColumns.length + 1;
@@ -200,7 +203,9 @@ export default defineComponent({
         }
     },
     methods: {
-        getItemByEvent(e) {
+        getVerticalColSpan,
+        getHorizontalColSpan,
+        getItemByEvent(e: any) {
             let t = e.target;
             if (isUndefined(t.dataset.column)) {
                 do {
@@ -218,11 +223,13 @@ export default defineComponent({
 
             return undefined;
         },
-        getVerticalColSpan,
-        getHorizontalColSpan,
-        sort(column) {
+        isVisible(index: number) {
+            return this.Hidden['tr_'+index] === true;
+        },
+        sort(column: LktTableColumn) {
+            console.log('sort', column, this.SortBy, this.SortDirection)
             if (column.sortable === true) {
-                this.Items = this.Items.sort((a, b) => {
+                this.Items = this.Items.sort((a: any, b: any) => {
                     return this.Sorter(a, b, column, this.SortDirection);
                 });
                 this.SortDirection = this.SortDirection === 'asc' ? 'desc' : 'asc';
@@ -230,11 +237,12 @@ export default defineComponent({
                 this.$emit('sort', [this.SortBy, this.SortDirection]);
             }
         },
-        click($event) {
+        click($event: any) {
             this.$emit('click', $event);
         },
-        show($event) {
+        show($event: any) {
             let k = 'tr_' + $event.i;
+            //@ts-ignore
             this.Hidden[k] = isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
         }
     },

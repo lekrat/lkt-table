@@ -1,0 +1,137 @@
+$sort-font-icon: '';
+$sort-asc-icon: '';
+$sort-desc-icon: '';
+$sort-icon-size: 11px;
+$sortable-chosen-border: '3px dashed #aaaaaa';
+$sortable-chosen-ghost-background: '#aaaaaa';
+$font-family: Verdana,Arial,Helvetica,sans-serif;
+$font-family-th: Verdana,Arial,Helvetica,sans-serif;
+$font-family-empty: Verdana,Arial,Helvetica,sans-serif;
+$header-background: #ffffff;
+$row-background: #ffffff;
+$row-background-odd: #eaeaea;
+$padding-th: 10px;
+$padding-td: 0 10px;
+$border-radius: 4.5px;
+$width: 100%;
+$font-size: 13px;
+$font-color: #444;
+
+
+@mixin generate-table() {
+  [data-lkt="table"] {
+    width: $width;
+    overflow-x: auto;
+    font-family: $font-family;
+
+    > table {
+      width: 100%;
+      max-width: 100%;
+      border-collapse: separate;
+      border-radius: $border-radius;
+      border-spacing: 0;
+
+      th,
+      td {
+        padding: $padding-td;
+        font-size: $font-size;
+        color: $font-color;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      th {
+        font-family: $font-family-th;
+        padding: $padding-th;
+      }
+
+      tr {
+        background-color: $row-background;
+
+        &:nth-child(odd) {
+          background-color: $row-background-odd;
+        }
+      }
+
+      thead > {
+        tr {
+          background-color: $header-background;
+        }
+      }
+
+      [data-sort="asc"],
+      [data-sort="desc"] {
+        > div {
+          display: inline-block;
+        }
+
+        &:after {
+          font-family: $sort-font-icon;
+          display: inline-block;
+          font-size: $sort-icon-size;
+        }
+      }
+
+      [data-sort="asc"] {
+        &:after {
+          content: $sort-asc-icon;
+        }
+      }
+
+      [data-sort="desc"] {
+        &:after {
+          content: $sort-desc-icon;
+        }
+      }
+    }
+
+    td[data-role="drag-indicator"] {
+      background: #eeeeee;
+
+      &:before {
+        background: #eeeeee;
+      }
+
+      &:after {
+        color: #000000;
+        top: 50%;
+      }
+    }
+
+    td[data-role="invalid-drag-indicator"] {
+      background: #eeeeee;
+      opacity: .2;
+
+      &:before {
+        background: #eeeeee;
+      }
+
+      &:after {
+        color: #000000;
+        top: 50%;
+      }
+    }
+  }
+
+  [data-lkt="empty-table"] {
+    border: 1px solid #ddd;
+    border-radius: $border-radius;
+    width: 100%;
+    padding: 10px;
+    background-color: #f8f7e5;
+    font-family: $font-family-empty;
+    font-size: 13px;
+    color: #444;
+    text-align: center;
+  }
+
+  .sortable-chosen {
+    border: $sortable-chosen-border;
+  }
+
+  .sortable-chosen.ghost {
+    background: $sortable-chosen-ghost-background;
+  }
+
+  @content;
+}
