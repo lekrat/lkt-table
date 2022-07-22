@@ -1,6 +1,6 @@
 import H from "vuedraggable";
 import { isFunction as v, isObject as A, isUndefined as b, generateRandomString as w, getSlots as R } from "lkt-tools";
-import { openBlock as l, createElementBlock as s, Fragment as u, createElementVNode as h, normalizeClass as F, createCommentVNode as y, renderList as c, renderSlot as C, createTextVNode as B, toDisplayString as p, withDirectives as O, vShow as q, defineComponent as z, resolveComponent as V, createBlock as D, withCtx as I, createSlots as E } from "vue";
+import { openBlock as l, createElementBlock as s, Fragment as u, createElementVNode as h, normalizeClass as F, createCommentVNode as y, renderList as c, renderSlot as C, createTextVNode as V, toDisplayString as p, withDirectives as O, vShow as q, defineComponent as z, resolveComponent as B, createBlock as D, withCtx as I, createSlots as E } from "vue";
 class j {
   constructor(t = "", i = "") {
     this.key = t, this.label = i, this.sortable = !0, this.hidden = !1, this.formatter = void 0, this.checkEmpty = void 0, this.colspan = void 0;
@@ -62,7 +62,7 @@ const ke = (e, t) => new j(e, t), G = (e, t, i, r) => {
   emits: ["click", "show"],
   props: {
     isDraggable: { type: Boolean, default: !0 },
-    i: { type: [Number, Boolean], default: 0 },
+    i: { type: [Number], default: 0 },
     hiddenColumnsColSpan: { type: Number, default: 0 },
     visibleColumns: { type: Array, default: () => [] },
     hiddenColumns: { type: Array, default: () => [] },
@@ -122,7 +122,7 @@ function ee(e, t, i, r, d, o) {
             column: n,
             i: i.i
           }) : i.item ? (l(), s(u, { key: 1 }, [
-            B(p(o.getColumnDisplayContent(n, i.item, i.i)), 1)
+            V(p(o.getColumnDisplayContent(n, i.item, i.i)), 1)
           ], 64)) : y("", !0)
         ], 8, X)) : y("", !0)
       ], 64))), 256))
@@ -150,7 +150,7 @@ function ee(e, t, i, r, d, o) {
                 column: n,
                 i: k
               }) : (l(), s(u, { key: 1 }, [
-                B(p(o.getColumnDisplayContent(n, i.item, k)), 1)
+                V(p(o.getColumnDisplayContent(n, i.item, k)), 1)
               ], 64))
             ], 8, x))), 256))
           ], 8, _)
@@ -188,7 +188,7 @@ const te = /* @__PURE__ */ L(M, [["render", ee]]), ie = z({
   },
   computed: {
     slots() {
-      return R(this.$slots, "");
+      return R(this.$slots);
     },
     hasData() {
       return this.Items.length > 0;
@@ -265,7 +265,7 @@ const te = /* @__PURE__ */ L(M, [["render", ee]]), ie = z({
   "data-lkt": "empty-table"
 };
 function de(e, t, i, r, d, o) {
-  const n = V("LktTableRow"), k = V("draggable");
+  const n = B("LktTableRow"), k = B("draggable");
   return l(), s("div", null, [
     e.hasData ? (l(), s("div", {
       key: 0,

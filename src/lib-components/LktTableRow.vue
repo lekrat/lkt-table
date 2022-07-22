@@ -68,7 +68,7 @@ export default {
     emits: ['click', 'show'],
     props: {
         isDraggable: {type: Boolean, default: true,},
-        i: {type: [Number, Boolean], default: 0,},
+        i: {type: [Number], default: 0,},
         hiddenColumnsColSpan: {type: Number, default: 0,},
         visibleColumns: {type: Array, default: (): Array<any> => [],},
         hiddenColumns: {type: Array, default: (): Array<any> => [],},

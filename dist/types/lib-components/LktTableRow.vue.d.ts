@@ -7,7 +7,7 @@ declare const _default: {
             default: boolean;
         };
         i: {
-            type: (BooleanConstructor | NumberConstructor)[];
+            type: NumberConstructor[];
             default: number;
         };
         hiddenColumnsColSpan: {

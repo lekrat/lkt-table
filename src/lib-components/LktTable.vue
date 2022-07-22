@@ -135,19 +135,7 @@ export default defineComponent({
     },
     computed: {
         slots() {
-            return getSlots(this.$slots, '');
-            let r = {};
-            let i = 0;
-            let haystack = {};
-            if (this.$slots) {
-                haystack = Object.assign(haystack, this.$slots);
-            }
-            for (let k in haystack) {
-                //@ts-ignore
-                r[k] = haystack[k];
-                ++i;
-            }
-            return r;
+            return getSlots(this.$slots);
         },
         hasData() {
             return this.Items.length > 0;
