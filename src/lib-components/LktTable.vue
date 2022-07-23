@@ -24,6 +24,7 @@
                            v-model="Items"
                            v-bind:group="dragGroup"
                            v-bind:move="checkValidDrag"
+                           v-bind:item-key="draggableItemKey"
                            v-on:start="drag=true"
                            v-on:end="drag=false"
                            tag="tbody"
@@ -40,7 +41,7 @@
                             v-bind:visible-columns="visibleColumns"
                             v-bind:empty-columns="emptyColumns"
                             v-bind:hidden-is-visible="isVisible(index)"
-                            v-on:click="click"
+                            v-on:click="onClick"
                             v-on:show="show"
                         >
                             <template
@@ -69,7 +70,7 @@
                     v-bind:visible-columns="visibleColumns"
                     v-bind:empty-columns="emptyColumns"
                     v-bind:hidden-is-visible="isVisible(i)"
-                    v-on:click="click"
+                    v-on:click="onClick"
                     v-on:show="show"
                 >
                     <template
@@ -115,9 +116,10 @@ export default defineComponent({
         sortable: {type: Boolean, default: false},
         hideEmptyColumns: {type: Boolean, default: false},
         draggableChecker: {type: Function, default: (item: any) => true},
-        checkValidDrag: {type: Function, default: (evt: any) => true}
+        checkValidDrag: {type: Function, default: (evt: any) => true},
+        draggableItemKey: {type: String, default: 'name'}
     },
-    emits: ['input', 'sort'],
+    emits: ['input', 'sort', 'click'],
     data() {
         let Sorter = isFunction(this.sorter) ? this.sorter : defaultTableSorter;
 
@@ -215,7 +217,6 @@ export default defineComponent({
             return this.Hidden['tr_'+index] === true;
         },
         sort(column: LktTableColumn) {
-            console.log('sort', column, this.SortBy, this.SortDirection)
             if (column.sortable === true) {
                 this.Items = this.Items.sort((a: any, b: any) => {
                     return this.Sorter(a, b, column, this.SortDirection);
@@ -225,7 +226,7 @@ export default defineComponent({
                 this.$emit('sort', [this.SortBy, this.SortDirection]);
             }
         },
-        click($event: any) {
+        onClick($event: any) {
             this.$emit('click', $event);
         },
         show($event: any) {

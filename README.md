@@ -29,6 +29,12 @@ In your main.js
   app.use(LktTable);
 ```
 
+Import this way to prevent this plugin to automatically mount `vuedraggable`:
+
+```js
+app.use(LktTable, {mountDraggableComponent: false})
+```
+
 In your component:
 
 ```html

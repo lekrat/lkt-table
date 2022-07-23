@@ -27,6 +27,10 @@ declare const _default: import("vue").DefineComponent<{
         type: FunctionConstructor;
         default: (evt: any) => true;
     };
+    draggableItemKey: {
+        type: StringConstructor;
+        default: string;
+    };
 }, unknown, {
     Sorter: Function;
     SortBy: string;
@@ -49,9 +53,9 @@ declare const _default: import("vue").DefineComponent<{
     getItemByEvent(e: any): any;
     isVisible(index: number): boolean;
     sort(column: LktTableColumn): void;
-    click($event: any): void;
+    onClick($event: any): void;
     show($event: any): void;
-}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("input" | "sort")[], "input" | "sort", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("input" | "click" | "sort")[], "input" | "sort" | "click", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     value: {
         type: ArrayConstructor;
         default: () => Array<any>;
@@ -79,8 +83,13 @@ declare const _default: import("vue").DefineComponent<{
         type: FunctionConstructor;
         default: (evt: any) => true;
     };
+    draggableItemKey: {
+        type: StringConstructor;
+        default: string;
+    };
 }>> & {
     onInput?: (...args: any[]) => any;
+    onClick?: (...args: any[]) => any;
     onSort?: (...args: any[]) => any;
 }, {
     columns: unknown[];
@@ -89,5 +98,6 @@ declare const _default: import("vue").DefineComponent<{
     hideEmptyColumns: boolean;
     draggableChecker: Function;
     checkValidDrag: Function;
+    draggableItemKey: string;
 }>;
 export default _default;
