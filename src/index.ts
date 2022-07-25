@@ -7,7 +7,7 @@ export {createColumn} from "./functions/table-functions";
 
 const LktTable = {
     install: (app: any, options: any) => {
-        app.component('LktTable', table);
+        app.component('lkt-table', table);
 
         let mountDraggableComponent = true;
 

@@ -31,7 +31,7 @@
                            data-lkt="sortable-table"
                            handle="[data-handle-drag]">
                     <template #item="{element, index}">
-                        <LktTableRow
+                        <lkt-table-row
                             v-bind:key="uniqueId + '-'  + index"
                             v-bind:i="index"
                             v-bind:item="element"
@@ -54,12 +54,12 @@
                                     v-bind:column="row.column"
                                 ></slot>
                             </template>
-                        </LktTableRow>
+                        </lkt-table-row>
                     </template>
                 </draggable>
 
                 <tbody v-else>
-                <LktTableRow
+                <lkt-table-row
                     v-for="(item, i) in Items"
                     v-bind:key="uniqueId + '-'  + i"
                     v-bind:i="i"
@@ -83,7 +83,7 @@
                             v-bind:column="row.column"
                         ></slot>
                     </template>
-                </LktTableRow>
+                </lkt-table-row>
                 </tbody>
             </table>
         </div>

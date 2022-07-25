@@ -1,5 +1,5 @@
 import T from "vuedraggable";
-import { isFunction as v, isObject as L, isUndefined as g, generateRandomString as w, getSlots as R } from "lkt-tools";
+import { isFunction as v, isObject as N, isUndefined as g, generateRandomString as w, getSlots as R } from "lkt-tools";
 import { openBlock as l, createElementBlock as a, Fragment as u, createElementVNode as h, normalizeClass as F, createCommentVNode as y, renderList as b, renderSlot as c, createTextVNode as V, toDisplayString as p, withDirectives as O, vShow as q, defineComponent as z, resolveComponent as E, createBlock as D, withCtx as I, createSlots as B } from "vue";
 class j {
   constructor(t = "", n = "") {
@@ -37,7 +37,7 @@ const ke = (e, t) => new j(e, t), G = (e, t, n, r) => {
       return 1;
   }
   return 0;
-}, K = (e, t, n) => v(e.formatter) ? e.formatter(t[e.key], t, e, n) : t[e.key], N = (e, t, n) => {
+}, K = (e, t, n) => v(e.formatter) ? e.formatter(t[e.key], t, e, n) : t[e.key], L = (e, t, n) => {
   if (!e.colspan)
     return -1;
   let r = t;
@@ -46,7 +46,7 @@ const ke = (e, t) => new j(e, t), G = (e, t, n, r) => {
     o > 0 && o < r && (r = o);
   }), r;
 }, S = (e, t) => e.colspan === !1 ? !1 : v(e.colspan) ? e.colspan(t) : e.colspan, U = (e, t, n) => {
-  if (!L(e) || !e.key || t.indexOf(e.key) > -1)
+  if (!N(e) || !e.key || t.indexOf(e.key) > -1)
     return !1;
   let r = S(e, n);
   return g(e.colspan) ? !0 : (g(e.colspan) || (v(e.colspan) ? r = parseInt(e.colspan()) : r = parseInt(e.colspan)), r > 0);
@@ -76,7 +76,7 @@ const ke = (e, t) => new j(e, t), G = (e, t, n, r) => {
   methods: {
     canRenderColumn: U,
     getColumnDisplayContent: K,
-    getVerticalColSpan: N,
+    getVerticalColSpan: L,
     getHorizontalColSpan: S
   }
 }, H = (e, t) => {
@@ -233,7 +233,7 @@ const te = /* @__PURE__ */ H(M, [["render", ee]]), ne = z({
     }
   },
   methods: {
-    getVerticalColSpan: N,
+    getVerticalColSpan: L,
     getHorizontalColSpan: S,
     getItemByEvent(e) {
       let t = e.target;
@@ -367,9 +367,9 @@ function de(e, t, n, r, d, o) {
 }
 const ue = /* @__PURE__ */ H(ne, [["render", de]]), fe = {
   install: (e, t) => {
-    e.component("LktTable", ue);
+    e.component("lktTable", ue);
     let n = !0;
-    L(t) && !g(t.mountDraggableComponent) && t.mountDraggableComponent === !1 && (n = !1), n && e.component("draggable", T);
+    N(t) && !g(t.mountDraggableComponent) && t.mountDraggableComponent === !1 && (n = !1), n && e.component("draggable", T);
   }
 };
 export {

@@ -38,7 +38,7 @@ app.use(LktTable, {mountDraggableComponent: false})
 In your component:
 
 ```html
-<LktTable v-model="myArray" v-bind:columns="columns"></LktTable>
+<lkt-table v-model="myArray" v-bind:columns="columns"></lkt-table>
 ```
 ```js
 import {createColumn} from 'lkt-table';
@@ -62,9 +62,9 @@ export default {
 
 ### With `custom column slots`:
 ```html
-<LktTable v-model:value="myArray" v-bind:columns="columns">
+<lkt-table v-model:value="myArray" v-bind:columns="columns">
     <template v-slot:name="{item}">{{item.name}}</template
-</LktTable>
+</lkt-table>
 ```
 
 ## Usage of `createColumn`:
@@ -108,7 +108,7 @@ Default: `[]`
 
 Input data array to display.
 ```html
-<LktTable v-model:value="myArray"></LktTable>
+<lkt-table v-model:value="myArray"></lkt-table>
 ```
 
 ### columns
@@ -118,7 +118,7 @@ Default: `[]`
 
 Columns configuration (data to be shown, order, ...)
 ```html
-<LktTable v-bind:columns="columns"></LktTable>
+<lkt-table v-bind:columns="columns"></lkt-table>
 ```
 
 ### sorter
@@ -128,7 +128,7 @@ Default: `undefined`
 
 Sorting function which will be triggered each time a th is clicked (if column is sortable)
 ```html
-<LktTable v-bind:sorter="sorter"></LktTable>
+<lkt-table v-bind:sorter="sorter"></lkt-table>
 ```
 ```js
 export default {
@@ -149,7 +149,7 @@ Default: `false`
 
 Enables drag and drop
 ```html
-<LktTable v-bind:sortable="true"></LktTable>
+<lkt-table v-bind:sortable="true"></lkt-table>
 ```
 
 ### hideEmptyColumns
@@ -159,7 +159,7 @@ Default: `false`
 
 Enables automatic hide empty columns
 ```html
-<LktTable v-bind:hide-empty-columns="true"></LktTable>
+<lkt-table v-bind:hide-empty-columns="true"></lkt-table>
 ```
 
 ### draggableChecker
@@ -169,7 +169,7 @@ Default: `(evt) => true`
 
 A function to determine if an item can be dragged
 ```html
-<LktTable v-bind:draggable-checker="fn"></LktTable>
+<lkt-table v-bind:draggable-checker="fn"></lkt-table>
 ```
 
 ### checkValidDrag
@@ -179,7 +179,7 @@ Default: `(evt) => true`
 
 A function to determine if an item can be dropped in a certain position
 ```html
-<LktTable v-bind:check-valid-drag="fn"></LktTable>
+<lkt-table v-bind:check-valid-drag="fn"></lkt-table>
 ```
 
 
@@ -192,7 +192,7 @@ A function to determine if an item can be dropped in a certain position
 
 HTML:
 ```HTML
-<LktTable v-on:sort="doSomething"></LktTable>
+<lkt-table v-on:sort="doSomething"></lkt-table>
 ```
 
 ### Slots
@@ -209,9 +209,9 @@ Slot props:
 - `i` the row index
 
 ```html
-<LktTable v-model:value="myArray" v-bind:columns="columns">
+<lkt-table v-model:value="myArray" v-bind:columns="columns">
     <template v-slot:name="{item, value}">
         <div>{{value}}, {{item.surname}}</div>
     </template
-</LktTable>
+</lkt-table>
 ```
