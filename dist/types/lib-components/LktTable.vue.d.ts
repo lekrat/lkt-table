@@ -1,6 +1,7 @@
 import { LktTableColumn } from "../instances/LktTableColumn";
+import { LktEvent } from "lkt-events/dist/types/classes/LktEvent";
 declare const _default: import("vue").DefineComponent<{
-    value: {
+    modelValue: {
         type: ArrayConstructor;
         default: () => Array<any>;
     };
@@ -53,10 +54,10 @@ declare const _default: import("vue").DefineComponent<{
     getItemByEvent(e: any): any;
     isVisible(index: number): boolean;
     sort(column: LktTableColumn): void;
-    onClick($event: any): void;
-    show($event: any): void;
-}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("input" | "click" | "sort")[], "input" | "sort" | "click", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    value: {
+    onClick($event: any, $lkt: LktEvent): void;
+    show($event: any, $lkt: LktEvent): void;
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click" | "update:modelValue" | "sort")[], "sort" | "click" | "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+    modelValue: {
         type: ArrayConstructor;
         default: () => Array<any>;
     };
@@ -88,12 +89,12 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }>> & {
-    onInput?: (...args: any[]) => any;
     onClick?: (...args: any[]) => any;
+    "onUpdate:modelValue"?: (...args: any[]) => any;
     onSort?: (...args: any[]) => any;
 }, {
     columns: unknown[];
-    value: unknown[];
+    modelValue: unknown[];
     sortable: boolean;
     hideEmptyColumns: boolean;
     draggableChecker: Function;

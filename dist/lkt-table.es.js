@@ -1,9 +1,9 @@
 import T from "vuedraggable";
-import { isFunction as v, isObject as N, isUndefined as g, generateRandomString as w, getSlots as R } from "lkt-tools";
-import { openBlock as l, createElementBlock as a, Fragment as u, createElementVNode as h, normalizeClass as F, createCommentVNode as y, renderList as b, renderSlot as c, createTextVNode as V, toDisplayString as p, withDirectives as O, vShow as q, defineComponent as z, resolveComponent as E, createBlock as D, withCtx as I, createSlots as B } from "vue";
-class j {
-  constructor(t = "", n = "") {
-    this.key = t, this.label = n, this.sortable = !0, this.hidden = !1, this.formatter = void 0, this.checkEmpty = void 0, this.colspan = void 0;
+import { isFunction as v, isObject as H, isUndefined as g, generateRandomString as V, getSlots as O } from "lkt-tools";
+import { openBlock as i, createElementBlock as a, Fragment as u, createElementVNode as h, normalizeClass as R, createCommentVNode as y, renderList as c, renderSlot as C, createTextVNode as w, toDisplayString as p, withDirectives as q, vShow as z, defineComponent as j, resolveComponent as E, createBlock as D, withCtx as I, createSlots as B } from "vue";
+class G {
+  constructor(t = "", l = "") {
+    this.key = t, this.label = l, this.sortable = !0, this.hidden = !1, this.formatter = void 0, this.checkEmpty = void 0, this.colspan = void 0;
   }
   setIsSortable(t = !0) {
     return this.sortable = t, this;
@@ -21,43 +21,49 @@ class j {
     return this.colspan = void 0, this;
   }
 }
-const ke = (e, t) => new j(e, t), G = (e, t, n, r) => {
-  if (!n)
+const ge = (e, t) => new G(e, t), K = (e, t, l, o) => {
+  if (!l)
     return 0;
-  let d = e[n.key], o = t[n.key];
-  if (r === "asc") {
-    if (d > o)
+  let d = e[l.key], r = t[l.key];
+  if (o === "asc") {
+    if (d > r)
       return 1;
-    if (o > d)
+    if (r > d)
       return -1;
   } else {
-    if (d > o)
+    if (d > r)
       return -1;
-    if (o > d)
+    if (r > d)
       return 1;
   }
   return 0;
-}, K = (e, t, n) => v(e.formatter) ? e.formatter(t[e.key], t, e, n) : t[e.key], L = (e, t, n) => {
+}, U = (e, t, l) => v(e.formatter) ? e.formatter(t[e.key], t, e, l) : t[e.key], A = (e, t, l) => {
   if (!e.colspan)
     return -1;
-  let r = t;
-  return n.forEach((d) => {
-    let o = S(e, d);
-    o > 0 && o < r && (r = o);
-  }), r;
-}, S = (e, t) => e.colspan === !1 ? !1 : v(e.colspan) ? e.colspan(t) : e.colspan, U = (e, t, n) => {
-  if (!N(e) || !e.key || t.indexOf(e.key) > -1)
+  let o = t;
+  return l.forEach((d) => {
+    let r = S(e, d);
+    r > 0 && r < o && (o = r);
+  }), o;
+}, S = (e, t) => e.colspan === !1 ? !1 : v(e.colspan) ? e.colspan(t) : e.colspan, J = (e, t, l) => {
+  if (!H(e) || !e.key || t.indexOf(e.key) > -1)
     return !1;
-  let r = S(e, n);
-  return g(e.colspan) ? !0 : (g(e.colspan) || (v(e.colspan) ? r = parseInt(e.colspan()) : r = parseInt(e.colspan)), r > 0);
-}, J = (e = []) => {
+  let o = S(e, l);
+  return g(e.colspan) ? !0 : (g(e.colspan) || (v(e.colspan) ? o = parseInt(e.colspan()) : o = parseInt(e.colspan)), o > 0);
+}, M = (e = []) => {
   if (e.length > 0) {
     for (let t = 0; t < e.length; ++t)
       if (e[t].sortable === !0)
         return e[t].key;
   }
   return "";
-}, M = {
+};
+class P {
+  constructor(t, l) {
+    this.id = void 0, this.value = void 0, this.id = t, this.value = l;
+  }
+}
+const N = (e, t) => new P(e, t), Q = {
   name: "LktTableRow",
   emits: ["click", "show"],
   props: {
@@ -74,98 +80,104 @@ const ke = (e, t) => new j(e, t), G = (e, t, n, r) => {
     }
   },
   methods: {
-    canRenderColumn: U,
-    getColumnDisplayContent: K,
-    getVerticalColSpan: L,
-    getHorizontalColSpan: S
+    canRenderColumn: J,
+    getColumnDisplayContent: U,
+    getVerticalColSpan: A,
+    getHorizontalColSpan: S,
+    onClick(e, t, l) {
+      this.$emit("click", e, N("", { item: t, column: l }));
+    },
+    onShow(e, t) {
+      this.$emit("show", e, N("", { i: t }));
+    }
   }
-}, H = (e, t) => {
-  const n = e.__vccOpts || e;
-  for (const [r, d] of t)
-    n[r] = d;
-  return n;
-}, P = ["data-i", "data-handle-drag"], Q = {
+}, L = (e, t) => {
+  const l = e.__vccOpts || e;
+  for (const [o, d] of t)
+    l[o] = d;
+  return l;
+}, W = ["data-i", "data-handle-drag"], X = {
   key: 0,
   "data-role": "drag-indicator"
-}, W = {
+}, Y = {
   key: 1,
   "data-role": "invalid-drag-indicator"
-}, X = ["data-column", "colspan", "title", "onClick"], Y = {
+}, Z = ["data-column", "colspan", "title", "onClick"], _ = {
   key: 0,
   "data-role": "hidden-row"
-}, Z = ["colspan"], $ = ["data-column"], _ = ["data-i"], x = ["data-column", "title", "onClick"];
-function ee(e, t, n, r, d, o) {
-  return l(), a(u, null, [
+}, $ = ["colspan"], x = ["data-column"], ee = ["data-i"], te = ["data-column", "title", "onClick"];
+function le(e, t, l, o, d, r) {
+  return i(), a(u, null, [
     h("tr", {
-      "data-i": n.i,
-      "data-handle-drag": n.isDraggable
+      "data-i": l.i,
+      "data-handle-drag": l.isDraggable
     }, [
-      n.isDraggable ? (l(), a("td", Q)) : (l(), a("td", W)),
-      n.hiddenColumns.length > 0 ? (l(), a("td", {
+      l.isDraggable ? (i(), a("td", X)) : (i(), a("td", Y)),
+      l.hiddenColumns.length > 0 ? (i(), a("td", {
         key: 2,
-        onClick: t[0] || (t[0] = (i) => e.$emit("show", { $event: i, i: n.i })),
+        onClick: t[0] || (t[0] = (n) => r.onShow(n, l.i)),
         "data-role": "show-more",
-        class: F(n.hiddenIsVisible ? "state-open" : "")
+        class: R(l.hiddenIsVisible ? "state-open" : "")
       }, null, 2)) : y("", !0),
-      (l(!0), a(u, null, b(n.visibleColumns, (i) => (l(), a(u, null, [
-        o.canRenderColumn(i, n.emptyColumns, n.item) ? (l(), a("td", {
+      (i(!0), a(u, null, c(l.visibleColumns, (n) => (i(), a(u, null, [
+        r.canRenderColumn(n, l.emptyColumns, l.item) ? (i(), a("td", {
           key: 0,
-          "data-column": i.key,
-          colspan: o.getHorizontalColSpan(i, n.item),
-          title: o.getColumnDisplayContent(i, n.item, n.i),
-          onClick: (k) => e.$emit("click", { $event: k, item: n.item, column: i })
+          "data-column": n.key,
+          colspan: r.getHorizontalColSpan(n, l.item),
+          title: r.getColumnDisplayContent(n, l.item, l.i),
+          onClick: (k) => r.onClick(k, l.item, n)
         }, [
-          e.$slots[i.key] ? c(e.$slots, i.key, {
+          e.$slots[n.key] ? C(e.$slots, n.key, {
             key: 0,
-            value: n.item[i.key],
-            item: n.item,
-            column: i,
-            i: n.i
-          }) : n.item ? (l(), a(u, { key: 1 }, [
-            V(p(o.getColumnDisplayContent(i, n.item, n.i)), 1)
+            value: l.item[n.key],
+            item: l.item,
+            column: n,
+            i: l.i
+          }) : l.item ? (i(), a(u, { key: 1 }, [
+            w(p(r.getColumnDisplayContent(n, l.item, l.i)), 1)
           ], 64)) : y("", !0)
-        ], 8, X)) : y("", !0)
+        ], 8, Z)) : y("", !0)
       ], 64))), 256))
-    ], 8, P),
-    n.hiddenColumns.length > 0 ? O((l(), a("tr", Y, [
-      h("td", { colspan: n.hiddenColumnsColSpan }, [
+    ], 8, W),
+    l.hiddenColumns.length > 0 ? q((i(), a("tr", _, [
+      h("td", { colspan: l.hiddenColumnsColSpan }, [
         h("table", null, [
           h("tr", null, [
-            (l(!0), a(u, null, b(n.hiddenColumns, (i) => (l(), a("th", {
-              "data-column": i.key
+            (i(!0), a(u, null, c(l.hiddenColumns, (n) => (i(), a("th", {
+              "data-column": n.key
             }, [
-              h("div", null, p(i.label), 1)
-            ], 8, $))), 256))
-          ]),
-          h("tr", { "data-i": n.i }, [
-            (l(!0), a(u, null, b(n.hiddenColumns, (i, k) => (l(), a("td", {
-              "data-column": i.key,
-              title: o.getColumnDisplayContent(i, n.item, k),
-              onClick: (s) => e.$emit("click", { $event: s, item: n.item, column: i })
-            }, [
-              e.$slots[i.key] ? c(e.$slots, i.key, {
-                key: 0,
-                value: n.item[i.key],
-                item: n.item,
-                column: i,
-                i: k
-              }) : (l(), a(u, { key: 1 }, [
-                V(p(o.getColumnDisplayContent(i, n.item, k)), 1)
-              ], 64))
+              h("div", null, p(n.label), 1)
             ], 8, x))), 256))
-          ], 8, _)
+          ]),
+          h("tr", { "data-i": l.i }, [
+            (i(!0), a(u, null, c(l.hiddenColumns, (n, k) => (i(), a("td", {
+              "data-column": n.key,
+              title: r.getColumnDisplayContent(n, l.item, k),
+              onClick: (s) => r.onClick(s, l.item, n)
+            }, [
+              e.$slots[n.key] ? C(e.$slots, n.key, {
+                key: 0,
+                value: l.item[n.key],
+                item: l.item,
+                column: n,
+                i: k
+              }) : (i(), a(u, { key: 1 }, [
+                w(p(r.getColumnDisplayContent(n, l.item, k)), 1)
+              ], 64))
+            ], 8, te))), 256))
+          ], 8, ee)
         ])
-      ], 8, Z)
+      ], 8, $)
     ], 512)), [
-      [q, n.hiddenIsVisible]
+      [z, l.hiddenIsVisible]
     ]) : y("", !0)
   ], 64);
 }
-const te = /* @__PURE__ */ H(M, [["render", ee]]), ne = z({
+const ne = /* @__PURE__ */ L(Q, [["render", le]]), ie = j({
   name: "LktTable",
-  components: { LktTableRow: te, draggable: T },
+  components: { LktTableRow: ne, draggable: T },
   props: {
-    value: { type: Array, default: () => [] },
+    modelValue: { type: Array, default: () => [] },
     columns: { type: Array, default: () => [] },
     sorter: { type: Function },
     sortable: { type: Boolean, default: !1 },
@@ -174,22 +186,22 @@ const te = /* @__PURE__ */ H(M, [["render", ee]]), ne = z({
     checkValidDrag: { type: Function, default: (e) => !0 },
     draggableItemKey: { type: String, default: "name" }
   },
-  emits: ["input", "sort", "click"],
+  emits: ["update:modelValue", "sort", "click"],
   data() {
     return {
-      Sorter: v(this.sorter) ? this.sorter : G,
-      SortBy: J(this.columns),
+      Sorter: v(this.sorter) ? this.sorter : K,
+      SortBy: M(this.columns),
       SortDirection: "asc",
-      Items: this.value,
+      Items: this.modelValue,
       Hidden: {},
       drag: !1,
-      dragGroup: w(16),
-      uniqueId: w(12)
+      dragGroup: V(16),
+      uniqueId: V(12)
     };
   },
   computed: {
     slots() {
-      return R(this.$slots);
+      return O(this.$slots);
     },
     hasData() {
       return this.Items.length > 0;
@@ -199,12 +211,12 @@ const te = /* @__PURE__ */ H(M, [["render", ee]]), ne = z({
         return [];
       let e = [];
       return this.columns.forEach((t) => {
-        let n = t.key, r = !1;
+        let l = t.key, o = !1;
         this.Items.forEach((d) => {
           if (v(d.checkEmpty))
             return d.checkEmpty(d);
-          d[n] && (r = !0);
-        }), r || e.push(n);
+          d[l] && (o = !0);
+        }), o || e.push(l);
       }), e;
     },
     visibleColumns() {
@@ -219,7 +231,7 @@ const te = /* @__PURE__ */ H(M, [["render", ee]]), ne = z({
     }
   },
   watch: {
-    value: {
+    modelValue: {
       handler(e) {
         this.Items = e;
       },
@@ -227,13 +239,13 @@ const te = /* @__PURE__ */ H(M, [["render", ee]]), ne = z({
     },
     Items: {
       handler(e) {
-        this.$emit("input", e);
+        this.$emit("update:modelValue", e);
       },
       deep: !0
     }
   },
   methods: {
-    getVerticalColSpan: L,
+    getVerticalColSpan: A,
     getHorizontalColSpan: S,
     getItemByEvent(e) {
       let t = e.target;
@@ -248,27 +260,27 @@ const te = /* @__PURE__ */ H(M, [["render", ee]]), ne = z({
       return this.Hidden["tr_" + e] === !0;
     },
     sort(e) {
-      e.sortable === !0 && (this.Items = this.Items.sort((t, n) => this.Sorter(t, n, e, this.SortDirection)), this.SortDirection = this.SortDirection === "asc" ? "desc" : "asc", this.SortBy = e.key, this.$emit("sort", [this.SortBy, this.SortDirection]));
+      e.sortable === !0 && (this.Items = this.Items.sort((t, l) => this.Sorter(t, l, e, this.SortDirection)), this.SortDirection = this.SortDirection === "asc" ? "desc" : "asc", this.SortBy = e.key, this.$emit("sort", [this.SortBy, this.SortDirection]));
     },
-    onClick(e) {
-      this.$emit("click", e);
+    onClick(e, t) {
+      this.$emit("click", e, t);
     },
-    show(e) {
-      let t = "tr_" + e.i;
-      this.Hidden[t] = g(this.Hidden[t]) ? !0 : !this.Hidden[t];
+    show(e, t) {
+      let l = "tr_" + t.value.i;
+      this.Hidden[l] = g(this.Hidden[l]) ? !0 : !this.Hidden[l];
     }
   }
-}), ie = ["data-sortable"], le = {
+}), ae = ["data-sortable"], se = {
   key: 0,
   "data-role": "drag-indicator"
-}, ae = { key: 1 }, se = ["data-column", "data-sortable", "data-sort", "colspan", "title", "onClick"], re = { key: 1 }, oe = {
+}, re = { key: 1 }, oe = ["data-column", "data-sortable", "data-sort", "colspan", "title", "onClick"], de = { key: 1 }, ue = {
   key: 1,
   "data-lkt": "empty-table"
 };
-function de(e, t, n, r, d, o) {
-  const i = E("LktTableRow"), k = E("draggable");
-  return l(), a("div", null, [
-    e.hasData ? (l(), a("div", {
+function he(e, t, l, o, d, r) {
+  const n = E("lkt-table-row"), k = E("draggable");
+  return i(), a("div", null, [
+    e.hasData ? (i(), a("div", {
       key: 0,
       "data-lkt": "table",
       "data-sortable": e.sortable
@@ -276,10 +288,10 @@ function de(e, t, n, r, d, o) {
       h("table", null, [
         h("thead", null, [
           h("tr", null, [
-            e.sortable ? (l(), a("th", le)) : y("", !0),
-            e.hiddenColumns.length > 0 ? (l(), a("th", ae)) : y("", !0),
-            (l(!0), a(u, null, b(e.visibleColumns, (s) => (l(), a(u, null, [
-              e.emptyColumns.indexOf(s.key) === -1 ? (l(), a("th", {
+            e.sortable ? (i(), a("th", se)) : y("", !0),
+            e.hiddenColumns.length > 0 ? (i(), a("th", re)) : y("", !0),
+            (i(!0), a(u, null, c(e.visibleColumns, (s) => (i(), a(u, null, [
+              e.emptyColumns.indexOf(s.key) === -1 ? (i(), a("th", {
                 key: 0,
                 "data-column": s.key,
                 "data-sortable": s.sortable === !0,
@@ -289,11 +301,11 @@ function de(e, t, n, r, d, o) {
                 onClick: (m) => e.sort(s)
               }, [
                 h("div", null, p(s.label), 1)
-              ], 8, se)) : y("", !0)
+              ], 8, oe)) : y("", !0)
             ], 64))), 256))
           ])
         ]),
-        e.sortable ? (l(), D(k, {
+        e.sortable ? (i(), D(k, {
           key: 0,
           modelValue: e.Items,
           "onUpdate:modelValue": t[0] || (t[0] = (s) => e.Items = s),
@@ -307,7 +319,7 @@ function de(e, t, n, r, d, o) {
           handle: "[data-handle-drag]"
         }, {
           item: I(({ element: s, index: m }) => [
-            (l(), D(i, {
+            (i(), D(n, {
               key: e.uniqueId + "-" + m,
               i: m,
               item: s,
@@ -320,10 +332,10 @@ function de(e, t, n, r, d, o) {
               onClick: e.onClick,
               onShow: e.show
             }, B({ _: 2 }, [
-              b(e.slots, (A, C) => ({
-                name: C,
+              c(e.slots, (F, b) => ({
+                name: b,
                 fn: I((f) => [
-                  c(e.$slots, C, {
+                  C(e.$slots, b, {
                     item: f.item,
                     value: f.value,
                     column: f.column
@@ -333,8 +345,8 @@ function de(e, t, n, r, d, o) {
             ]), 1032, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick", "onShow"]))
           ]),
           _: 3
-        }, 8, ["modelValue", "group", "move", "item-key"])) : (l(), a("tbody", re, [
-          (l(!0), a(u, null, b(e.Items, (s, m) => (l(), D(i, {
+        }, 8, ["modelValue", "group", "move", "item-key"])) : (i(), a("tbody", de, [
+          (i(!0), a(u, null, c(e.Items, (s, m) => (i(), D(n, {
             key: e.uniqueId + "-" + m,
             i: m,
             item: s,
@@ -347,10 +359,10 @@ function de(e, t, n, r, d, o) {
             onClick: e.onClick,
             onShow: e.show
           }, B({ _: 2 }, [
-            b(e.slots, (A, C) => ({
-              name: C,
+            c(e.slots, (F, b) => ({
+              name: b,
               fn: I((f) => [
-                c(e.$slots, C, {
+                C(e.$slots, b, {
                   item: f.item,
                   value: f.value,
                   column: f.column
@@ -360,19 +372,19 @@ function de(e, t, n, r, d, o) {
           ]), 1032, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "visible-columns", "empty-columns", "hidden-is-visible", "onClick", "onShow"]))), 128))
         ]))
       ])
-    ], 8, ie)) : e.$slots["no-items"] ? (l(), a("div", oe, [
-      c(e.$slots, "no-items")
+    ], 8, ae)) : e.$slots["no-items"] ? (i(), a("div", ue, [
+      C(e.$slots, "no-items")
     ])) : y("", !0)
   ]);
 }
-const ue = /* @__PURE__ */ H(ne, [["render", de]]), fe = {
+const me = /* @__PURE__ */ L(ie, [["render", he]]), ce = {
   install: (e, t) => {
-    e.component("lktTable", ue);
-    let n = !0;
-    N(t) && !g(t.mountDraggableComponent) && t.mountDraggableComponent === !1 && (n = !1), n && e.component("draggable", T);
+    e.component("lkt-table", me);
+    let l = !0;
+    H(t) && !g(t.mountDraggableComponent) && t.mountDraggableComponent === !1 && (l = !1), l && e.component("draggable", T);
   }
 };
 export {
-  ke as createColumn,
-  fe as default
+  ge as createColumn,
+  ce as default
 };

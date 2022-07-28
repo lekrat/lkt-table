@@ -24,9 +24,9 @@ npm i -S lkt-table
 ## Typical use:
 In your main.js
 ```js
-  import LktTable from 'lkt-table';
+import LktTable from 'lkt-table';
   
-  app.use(LktTable);
+app.use(LktTable);
 ```
 
 Import this way to prevent this plugin to automatically mount `vuedraggable`:
@@ -187,7 +187,7 @@ A function to determine if an item can be dropped in a certain position
 
 * LktTable emits these events:
 
-  - `input` (for value v-model)
+  - `update:modelValue` (for value v-model)
   - `sort` (same as input, but after sorting)
 
 HTML:

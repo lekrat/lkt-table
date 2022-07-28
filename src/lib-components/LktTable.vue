@@ -105,12 +105,13 @@ import {
 import LktTableRow from "../lib-components/LktTableRow.vue";
 import {defineComponent} from "vue";
 import {LktTableColumn} from "../instances/LktTableColumn";
+import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
 
 export default defineComponent({
     name: "LktTable",
     components: {LktTableRow, draggable},
     props: {
-        value: {type: Array, default: ():Array<any> => []},
+        modelValue: {type: Array, default: ():Array<any> => []},
         columns: {type: Array, default: ():LktTableColumn[] => []},
         sorter: {type: Function},
         sortable: {type: Boolean, default: false},
@@ -119,7 +120,7 @@ export default defineComponent({
         checkValidDrag: {type: Function, default: (evt: any) => true},
         draggableItemKey: {type: String, default: 'name'}
     },
-    emits: ['input', 'sort', 'click'],
+    emits: ['update:modelValue', 'sort', 'click'],
     data() {
         let Sorter = isFunction(this.sorter) ? this.sorter : defaultTableSorter;
 
@@ -128,7 +129,7 @@ export default defineComponent({
             //@ts-ignore
             SortBy: getDefaultSortColumn(this.columns),
             SortDirection: 'asc',
-            Items: this.value,
+            Items: this.modelValue,
             Hidden: {},
             drag: false,
             dragGroup: generateRandomString(16),
@@ -181,14 +182,14 @@ export default defineComponent({
         }
     },
     watch: {
-        value: {
+        modelValue: {
             handler(v) {
                 this.Items = v;
             }, deep: true,
         },
         Items: {
             handler(v) {
-                this.$emit('input', v);
+                this.$emit('update:modelValue', v);
             }, deep: true,
         }
     },
@@ -226,11 +227,11 @@ export default defineComponent({
                 this.$emit('sort', [this.SortBy, this.SortDirection]);
             }
         },
-        onClick($event: any) {
-            this.$emit('click', $event);
+        onClick($event: any, $lkt: LktEvent) {
+            this.$emit('click', $event, $lkt);
         },
-        show($event: any) {
-            let k = 'tr_' + $event.i;
+        show($event: any, $lkt: LktEvent) {
+            let k = 'tr_' + $lkt.value.i;
             //@ts-ignore
             this.Hidden[k] = isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
         }

@@ -3,14 +3,14 @@
         <td v-if="isDraggable" data-role="drag-indicator"></td>
         <td v-else data-role="invalid-drag-indicator"></td>
         <td v-if="hiddenColumns.length > 0"
-            v-on:click="$emit('show', {$event, i})" data-role="show-more"
+            v-on:click="onShow($event, i)" data-role="show-more"
             v-bind:class="hiddenIsVisible ? 'state-open' : ''"></td>
         <template v-for="column in visibleColumns">
             <td v-if="canRenderColumn(column, emptyColumns, item)"
                 v-bind:data-column="column.key"
                 v-bind:colspan="getHorizontalColSpan(column,item)"
                 v-bind:title="getColumnDisplayContent (column, item, i)"
-                v-on:click="$emit('click', {$event, item, column})"
+                v-on:click="onClick($event, item, column)"
             >
                 <template v-if="!!$slots[column.key]">
                     <slot v-bind:name="column.key"
@@ -37,7 +37,7 @@
                     <td v-for="(column, i) in hiddenColumns"
                         v-bind:data-column="column.key"
                         v-bind:title="getColumnDisplayContent (column, item, i)"
-                        v-on:click="$emit('click', {$event, item, column})">
+                        v-on:click="onClick($event, item, column)">
                         <template v-if="!!$slots[column.key]">
                             <slot v-bind:name="column.key"
                                   v-bind:value="item[column.key]"
@@ -56,12 +56,14 @@
 </template>
 
 <script lang="ts">
+import { createLktEvent } from "lkt-events";
 import {
     getColumnDisplayContent,
     getHorizontalColSpan,
     getVerticalColSpan,
     canRenderColumn
 } from "../functions/table-functions";
+import {LktTableColumn} from "../instances/LktTableColumn";
 
 export default {
     name: "LktTableRow",
@@ -85,6 +87,12 @@ export default {
         getColumnDisplayContent,
         getVerticalColSpan,
         getHorizontalColSpan,
+        onClick($event: any, item: any, column: LktTableColumn) {
+            this.$emit('click', $event, createLktEvent('', {item, column}))
+        },
+        onShow($event: any, i: any) {
+            this.$emit('show', $event, createLktEvent('', {i}))
+        }
     }
 }
 </script>
