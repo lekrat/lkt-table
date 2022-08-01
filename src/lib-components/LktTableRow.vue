@@ -1,7 +1,7 @@
 <template>
     <tr :data-i="i" :data-handle-drag="isDraggable">
-        <td v-if="isDraggable" data-role="drag-indicator"></td>
-        <td v-else data-role="invalid-drag-indicator"></td>
+        <td v-if="sortable && isDraggable" data-role="drag-indicator"></td>
+        <td v-else-if="sortable" data-role="invalid-drag-indicator"></td>
         <td v-if="hiddenColumns.length > 0"
             v-on:click="onShow($event, i)" data-role="show-more"
             v-bind:class="hiddenIsVisible ? 'state-open' : ''"></td>
@@ -70,6 +70,7 @@ export default {
     emits: ['click', 'show'],
     props: {
         isDraggable: {type: Boolean, default: true,},
+        sortable: {type: Boolean, default: true,},
         i: {type: [Number], default: 0,},
         hiddenColumnsColSpan: {type: Number, default: 0,},
         visibleColumns: {type: Array, default: (): Array<any> => [],},

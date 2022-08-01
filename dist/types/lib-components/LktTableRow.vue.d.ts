@@ -7,6 +7,10 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        sortable: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         i: {
             type: NumberConstructor[];
             default: number;

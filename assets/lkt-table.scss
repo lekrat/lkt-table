@@ -1,61 +1,46 @@
-$sort-font-icon: '';
-$sort-asc-icon: '';
-$sort-desc-icon: '';
-$sort-icon-size: 11px;
-$sortable-chosen-border: '3px dashed #aaaaaa';
-$sortable-chosen-ghost-background: '#aaaaaa';
-$font-family: Verdana,Arial,Helvetica,sans-serif;
-$font-family-th: Verdana,Arial,Helvetica,sans-serif;
-$font-family-empty: Verdana,Arial,Helvetica,sans-serif;
-$header-background: #ffffff;
-$row-background: #ffffff;
-$row-background-odd: #eaeaea;
-$padding-th: 10px;
-$padding-td: 0 10px;
-$border-radius: 4.5px;
-$width: 100%;
-$font-size: 13px;
-$font-color: #444;
+@use "lkt-table-config";
 
 
-@mixin generate-table() {
+@mixin generate() {
   [data-lkt="table"] {
-    width: $width;
+    width: lkt-table-config.$width;
     overflow-x: auto;
-    font-family: $font-family;
+    font-family: lkt-table-config.$font-family;
 
     > table {
       width: 100%;
       max-width: 100%;
       border-collapse: separate;
-      border-radius: $border-radius;
+      border-radius: lkt-table-config.$border-radius;
       border-spacing: 0;
 
       th,
       td {
-        padding: $padding-td;
-        font-size: $font-size;
-        color: $font-color;
-        text-align: center;
         vertical-align: middle;
+        text-align: center;
+        padding: lkt-table-config.$padding-td;
+        font-size: lkt-table-config.$font-size;
+        color: lkt-table-config.$font-color;
       }
 
       th {
-        font-family: $font-family-th;
-        padding: $padding-th;
+        font-family: lkt-table-config.$font-family-th;
+        padding: lkt-table-config.$padding-th;
       }
 
-      tr {
-        background-color: $row-background;
-
-        &:nth-child(odd) {
-          background-color: $row-background-odd;
+      thead {
+        tr {
+          background-color: lkt-table-config.$header-background;
         }
       }
 
-      thead > {
+      tbody {
         tr {
-          background-color: $header-background;
+          background-color: lkt-table-config.$row-background;
+
+          &:nth-child(odd) {
+            background-color: lkt-table-config.$row-background-odd;
+          }
         }
       }
 
@@ -66,24 +51,30 @@ $font-color: #444;
         }
 
         &:after {
-          font-family: $sort-font-icon;
+          font-family: lkt-table-config.$sort-font-icon;
           display: inline-block;
-          font-size: $sort-icon-size;
+          font-size: lkt-table-config.$sort-icon-size;
         }
       }
 
       [data-sort="asc"] {
         &:after {
-          content: $sort-asc-icon;
+          content: lkt-table-config.$sort-asc-icon;
         }
       }
 
       [data-sort="desc"] {
         &:after {
-          content: $sort-desc-icon;
+          content: lkt-table-config.$sort-desc-icon;
         }
       }
     }
+
+    td[data-role="drag-indicator"],
+    td[data-role="invalid-drag-indicator"] {
+      width: lkt-table-config.$width-drag-indicator;
+    }
+
 
     td[data-role="drag-indicator"] {
       background: #eeeeee;
@@ -115,22 +106,22 @@ $font-color: #444;
 
   [data-lkt="empty-table"] {
     border: 1px solid #ddd;
-    border-radius: $border-radius;
+    border-radius: lkt-table-config.$border-radius;
     width: 100%;
     padding: 10px;
     background-color: #f8f7e5;
-    font-family: $font-family-empty;
+    font-family: lkt-table-config.$font-family-empty;
     font-size: 13px;
     color: #444;
     text-align: center;
   }
 
   .sortable-chosen {
-    border: $sortable-chosen-border;
+    border: lkt-table-config.$sortable-chosen-border;
   }
 
   .sortable-chosen.ghost {
-    background: $sortable-chosen-ghost-background;
+    background: lkt-table-config.$sortable-chosen-ghost-background;
   }
 
   @content;
