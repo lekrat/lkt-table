@@ -48,6 +48,7 @@ declare const _default: import("vue").DefineComponent<{
     visibleColumns(): any;
     hiddenColumns(): any;
     hiddenColumnsColSpan(): any;
+    displayHiddenColumnsIndicator(): boolean;
 }, {
     getVerticalColSpan: (column: LktTableColumn, amountOfColumns: number, items: any[]) => number;
     getHorizontalColSpan: (column: LktTableColumn, item: any) => any;

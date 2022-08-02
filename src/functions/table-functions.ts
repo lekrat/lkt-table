@@ -140,3 +140,14 @@ export const getDefaultSortColumn = (columns: LktTableColumn[] = []) => {
     }
     return '';
 }
+
+export const getColumnByKey = (columns: LktTableColumn[], key: string): LktTableColumn => {
+    if (columns.length > 0) {
+        for (let i = 0; i < columns.length; ++i) {
+            if (columns[i].key === key) {
+                return columns[i];
+            }
+        }
+    }
+    return null;
+}

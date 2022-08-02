@@ -5,7 +5,7 @@
                 <thead>
                 <tr>
                     <th v-if="sortable" data-role="drag-indicator"></th>
-                    <th v-if="hiddenColumns.length > 0"></th>
+                    <th v-if="displayHiddenColumnsIndicator"></th>
                     <template v-for="column in visibleColumns">
                         <th :data-column="column.key"
                             v-if="emptyColumns.indexOf(column.key) === -1"
@@ -34,8 +34,7 @@
                             v-bind:key="uniqueId + '-'  + index"
                             v-bind:i="index"
                             v-bind:item="element"
-                            v-bind:hidden-columns="hiddenColumns"
-                            v-bind:hidden-columns-col-span="hiddenColumnsColSpan"
+                            v-bind:display-hidden-columns-indicator="displayHiddenColumnsIndicator"
                             v-bind:is-draggable="draggableChecker ? draggableChecker(element) : true"
                             v-bind:sortable="sortable"
                             v-bind:visible-columns="visibleColumns"
@@ -64,6 +63,32 @@
                     v-bind:key="uniqueId + '-'  + i"
                     v-bind:i="i"
                     v-bind:item="item"
+                    v-bind:display-hidden-columns-indicator="displayHiddenColumnsIndicator"
+                    v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
+                    v-bind:sortable="sortable"
+                    v-bind:visible-columns="visibleColumns"
+                    v-bind:empty-columns="emptyColumns"
+                    v-bind:hidden-is-visible="isVisible(i)"
+                    v-on:click="onClick"
+                    v-on:show="show"
+                >
+                    <template
+                        v-for="(_, column) in slots"
+                        v-slot:[column]="row">
+                        <slot
+                            v-bind:name="column"
+                            v-bind:item="row.item"
+                            v-bind:value="row.value"
+                            v-bind:column="row.column"
+                        ></slot>
+                    </template>
+                </lkt-table-row>
+                <lkt-hidden-row
+                    v-if="hiddenColumns.length > 0"
+                    v-for="(item, i) in Items"
+                    v-bind:key="uniqueId + '-'  + i"
+                    v-bind:i="i"
+                    v-bind:item="item"
                     v-bind:hidden-columns="hiddenColumns"
                     v-bind:hidden-columns-col-span="hiddenColumnsColSpan"
                     v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
@@ -84,7 +109,7 @@
                             v-bind:column="row.column"
                         ></slot>
                     </template>
-                </lkt-table-row>
+                </lkt-hidden-row>
                 </tbody>
             </table>
         </div>
@@ -101,16 +126,18 @@ import {
     defaultTableSorter,
     getVerticalColSpan,
     getHorizontalColSpan,
-    getDefaultSortColumn
+    getDefaultSortColumn,
+    getColumnByKey
 } from "../functions/table-functions";
-import LktTableRow from "../lib-components/LktTableRow.vue";
+import LktTableRow from "../components/LktTableRow.vue";
 import {defineComponent} from "vue";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
+import LktHiddenRow from "../components/LktHiddenRow.vue";
 
 export default defineComponent({
     name: "LktTable",
-    components: {LktTableRow, draggable},
+    components: {LktHiddenRow, LktTableRow, draggable},
     props: {
         modelValue: {type: Array, default: ():Array<any> => []},
         columns: {type: Array, default: ():LktTableColumn[] => []},
@@ -180,7 +207,10 @@ export default defineComponent({
                 ++r;
             }
             return r;
-        }
+        },
+        displayHiddenColumnsIndicator() {
+            return this.hiddenColumns.length > 0 && !this.sortable;
+        },
     },
     watch: {
         modelValue: {
@@ -237,5 +267,8 @@ export default defineComponent({
             this.Hidden[k] = isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
         }
     },
+    mounted() {
+        this.sort(getColumnByKey(this.columns, this.SortBy));
+    }
 })
 </script>
