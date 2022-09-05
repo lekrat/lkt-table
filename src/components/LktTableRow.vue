@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { createLktEvent } from "lkt-events";
+import {createLktEvent} from "lkt-events";
 import {
     getColumnDisplayContent,
     getHorizontalColSpan,
@@ -37,8 +37,10 @@ import {
     canRenderColumn
 } from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
+import {defineComponent, PropType} from "vue";
 
-export default {
+
+export default defineComponent({
     name: "LktTableRow",
     emits: ['click', 'show'],
     props: {
@@ -46,11 +48,11 @@ export default {
         sortable: {type: Boolean, default: true,},
         i: {type: [Number], default: 0,},
         displayHiddenColumnsIndicator: {type: Boolean, default: false,},
-        visibleColumns: {type: Array, default: (): Array<any> => [],},
-        emptyColumns: {type: Array, default: (): Array<any> => [],},
+        visibleColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => [],},
+        emptyColumns: {type: Array as PropType<string[]>, default: (): string[] => [],},
         hiddenIsVisible: {type: Boolean, default: false,},
         item: {
-            type: Object, default: () => {
+            type: Object as PropType<any>, default: () => {
                 return {};
             },
         },
@@ -67,5 +69,5 @@ export default {
             this.$emit('show', $event, createLktEvent('', {i}))
         }
     }
-}
+})
 </script>

@@ -73,34 +73,38 @@
     td[data-role="drag-indicator"],
     td[data-role="invalid-drag-indicator"] {
       width: lkt-table-config.$width-drag-indicator;
-    }
-
-
-    td[data-role="drag-indicator"] {
+      height: 40px;
+      padding: 0 !important;
+      position: relative;
       background: #eeeeee;
+      cursor: pointer;
 
       &:before {
+        content: '';
+        display: block;
         background: #eeeeee;
+        width: 18px;
+        height: 36px;
+        margin: auto;
       }
 
       &:after {
+        content: "\2026";
         color: #000000;
+        display: block;
+        position: absolute;
         top: 50%;
+        left: 50%;
+        font-weight: 700;
+        width: 15px;
+        height: 7px;
+        transform: rotate(90deg);
+        transform-origin: center center;
       }
     }
 
     td[data-role="invalid-drag-indicator"] {
-      background: #eeeeee;
       opacity: .2;
-
-      &:before {
-        background: #eeeeee;
-      }
-
-      &:after {
-        color: #000000;
-        top: 50%;
-      }
     }
   }
 

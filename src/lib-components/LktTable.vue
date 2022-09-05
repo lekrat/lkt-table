@@ -130,7 +130,7 @@ import {
     getColumnByKey
 } from "../functions/table-functions";
 import LktTableRow from "../components/LktTableRow.vue";
-import {defineComponent} from "vue";
+import {defineComponent, PropType} from "vue";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
 import LktHiddenRow from "../components/LktHiddenRow.vue";
@@ -139,8 +139,8 @@ export default defineComponent({
     name: "LktTable",
     components: {LktHiddenRow, LktTableRow, draggable},
     props: {
-        modelValue: {type: Array, default: ():Array<any> => []},
-        columns: {type: Array, default: ():LktTableColumn[] => []},
+        modelValue: {type: Array, default: ():any[] => []},
+        columns: {type: Array as PropType<LktTableColumn[]>, default: ():LktTableColumn[] => []},
         sorter: {type: Function},
         sortable: {type: Boolean, default: false},
         hideEmptyColumns: {type: Boolean, default: false},
@@ -171,7 +171,7 @@ export default defineComponent({
         hasData() {
             return this.Items.length > 0;
         },
-        emptyColumns() {
+        emptyColumns(): string[] {
             if (!this.hideEmptyColumns) {
                 return [];
             }
@@ -246,11 +246,16 @@ export default defineComponent({
             return undefined;
         },
         isVisible(index: number) {
+            //@ts-ignore
             return this.Hidden['tr_'+index] === true;
         },
-        sort(column: LktTableColumn) {
+        sort(column: LktTableColumn | null) {
+            if (!column) {
+                return;
+            }
             if (column.sortable === true) {
                 this.Items = this.Items.sort((a: any, b: any) => {
+                    //@ts-ignore
                     return this.Sorter(a, b, column, this.SortDirection);
                 });
                 this.SortDirection = this.SortDirection === 'asc' ? 'desc' : 'asc';
@@ -268,6 +273,7 @@ export default defineComponent({
         }
     },
     mounted() {
+        //@ts-ignore
         this.sort(getColumnByKey(this.columns, this.SortBy));
     }
 })

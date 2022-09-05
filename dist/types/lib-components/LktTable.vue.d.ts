@@ -1,12 +1,13 @@
+import { PropType } from "vue";
 import { LktTableColumn } from "../instances/LktTableColumn";
 import { LktEvent } from "lkt-events/dist/types/classes/LktEvent";
 declare const _default: import("vue").DefineComponent<{
     modelValue: {
         type: ArrayConstructor;
-        default: () => Array<any>;
+        default: () => any[];
     };
     columns: {
-        type: ArrayConstructor;
+        type: PropType<LktTableColumn[]>;
         default: () => LktTableColumn[];
     };
     sorter: {
@@ -33,7 +34,7 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, unknown, {
-    Sorter: Function;
+    Sorter: Function | undefined;
     SortBy: string;
     SortDirection: string;
     Items: unknown[];
@@ -45,25 +46,25 @@ declare const _default: import("vue").DefineComponent<{
     slots(): {};
     hasData(): boolean;
     emptyColumns(): string[];
-    visibleColumns(): any;
-    hiddenColumns(): any;
-    hiddenColumnsColSpan(): any;
+    visibleColumns(): LktTableColumn[];
+    hiddenColumns(): LktTableColumn[];
+    hiddenColumnsColSpan(): number;
     displayHiddenColumnsIndicator(): boolean;
 }, {
     getVerticalColSpan: (column: LktTableColumn, amountOfColumns: number, items: any[]) => number;
     getHorizontalColSpan: (column: LktTableColumn, item: any) => any;
-    getItemByEvent(e: any): any;
+    getItemByEvent(e: any): unknown;
     isVisible(index: number): boolean;
-    sort(column: LktTableColumn): void;
+    sort(column: LktTableColumn | null): void;
     onClick($event: any, $lkt: LktEvent): void;
     show($event: any, $lkt: LktEvent): void;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click" | "update:modelValue" | "sort")[], "sort" | "click" | "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     modelValue: {
         type: ArrayConstructor;
-        default: () => Array<any>;
+        default: () => any[];
     };
     columns: {
-        type: ArrayConstructor;
+        type: PropType<LktTableColumn[]>;
         default: () => LktTableColumn[];
     };
     sorter: {
@@ -90,13 +91,13 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }>> & {
-    onClick?: (...args: any[]) => any;
-    "onUpdate:modelValue"?: (...args: any[]) => any;
-    onSort?: (...args: any[]) => any;
+    onClick?: ((...args: any[]) => any) | undefined;
+    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+    onSort?: ((...args: any[]) => any) | undefined;
 }, {
-    columns: unknown[];
-    modelValue: unknown[];
+    columns: LktTableColumn[];
     sortable: boolean;
+    modelValue: unknown[];
     hideEmptyColumns: boolean;
     draggableChecker: Function;
     checkValidDrag: Function;

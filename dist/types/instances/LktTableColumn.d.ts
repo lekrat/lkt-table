@@ -1,11 +1,12 @@
-export declare class LktTableColumn {
+import { TableColumn } from "../interfaces/TableColumn";
+export declare class LktTableColumn implements TableColumn {
     key: string;
     label: string;
     sortable: boolean;
     hidden: boolean;
-    formatter: Function | undefined;
-    checkEmpty: Function | undefined;
-    colspan: Function | boolean | number | undefined;
+    formatter?: Function;
+    checkEmpty?: Function;
+    colspan?: Function | boolean | number;
     constructor(key?: string, label?: string);
     setIsSortable(status?: boolean): this;
     setIsHidden(status?: boolean): this;

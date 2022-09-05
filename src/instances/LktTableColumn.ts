@@ -1,12 +1,13 @@
-export class LktTableColumn {
+import {TableColumn} from "../interfaces/TableColumn";
 
-    key: string;
-    label: string;
-    sortable: boolean;
-    hidden: boolean;
-    formatter: Function|undefined;
-    checkEmpty: Function|undefined;
-    colspan: Function|boolean|number|undefined;
+export class LktTableColumn implements TableColumn{
+    key: string
+    label: string
+    sortable: boolean
+    hidden: boolean
+    formatter?: Function
+    checkEmpty?: Function
+    colspan?: Function | boolean | number
 
     constructor(key: string = '', label: string = '') {
         this.key = key;

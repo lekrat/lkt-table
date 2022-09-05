@@ -38,8 +38,9 @@ import {
 } from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {createLktEvent} from "lkt-events";
+import {defineComponent, PropType} from "vue";
 
-export default {
+export default defineComponent({
     name: "LktHiddenRow",
     emits: ['click', 'show'],
     props: {
@@ -47,12 +48,12 @@ export default {
         sortable: {type: Boolean, default: true,},
         i: {type: [Number], default: 0,},
         hiddenColumnsColSpan: {type: Number, default: 0,},
-        visibleColumns: {type: Array, default: (): Array<any> => [],},
-        hiddenColumns: {type: Array, default: (): Array<any> => [],},
-        emptyColumns: {type: Array, default: (): Array<any> => [],},
+        visibleColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => [],},
+        hiddenColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => [],},
+        emptyColumns: {type: Array as PropType<string[]>, default: (): string[] => [],},
         hiddenIsVisible: {type: Boolean, default: false,},
         item: {
-            type: Object, default: () => {
+            type: Object as PropType<any>, default: () => {
                 return {};
             },
         },
@@ -69,9 +70,5 @@ export default {
             this.$emit('show', $event, createLktEvent('', {i}))
         }
     }
-}
+})
 </script>
-
-<style scoped>
-
-</style>

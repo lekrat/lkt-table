@@ -53,7 +53,7 @@ export const defaultTableSorter = (a: any, b: any, c: LktTableColumn, sortDirect
  */
 export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: number) => {
 
-    if (isFunction(column.formatter)) {
+    if (column.formatter && isFunction(column.formatter)) {
         return column.formatter(item[column.key], item, column, i);
     }
     return item[column.key];
@@ -90,8 +90,7 @@ export const getHorizontalColSpan = (column: LktTableColumn, item: any) => {
     if (column.colspan === false) {
         return false;
     }
-    if (isFunction(column.colspan)) {
-        //@ts-ignore
+    if (typeof column.colspan === 'function') {
         return column.colspan(item);
     }
     return column.colspan;
@@ -103,7 +102,7 @@ export const getHorizontalColSpan = (column: LktTableColumn, item: any) => {
  * @param item
  * @returns {boolean}
  */
-export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], item: any) => {
+export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], item: any): boolean => {
     if (!isObject(column) || !column.key) {
         return false;
     }
@@ -118,8 +117,7 @@ export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], 
     }
 
     if (!isUndefined(column.colspan)) {
-        if (isFunction(column.colspan)) {
-            //@ts-ignore
+        if (typeof column.colspan === 'function') {
             colspan = parseInt(column.colspan());
         } else {
             //@ts-ignore
@@ -141,7 +139,7 @@ export const getDefaultSortColumn = (columns: LktTableColumn[] = []) => {
     return '';
 }
 
-export const getColumnByKey = (columns: LktTableColumn[], key: string): LktTableColumn => {
+export const getColumnByKey = (columns: LktTableColumn[], key: string): LktTableColumn | null => {
     if (columns.length > 0) {
         for (let i = 0; i < columns.length; ++i) {
             if (columns[i].key === key) {

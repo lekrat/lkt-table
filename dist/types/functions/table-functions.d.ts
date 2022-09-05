@@ -46,4 +46,4 @@ export declare const getHorizontalColSpan: (column: LktTableColumn, item: any) =
  */
 export declare const canRenderColumn: (column: LktTableColumn, emptyColumns: string[], item: any) => boolean;
 export declare const getDefaultSortColumn: (columns?: LktTableColumn[]) => string;
-export declare const getColumnByKey: (columns: LktTableColumn[], key: string) => LktTableColumn;
+export declare const getColumnByKey: (columns: LktTableColumn[], key: string) => LktTableColumn | null;
