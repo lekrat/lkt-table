@@ -94,5 +94,5 @@ declare const _default: import("vue").DefineComponent<{
     hiddenColumns: LktTableColumn[];
     emptyColumns: string[];
     hiddenIsVisible: boolean;
-}>;
+}, {}>;
 export default _default;

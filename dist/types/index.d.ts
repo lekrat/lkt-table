@@ -1,5 +1,6 @@
-export { createColumn } from "./functions/table-functions";
+import { App } from "vue";
+export { createColumn, createHiddenColumn } from "./functions/table-functions";
 declare const LktTable: {
-    install: (app: any, options: any) => void;
+    install: (app: App) => void;
 };
 export default LktTable;

@@ -2,7 +2,7 @@ export interface TableColumn {
     key: string
     label: string
     sortable: boolean
-    hidden: boolean
+    hidden?: boolean
     formatter?: Function
     checkEmpty?: Function
     colspan?: Function | boolean | number

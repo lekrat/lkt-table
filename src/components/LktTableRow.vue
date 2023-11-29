@@ -44,13 +44,13 @@ export default defineComponent({
     name: "LktTableRow",
     emits: ['click', 'show'],
     props: {
-        isDraggable: {type: Boolean, default: true,},
-        sortable: {type: Boolean, default: true,},
-        i: {type: [Number], default: 0,},
-        displayHiddenColumnsIndicator: {type: Boolean, default: false,},
-        visibleColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => [],},
-        emptyColumns: {type: Array as PropType<string[]>, default: (): string[] => [],},
-        hiddenIsVisible: {type: Boolean, default: false,},
+        isDraggable: {type: Boolean, default: true},
+        sortable: {type: Boolean, default: true},
+        i: {type: [Number], default: 0},
+        displayHiddenColumnsIndicator: {type: Boolean, default: false},
+        visibleColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => []},
+        emptyColumns: {type: Array as PropType<string[]>, default: (): string[] => []},
+        hiddenIsVisible: {type: Boolean, default: false},
         item: {
             type: Object as PropType<any>, default: () => {
                 return {};

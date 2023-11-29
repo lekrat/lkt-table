@@ -121,7 +121,6 @@
 
 <script lang="ts">
 import draggable from "vuedraggable";
-import {generateRandomString, getSlots, isFunction, isUndefined} from "lkt-tools";
 import {
     defaultTableSorter,
     getVerticalColSpan,
@@ -134,6 +133,8 @@ import {defineComponent, PropType} from "vue";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
 import LktHiddenRow from "../components/LktHiddenRow.vue";
+import {generateRandomString} from "lkt-string-tools";
+import {getSlots} from "lkt-vue-tools";
 
 export default defineComponent({
     name: "LktTable",
@@ -150,7 +151,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'sort', 'click'],
     data() {
-        let Sorter = isFunction(this.sorter) ? this.sorter : defaultTableSorter;
+        let Sorter = typeof this.sorter === 'function' ? this.sorter : defaultTableSorter;
 
         return {
             Sorter,
@@ -172,26 +173,20 @@ export default defineComponent({
             return this.Items.length > 0;
         },
         emptyColumns(): string[] {
-            if (!this.hideEmptyColumns) {
-                return [];
-            }
+            if (!this.hideEmptyColumns) return [];
             let r: string[] = [];
             this.columns.forEach((column: LktTableColumn) => {
                 let key = column.key;
 
                 let ok = false;
                 this.Items.forEach((item: any) => {
-                    if (isFunction(item.checkEmpty)) {
+                    if (typeof item.checkEmpty === 'function') {
                         return item.checkEmpty(item);
                     }
-                    if (item[key]) {
-                        ok = true;
-                    }
+                    if (item[key]) ok = true;
                 });
 
-                if (!ok) {
-                    r.push(key);
-                }
+                if (!ok) r.push(key);
             });
             return r;
         },
@@ -203,9 +198,7 @@ export default defineComponent({
         },
         hiddenColumnsColSpan() {
             let r = this.visibleColumns.length + 1;
-            if (this.sortable) {
-                ++r;
-            }
+            if (this.sortable) ++r;
             return r;
         },
         displayHiddenColumnsIndicator() {
@@ -215,11 +208,13 @@ export default defineComponent({
     watch: {
         modelValue: {
             handler(v) {
+                //@ts-ignore
                 this.Items = v;
             }, deep: true,
         },
         Items: {
             handler(v) {
+                //@ts-ignore
                 this.$emit('update:modelValue', v);
             }, deep: true,
         }
@@ -229,18 +224,16 @@ export default defineComponent({
         getHorizontalColSpan,
         getItemByEvent(e: any) {
             let t = e.target;
-            if (isUndefined(t.dataset.column)) {
+            if (typeof t.dataset.column === 'undefined') {
                 do {
                     t = t.parentNode;
-                } while (isUndefined(t.dataset.column) && t.tagName !== 'TABLE' && t.tagName !== 'body');
+                } while (typeof t.dataset.column === 'undefined' && t.tagName !== 'TABLE' && t.tagName !== 'body');
             }
 
             if (t.tagName === 'TD') {
                 t = t.parentNode;
                 t = t.dataset.i;
-                if (!isUndefined(t)) {
-                    return this.Items[t];
-                }
+                if (typeof t !== 'undefined') return this.Items[t];
             }
 
             return undefined;
@@ -250,9 +243,7 @@ export default defineComponent({
             return this.Hidden['tr_'+index] === true;
         },
         sort(column: LktTableColumn | null) {
-            if (!column) {
-                return;
-            }
+            if (!column) return;
             if (column.sortable === true) {
                 this.Items = this.Items.sort((a: any, b: any) => {
                     //@ts-ignore
@@ -269,7 +260,7 @@ export default defineComponent({
         show($event: any, $lkt: LktEvent) {
             let k = 'tr_' + $lkt.value.i;
             //@ts-ignore
-            this.Hidden[k] = isUndefined(this.Hidden[k]) ? true : !this.Hidden[k];
+            this.Hidden[k] = typeof this.Hidden[k] === 'undefined' ? true : !this.Hidden[k];
         }
     },
     mounted() {

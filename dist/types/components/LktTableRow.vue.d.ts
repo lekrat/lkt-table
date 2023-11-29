@@ -85,5 +85,5 @@ declare const _default: import("vue").DefineComponent<{
     emptyColumns: string[];
     hiddenIsVisible: boolean;
     displayHiddenColumnsIndicator: boolean;
-}>;
+}, {}>;
 export default _default;

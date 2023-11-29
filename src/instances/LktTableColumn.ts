@@ -1,6 +1,6 @@
 import {TableColumn} from "../interfaces/TableColumn";
 
-export class LktTableColumn implements TableColumn{
+export class LktTableColumn implements TableColumn {
     key: string
     label: string
     sortable: boolean

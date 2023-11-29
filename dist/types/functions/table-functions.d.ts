@@ -3,9 +3,11 @@ import { LktTableColumn } from "../instances/LktTableColumn";
  *
  * @param key
  * @param label
+ * @param sortable
  * @returns {LktTableColumn}
  */
-export declare const createColumn: (key: string, label: string) => LktTableColumn;
+export declare const createColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
+export declare const createHiddenColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
 /**
  *
  * @param a
@@ -14,7 +16,7 @@ export declare const createColumn: (key: string, label: string) => LktTableColum
  * @param sortDirection
  * @returns {number}
  */
-export declare const defaultTableSorter: (a: any, b: any, c: LktTableColumn, sortDirection: string) => 1 | -1 | 0;
+export declare const defaultTableSorter: (a: any, b: any, c: LktTableColumn, sortDirection: string) => number;
 /**
  *
  * @param column

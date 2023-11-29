@@ -34,7 +34,7 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, unknown, {
-    Sorter: Function | undefined;
+    Sorter: Function;
     SortBy: string;
     SortDirection: string;
     Items: unknown[];
@@ -43,7 +43,7 @@ declare const _default: import("vue").DefineComponent<{
     dragGroup: string;
     uniqueId: string;
 }, {
-    slots(): {};
+    slots(): import("lkt-ts-interfaces").LktObject;
     hasData(): boolean;
     emptyColumns(): string[];
     visibleColumns(): LktTableColumn[];
@@ -58,7 +58,7 @@ declare const _default: import("vue").DefineComponent<{
     sort(column: LktTableColumn | null): void;
     onClick($event: any, $lkt: LktEvent): void;
     show($event: any, $lkt: LktEvent): void;
-}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click" | "update:modelValue" | "sort")[], "sort" | "click" | "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("sort" | "click" | "update:modelValue")[], "sort" | "click" | "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     modelValue: {
         type: ArrayConstructor;
         default: () => any[];
@@ -92,8 +92,8 @@ declare const _default: import("vue").DefineComponent<{
     };
 }>> & {
     onClick?: ((...args: any[]) => any) | undefined;
-    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     onSort?: ((...args: any[]) => any) | undefined;
+    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {
     columns: LktTableColumn[];
     sortable: boolean;
@@ -102,5 +102,5 @@ declare const _default: import("vue").DefineComponent<{
     draggableChecker: Function;
     checkValidDrag: Function;
     draggableItemKey: string;
-}>;
+}, {}>;
 export default _default;
