@@ -1,25 +1,26 @@
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
+import {resolve} from 'path';
+
 const src = resolve(__dirname, 'src');
 const outDir = resolve(__dirname, 'dist');
 const test = resolve(__dirname, 'test');
 const snapshots = resolve(__dirname, 'snapshots');
 
 export default {
-    plugins: [ vue() ],
+    plugins: [vue()],
     resolve: {
-        alias: { '@': src, '@test': test }
+        alias: {'@': src, '@test': test}
     },
     build: {
         lib: {
-            entry: `${ src }/index.ts`,
+            entry: `${src}/index.ts`,
             name: 'LktTable',
-            fileName: (format) => `lkt-table.${ format }.js`
+            fileName: (format) => `lkt-table.${format}.js`
         },
         outDir,
         minify: true,
         rollupOptions: {
-            external: [ 'vue', 'vuedraggable', 'lkt-string-tools', 'lkt-events', 'lkt-vue-tools' ],
+            external: ['vue', 'vuedraggable', 'lkt-string-tools', 'lkt-events', 'lkt-vue-tools'],
             output: {
                 globals: {
                     vue: 'Vue',
@@ -34,11 +35,11 @@ export default {
     },
     test: {
         coverage: {
-            reporter: [ 'text', 'lcov' ]
+            reporter: ['text', 'lcov']
         },
         resolveSnapshotPath: (testPath, snapExtension) => {
             const path = testPath.split('/').splice(-2);
-            return `${ snapshots }/${ path[0] }/${ path[1] }${ snapExtension }`;
+            return `${snapshots}/${path[0]}/${path[1]}${snapExtension}`;
         }
     }
 };
