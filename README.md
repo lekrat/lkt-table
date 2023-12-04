@@ -1,4 +1,10 @@
 # LKT Table
+![ts](https://img.shields.io/badge/Typescript-3178c6?style=for-the-badge)
+![js](https://img.shields.io/badge/Javascript-f68333?style=for-the-badge)
+![vue](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Flekrat%2Flkt-table%2Fmaster%2Fpackage.json&query=%24.dependencies.vue&style=for-the-badge&label=vue&color=42b883)
+![node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Flekrat%2Flkt-table%2Fmaster%2Fpackage.json&query=%24.engines.node&style=for-the-badge&label=node&color=026e00)
+
+
 Vue component (Vue.js 3.0) allowing a simple yet powerful table component.
 
 ## Features
@@ -29,12 +35,6 @@ import LktTable from 'lkt-table';
 app.use(LktTable);
 ```
 
-Import this way to prevent this plugin to automatically mount `vuedraggable`:
-
-```js
-app.use(LktTable, {mountDraggableComponent: false})
-```
-
 In your component:
 
 ```html
@@ -43,12 +43,14 @@ In your component:
 ```js
 import {createColumn} from 'lkt-table';
 
+let isSortable = false;
+
 export default {
     data() {
         return {
             columns: [
                 createColumn('name', 'Name'),
-                createColumn('surname', 'Surname').setIsSortable(false),
+                createColumn('surname', 'Surname', isSortable),
             ],
             items: [
                 {name: 'a', surname: 'n'},

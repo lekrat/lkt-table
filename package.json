@@ -1,10 +1,9 @@
 {
   "name": "lkt-table",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "main": "src/index.ts",
   "module": "src/index.ts",
-  "private": true,
   "files": [
     "lkt-table.css",
     "dist/*",
