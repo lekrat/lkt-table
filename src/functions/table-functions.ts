@@ -1,4 +1,5 @@
 import {LktTableColumn} from "../instances/LktTableColumn";
+import {LktObject} from "lkt-ts-interfaces";
 
 /**
  *
@@ -60,7 +61,7 @@ export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: nu
  * @param amountOfColumns
  * @param items
  */
-export const getVerticalColSpan = (column: LktTableColumn, amountOfColumns: number, items: Array<any>) => {
+export const getVerticalColSpan = (column: LktTableColumn, amountOfColumns: number, items: Array<LktObject>) => {
     if (!column.colspan) return -1;
     let max = amountOfColumns;
     items.forEach(item => {
@@ -77,7 +78,7 @@ export const getVerticalColSpan = (column: LktTableColumn, amountOfColumns: numb
  * @param item
  * @returns {boolean|*}
  */
-export const getHorizontalColSpan = (column: LktTableColumn, item: any) => {
+export const getHorizontalColSpan = (column: LktTableColumn, item: LktObject) => {
     if (column.colspan === false) return false;
     if (typeof column.colspan === 'function') return column.colspan(item);
     return column.colspan;
@@ -89,7 +90,7 @@ export const getHorizontalColSpan = (column: LktTableColumn, item: any) => {
  * @param item
  * @returns {boolean}
  */
-export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], item: any): boolean => {
+export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], item: LktObject): boolean => {
     if (typeof column !== 'object' || !column.key) return false;
     if (emptyColumns.indexOf(column.key) > -1) return false;
 

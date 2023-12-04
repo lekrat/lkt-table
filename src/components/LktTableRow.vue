@@ -1,3 +1,34 @@
+<script lang="ts">
+export default {name: "LktTableRow", inheritAttrs: false}
+</script>
+
+<script lang="ts" setup>
+import {createLktEvent} from "lkt-events";
+import {getColumnDisplayContent, getHorizontalColSpan, canRenderColumn} from "../functions/table-functions";
+import {LktTableColumn} from "../instances/LktTableColumn";
+import {PropType} from "vue/dist/vue";
+
+const emit = defineEmits(['click', 'show']);
+
+const props = defineProps({
+    isDraggable: {type: Boolean, default: true},
+    sortable: {type: Boolean, default: true},
+    i: {type: [Number], default: 0},
+    displayHiddenColumnsIndicator: {type: Boolean, default: false},
+    visibleColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => []},
+    emptyColumns: {type: Array as PropType<string[]>, default: (): string[] => []},
+    hiddenIsVisible: {type: Boolean, default: false},
+    item: {type: Object as PropType<any>, default: () => ({})},
+});
+
+const onClick = ($event: any, item: any, column: LktTableColumn) => {
+    emit('click', $event, createLktEvent('', {item, column}))
+};
+const onShow = ($event: any, i: any) => {
+    emit('show', $event, createLktEvent('', {i}))
+};
+</script>
+
 <template>
     <tr :data-i="i" :data-handle-drag="isDraggable">
         <td v-if="sortable && isDraggable" data-role="drag-indicator"></td>
@@ -27,47 +58,3 @@
     </tr>
 
 </template>
-
-<script lang="ts">
-import {createLktEvent} from "lkt-events";
-import {
-    getColumnDisplayContent,
-    getHorizontalColSpan,
-    getVerticalColSpan,
-    canRenderColumn
-} from "../functions/table-functions";
-import {LktTableColumn} from "../instances/LktTableColumn";
-import {defineComponent, PropType} from "vue";
-
-
-export default defineComponent({
-    name: "LktTableRow",
-    emits: ['click', 'show'],
-    props: {
-        isDraggable: {type: Boolean, default: true},
-        sortable: {type: Boolean, default: true},
-        i: {type: [Number], default: 0},
-        displayHiddenColumnsIndicator: {type: Boolean, default: false},
-        visibleColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => []},
-        emptyColumns: {type: Array as PropType<string[]>, default: (): string[] => []},
-        hiddenIsVisible: {type: Boolean, default: false},
-        item: {
-            type: Object as PropType<any>, default: () => {
-                return {};
-            },
-        },
-    },
-    methods: {
-        canRenderColumn,
-        getColumnDisplayContent,
-        getVerticalColSpan,
-        getHorizontalColSpan,
-        onClick($event: any, item: any, column: LktTableColumn) {
-            this.$emit('click', $event, createLktEvent('', {item, column}))
-        },
-        onShow($event: any, i: any) {
-            this.$emit('show', $event, createLktEvent('', {i}))
-        }
-    }
-})
-</script>

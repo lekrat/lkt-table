@@ -1,4 +1,5 @@
 import { LktTableColumn } from "../instances/LktTableColumn";
+import { LktObject } from "lkt-ts-interfaces";
 /**
  *
  * @param key
@@ -31,14 +32,14 @@ export declare const getColumnDisplayContent: (column: LktTableColumn, item: any
  * @param amountOfColumns
  * @param items
  */
-export declare const getVerticalColSpan: (column: LktTableColumn, amountOfColumns: number, items: Array<any>) => number;
+export declare const getVerticalColSpan: (column: LktTableColumn, amountOfColumns: number, items: Array<LktObject>) => number;
 /**
  *
  * @param column
  * @param item
  * @returns {boolean|*}
  */
-export declare const getHorizontalColSpan: (column: LktTableColumn, item: any) => any;
+export declare const getHorizontalColSpan: (column: LktTableColumn, item: LktObject) => any;
 /**
  *
  * @param column
@@ -46,6 +47,6 @@ export declare const getHorizontalColSpan: (column: LktTableColumn, item: any) =
  * @param item
  * @returns {boolean}
  */
-export declare const canRenderColumn: (column: LktTableColumn, emptyColumns: string[], item: any) => boolean;
+export declare const canRenderColumn: (column: LktTableColumn, emptyColumns: string[], item: LktObject) => boolean;
 export declare const getDefaultSortColumn: (columns?: LktTableColumn[]) => string;
 export declare const getColumnByKey: (columns: LktTableColumn[], key: string) => LktTableColumn | null;
