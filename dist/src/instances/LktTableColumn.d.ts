@@ -1,0 +1,30 @@
+import { Option } from "lkt-field-select/dist/types/types/Option";
+import { LktObject } from "lkt-ts-interfaces";
+export declare class LktTableColumn {
+    key: string;
+    label: string;
+    sortable: boolean;
+    hidden: boolean;
+    editable: boolean;
+    formatter?: Function;
+    checkEmpty?: Function;
+    colspan?: Function | boolean | number;
+    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select';
+    link: string | Function;
+    options: Option[];
+    constructor(key?: string, label?: string);
+    setIsSortable(status?: boolean): this;
+    setIsEditable(status?: boolean): this;
+    setIsHidden(status?: boolean): this;
+    setFormatter(formatter?: any): this;
+    setEmptyChecker(checker?: any): this;
+    setColSpan(checker?: any): this;
+    getHref(item: LktObject): any;
+    defineAsLink(href: string | Function): this;
+    defineAsText(): this;
+    defineAsInt(): this;
+    defineAsFloat(): this;
+    defineAsCheck(): this;
+    defineAsSwitch(): this;
+    defineAsSelect(options: Option[]): this;
+}

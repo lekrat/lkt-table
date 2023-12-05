@@ -127,14 +127,21 @@ const getItemByEvent = (e: any) => {
     show = ($event: any, $lkt: LktEvent) => {
         let k = 'tr_' + $lkt.value.i;
         Hidden.value[k] = typeof Hidden.value[k] === 'undefined' ? true : !Hidden.value[k];
-    }
+    };
+
+
+const onEdited = (payload: LktObject, i: any) => {
+    Items.value[i] = payload;
+}
 
 onMounted(() => {
     sort(getColumnByKey(props.columns, SortBy.value));
 })
 
 watch(() => props.modelValue, (v) => Items.value = v);
-watch(Items, (v: any) => emit('update:modelValue', v));
+watch(Items, (v: any) => {
+    emit('update:modelValue', v)
+});
 
 defineExpose({getItemByEvent});
 
@@ -212,6 +219,7 @@ defineExpose({getItemByEvent});
                 v-bind:hidden-is-visible="isVisible(i)"
                 v-on:click="onClick"
                 v-on:show="show"
+                v-on:edited="onEdited"
             >
                 <template
                     v-for="column in colSlots"
