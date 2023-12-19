@@ -17,6 +17,10 @@ export const createLinkColumn = (key: string, label: string, href: string | Func
     return new LktTableColumn(key, label).setIsSortable(sortable).defineAsLink(href);
 }
 
+export const createActionColumn = (key: string, label: string, action: Function, sortable: boolean = true): LktTableColumn => {
+    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsAction(action);
+}
+
 export const createTextColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
     return new LktTableColumn(key, label).setIsSortable(sortable).defineAsText();
 }

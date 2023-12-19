@@ -10,8 +10,9 @@ export class LktTableColumn {
     formatter?: Function
     checkEmpty?: Function
     colspan?: Function | boolean | number
-    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select'
+    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action'
     link: string | Function
+    action: Function
     options: Option[]
 
     constructor(key: string = '', label: string = '') {
@@ -61,6 +62,13 @@ export class LktTableColumn {
         return this.link;
     }
 
+    doAction(item: LKtObject) {
+        if (typeof this.action === 'function') {
+            return this.action(item);
+        }
+        console.warn('No action defined');
+    }
+
     defineAsLink(href: string | Function) {
         this.type = 'link';
         this.link = href;
@@ -89,6 +97,12 @@ export class LktTableColumn {
 
     defineAsSwitch() {
         this.type = 'switch';
+        return this;
+    }
+
+    defineAsAction(action: Function) {
+        this.type = 'action';
+        this.action = action;
         return this;
     }
 

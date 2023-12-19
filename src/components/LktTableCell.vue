@@ -37,6 +37,9 @@ watch(() => props.modelValue, (v) => {
     <template v-if="column.type === 'link'">
         <router-link :to="column.getHref(item)">{{ getColumnDisplayContent(column, item, i) }}</router-link>
     </template>
+    <template v-else-if="column.type === 'action'">
+        <a href="#" v-on:click="column.doAction(item)">{{ getColumnDisplayContent(column, item, i) }}</a>
+    </template>
     <template v-else-if="column.type === 'text'">
         <lkt-field-text
             v-if="column.editable"
