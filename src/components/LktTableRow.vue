@@ -7,8 +7,11 @@ import {createLktEvent} from "lkt-events";
 import {getColumnDisplayContent, getHorizontalColSpan, canRenderColumn} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {PropType} from "vue/dist/vue";
+import LktTableCell from "./LktTableCell.vue";
+import {ref, watch} from "vue";
+import {LktObject} from "lkt-ts-interfaces";
 
-const emit = defineEmits(['click', 'show']);
+const emit = defineEmits(['edited', 'click', 'show']);
 
 const props = defineProps({
     isDraggable: {type: Boolean, default: true},
@@ -21,12 +24,21 @@ const props = defineProps({
     item: {type: Object as PropType<any>, default: () => ({})},
 });
 
+const Item = ref(props.item);
+
 const onClick = ($event: any, item: any, column: LktTableColumn) => {
     emit('click', $event, createLktEvent('', {item, column}))
 };
 const onShow = ($event: any, i: any) => {
     emit('show', $event, createLktEvent('', {i}))
 };
+
+const onEdited = (payload: LktObject, i: any) => {
+    Item.value = payload;
+}
+
+watch(() => props.item, (v) => Item.value = v);
+watch(Item, () => emit('edited', Item.value, props.i));
 </script>
 
 <template>
@@ -51,7 +63,7 @@ const onShow = ($event: any, i: any) => {
                           v-bind:i="i"></slot>
                 </template>
                 <template v-else-if="item">
-                    {{ getColumnDisplayContent(column, item, i) }}
+                    <lkt-table-cell :column="column" v-model="Item" :i="i" v-on:edited="onEdited"></lkt-table-cell>
                 </template>
             </td>
         </template>

@@ -1,5 +1,6 @@
 import { LktTableColumn } from "../instances/LktTableColumn";
 import { LktObject } from "lkt-ts-interfaces";
+import { Option } from "lkt-field-select/dist/types/types/Option";
 /**
  *
  * @param key
@@ -8,6 +9,12 @@ import { LktObject } from "lkt-ts-interfaces";
  * @returns {LktTableColumn}
  */
 export declare const createColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
+export declare const createLinkColumn: (key: string, label: string, href: string | Function, sortable?: boolean) => LktTableColumn;
+export declare const createActionColumn: (key: string, label: string, action: Function, sortable?: boolean) => LktTableColumn;
+export declare const createTextColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
+export declare const createCheckColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
+export declare const createSwitchColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
+export declare const createSelectColumn: (key: string, label: string, options: Option[], sortable?: boolean) => LktTableColumn;
 export declare const createHiddenColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
 /**
  *

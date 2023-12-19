@@ -37,8 +37,8 @@ declare const _default: {
         };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
-        onSort?: ((...args: any[]) => any) | undefined;
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+        onSort?: ((...args: any[]) => any) | undefined;
     }, {
         getItemByEvent: (e: any) => LktObject | undefined;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("sort" | "click" | "update:modelValue")[], import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{
@@ -76,12 +76,12 @@ declare const _default: {
         };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
-        onSort?: ((...args: any[]) => any) | undefined;
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+        onSort?: ((...args: any[]) => any) | undefined;
     }, {
         columns: LktTableColumn[];
-        sortable: boolean;
         modelValue: LktObject[];
+        sortable: boolean;
         sorter: Function;
         hideEmptyColumns: boolean;
         draggableChecker: Function;
@@ -129,14 +129,14 @@ declare const _default: {
         };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
-        onSort?: ((...args: any[]) => any) | undefined;
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+        onSort?: ((...args: any[]) => any) | undefined;
     }, {
         getItemByEvent: (e: any) => LktObject | undefined;
     }, {}, {}, {}, {
         columns: LktTableColumn[];
-        sortable: boolean;
         modelValue: LktObject[];
+        sortable: boolean;
         sorter: Function;
         hideEmptyColumns: boolean;
         draggableChecker: Function;
@@ -181,14 +181,14 @@ declare const _default: {
     };
 }>> & {
     onClick?: ((...args: any[]) => any) | undefined;
-    onSort?: ((...args: any[]) => any) | undefined;
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+    onSort?: ((...args: any[]) => any) | undefined;
 }, {
     getItemByEvent: (e: any) => LktObject | undefined;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("sort" | "click" | "update:modelValue")[], "sort" | "click" | "update:modelValue", {
     columns: LktTableColumn[];
-    sortable: boolean;
     modelValue: LktObject[];
+    sortable: boolean;
     sorter: Function;
     hideEmptyColumns: boolean;
     draggableChecker: Function;

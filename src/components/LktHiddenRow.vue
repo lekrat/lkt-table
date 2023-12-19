@@ -7,8 +7,10 @@ import {createLktEvent} from "lkt-events";
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {PropType} from "vue/dist/vue";
+import LktTableCell from "./LktTableCell.vue";
+import {ref, watch} from "vue";
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(['update:modelValue', 'click']);
 
 const props = defineProps({
     isDraggable: {type: Boolean, default: true},
@@ -19,12 +21,17 @@ const props = defineProps({
     hiddenColumns: {type: Array as PropType<LktTableColumn[]>, default: (): LktTableColumn[] => []},
     emptyColumns: {type: Array as PropType<string[]>, default: (): string[] => []},
     hiddenIsVisible: {type: Boolean, default: false},
-    item: {type: Object as PropType<any>, default: () => ({})},
+    modelValue: {type: Object as PropType<any>, default: () => ({})},
 });
+
+const item = ref(props.modelValue);
 
 const onClick = ($event: any, item: any, column: LktTableColumn) => {
     emit('click', $event, createLktEvent('', {item, column}))
 };
+
+watch(() => props.modelValue, (v) => item.value = v);
+watch(item, () => emit('update:modelValue', item.value));
 </script>
 
 <template>
@@ -49,7 +56,7 @@ const onClick = ($event: any, item: any, column: LktTableColumn) => {
                                   v-bind:i="i"></slot>
                         </template>
                         <template v-else>
-                            {{ getColumnDisplayContent(column, item, i) }}
+                            <lkt-table-cell :column="column" v-model="item" :i="i"></lkt-table-cell>
                         </template>
                     </td>
                 </tr>

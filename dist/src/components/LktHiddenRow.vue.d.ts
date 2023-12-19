@@ -1,7 +1,7 @@
 import { LktTableColumn } from "../instances/LktTableColumn";
 import { PropType } from "vue/dist/vue";
 declare const _default: {
-    new (...args: any[]): import("@vue/runtime-core").CreateComponentPublicInstance<Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+    new (...args: any[]): import("vue/dist/vue").CreateComponentPublicInstance<Readonly<import("vue/dist/vue").ExtractPropTypes<{
         isDraggable: {
             type: BooleanConstructor;
             default: boolean;
@@ -34,13 +34,14 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
-        item: {
+        modelValue: {
             type: PropType<any>;
             default: () => {};
         };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
-    }, {}, unknown, {}, {}, import("@vue/runtime-core").ComponentOptionsMixin, import("@vue/runtime-core").ComponentOptionsMixin, "click"[], import("@vue/runtime-core").VNodeProps & import("@vue/runtime-core").AllowedComponentProps & import("@vue/runtime-core").ComponentCustomProps & Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+    }, {}, unknown, {}, {}, import("vue/dist/vue").ComponentOptionsMixin, import("vue/dist/vue").ComponentOptionsMixin, ("click" | "update:modelValue")[], import("vue/dist/vue").VNodeProps & import("vue/dist/vue").AllowedComponentProps & import("vue/dist/vue").ComponentCustomProps & Readonly<import("vue/dist/vue").ExtractPropTypes<{
         isDraggable: {
             type: BooleanConstructor;
             default: boolean;
@@ -73,15 +74,16 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
-        item: {
+        modelValue: {
             type: PropType<any>;
             default: () => {};
         };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
+        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     }, {
-        item: any;
         i: number;
+        modelValue: any;
         isDraggable: boolean;
         sortable: boolean;
         hiddenColumnsColSpan: number;
@@ -96,7 +98,7 @@ declare const _default: {
         C: {};
         M: {};
         Defaults: {};
-    }, Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+    }, Readonly<import("vue/dist/vue").ExtractPropTypes<{
         isDraggable: {
             type: BooleanConstructor;
             default: boolean;
@@ -129,15 +131,16 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
-        item: {
+        modelValue: {
             type: PropType<any>;
             default: () => {};
         };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
+        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     }, {}, {}, {}, {}, {
-        item: any;
         i: number;
+        modelValue: any;
         isDraggable: boolean;
         sortable: boolean;
         hiddenColumnsColSpan: number;
@@ -149,7 +152,7 @@ declare const _default: {
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
-} & import("@vue/runtime-core").ComponentOptionsBase<Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+} & import("vue/dist/vue").ComponentOptionsBase<Readonly<import("vue/dist/vue").ExtractPropTypes<{
     isDraggable: {
         type: BooleanConstructor;
         default: boolean;
@@ -182,15 +185,16 @@ declare const _default: {
         type: BooleanConstructor;
         default: boolean;
     };
-    item: {
+    modelValue: {
         type: PropType<any>;
         default: () => {};
     };
 }>> & {
     onClick?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("@vue/runtime-core").ComponentOptionsMixin, import("@vue/runtime-core").ComponentOptionsMixin, "click"[], "click", {
-    item: any;
+    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+}, {}, unknown, {}, {}, import("vue/dist/vue").ComponentOptionsMixin, import("vue/dist/vue").ComponentOptionsMixin, ("click" | "update:modelValue")[], "click" | "update:modelValue", {
     i: number;
+    modelValue: any;
     isDraggable: boolean;
     sortable: boolean;
     hiddenColumnsColSpan: number;
@@ -198,7 +202,7 @@ declare const _default: {
     hiddenColumns: LktTableColumn[];
     emptyColumns: string[];
     hiddenIsVisible: boolean;
-}, {}, string, {}> & import("@vue/runtime-core").VNodeProps & import("@vue/runtime-core").AllowedComponentProps & import("@vue/runtime-core").ComponentCustomProps & (new () => {
+}, {}, string, {}> & import("vue/dist/vue").VNodeProps & import("vue/dist/vue").AllowedComponentProps & import("vue/dist/vue").ComponentCustomProps & (new () => {
     $slots: Record<string, {
         value: any;
         item: any;
