@@ -10,7 +10,7 @@ export class LktTableColumn {
     formatter?: Function
     checkEmpty?: Function
     colspan?: Function | boolean | number
-    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action'
+    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action' | 'email' | 'tel'
     link: string | Function
     action: Function
     options: Option[]
@@ -77,6 +77,16 @@ export class LktTableColumn {
 
     defineAsText() {
         this.type = 'text';
+        return this;
+    }
+
+    defineAsEmail() {
+        this.type = 'email';
+        return this;
+    }
+
+    defineAsTel() {
+        this.type = 'tel';
         return this;
     }
 

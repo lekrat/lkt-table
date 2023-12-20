@@ -25,6 +25,14 @@ export const createTextColumn = (key: string, label: string, sortable: boolean =
     return new LktTableColumn(key, label).setIsSortable(sortable).defineAsText();
 }
 
+export const createEmailColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
+    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsEmail();
+}
+
+export const createTelColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
+    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsTel();
+}
+
 export const createCheckColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
     return new LktTableColumn(key, label).setIsSortable(sortable).defineAsCheck();
 }

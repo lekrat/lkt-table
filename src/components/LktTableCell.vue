@@ -42,30 +42,33 @@ watch(() => props.modelValue, (v) => {
     </template>
     <template v-else-if="column.type === 'text'">
         <lkt-field-text
-            v-if="column.editable"
+            v-bind:read-mode="!column.editable"
             :ref="(el:any) => inputElement = el"
             v-model="value"></lkt-field-text>
-        <template v-if="!column.editable">
-            <i class="lkt-cell-text"></i>{{ getColumnDisplayContent(column, item, i) }}
-        </template>
+    </template>
+    <template v-else-if="column.type === 'email'">
+        <lkt-field-text
+            v-bind:read-mode="!column.editable"
+            :ref="(el:any) => inputElement = el"
+            is-email
+            v-model="value"></lkt-field-text>
+    </template>
+    <template v-else-if="column.type === 'tel'">
+        <lkt-field-text
+            v-bind:read-mode="!column.editable"
+            :ref="(el:any) => inputElement = el"
+            is-tel
+            v-model="value"></lkt-field-text>
     </template>
     <template v-else-if="column.type === 'check'">
-        <lkt-field-check v-if="column.editable" v-model="value"></lkt-field-check>
-        <template v-if="!column.editable">
-            <i class="lkt-cell-check"></i>{{ getColumnDisplayContent(column, item, i) }}
-        </template>
+        <lkt-field-check v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value"></lkt-field-check>
     </template>
     <template v-else-if="column.type === 'switch'">
-        <lkt-field-switch v-if="column.editable" v-model="value"></lkt-field-switch>
-        <template v-if="!column.editable">
-            <i class="lkt-cell-check"></i>{{ getColumnDisplayContent(column, item, i) }}
-        </template>
+        <lkt-field-switch v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value"></lkt-field-switch>
     </template>
     <template v-else-if="column.type === 'select'">
-        <lkt-field-select v-if="column.editable" v-model="value" v-bind:options="column.options"></lkt-field-select>
-        <template v-if="!column.editable">
-            <i class="lkt-cell-check"></i>{{ getColumnDisplayContent(column, item, i) }}
-        </template>
+        <lkt-field-select
+            v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value" v-bind:options="column.options"></lkt-field-select>
     </template>
     <template v-else>
         {{ getColumnDisplayContent(column, item, i) }}
