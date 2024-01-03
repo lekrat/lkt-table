@@ -62,7 +62,7 @@ export class LktTableColumn {
         return this.link;
     }
 
-    doAction(item: LKtObject) {
+    doAction(item: LktObject) {
         if (typeof this.action === 'function') {
             return this.action(item);
         }
