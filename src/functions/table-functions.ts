@@ -1,6 +1,7 @@
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {LktObject} from "lkt-ts-interfaces";
 import {Option} from "lkt-field-select/dist/types/types/Option";
+import {reactive} from "vue";
 
 /**
  *
@@ -10,43 +11,43 @@ import {Option} from "lkt-field-select/dist/types/types/Option";
  * @returns {LktTableColumn}
  */
 export const createColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable);
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable));
 }
 
 export const createLinkColumn = (key: string, label: string, href: string | Function, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsLink(href);
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsLink(href));
 }
 
 export const createActionColumn = (key: string, label: string, action: Function, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsAction(action);
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsAction(action));
 }
 
 export const createTextColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsText();
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsText());
 }
 
 export const createEmailColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsEmail();
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsEmail());
 }
 
 export const createTelColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsTel();
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsTel());
 }
 
 export const createCheckColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsCheck();
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsCheck());
 }
 
 export const createSwitchColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsSwitch();
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsSwitch());
 }
 
 export const createSelectColumn = (key: string, label: string, options: Option[], sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).defineAsSelect(options);
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsSelect(options));
 }
 
 export const createHiddenColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return new LktTableColumn(key, label).setIsSortable(sortable).setIsHidden(true);
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).setIsHidden(true));
 }
 
 /**

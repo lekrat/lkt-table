@@ -80,8 +80,8 @@ declare const _default: {
         onSort?: ((...args: any[]) => any) | undefined;
     }, {
         columns: LktTableColumn[];
-        modelValue: LktObject[];
         sortable: boolean;
+        modelValue: LktObject[];
         sorter: Function;
         hideEmptyColumns: boolean;
         draggableChecker: Function;
@@ -135,8 +135,8 @@ declare const _default: {
         getItemByEvent: (e: any) => LktObject | undefined;
     }, {}, {}, {}, {
         columns: LktTableColumn[];
-        modelValue: LktObject[];
         sortable: boolean;
+        modelValue: LktObject[];
         sorter: Function;
         hideEmptyColumns: boolean;
         draggableChecker: Function;
@@ -187,8 +187,8 @@ declare const _default: {
     getItemByEvent: (e: any) => LktObject | undefined;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("sort" | "click" | "update:modelValue")[], "sort" | "click" | "update:modelValue", {
     columns: LktTableColumn[];
-    modelValue: LktObject[];
     sortable: boolean;
+    modelValue: LktObject[];
     sorter: Function;
     hideEmptyColumns: boolean;
     draggableChecker: Function;

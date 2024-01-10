@@ -1,5 +1,6 @@
 import {Option} from "lkt-field-select/dist/types/types/Option";
 import {LktObject} from "lkt-ts-interfaces";
+import {httpCall, HTTPResponse} from "lkt-http-client";
 
 export class LktTableColumn {
     key: string
@@ -14,6 +15,11 @@ export class LktTableColumn {
     link: string | Function
     action: Function
     options: Option[]
+    resource: string
+    resourceData: LktObject
+    isMultiple: boolean
+    isLoading: boolean
+    resourceLoaded: boolean
 
     constructor(key: string = '', label: string = '') {
         this.key = key;
@@ -23,6 +29,11 @@ export class LktTableColumn {
         this.formatter = undefined;
         this.checkEmpty = undefined;
         this.colspan = undefined;
+        this.resource = '';
+        this.resourceData = {};
+        this.isMultiple = false;
+        this.isLoading = false;
+        this.resourceLoaded = false;
     }
 
     setIsSortable(status: boolean = true): this {
@@ -37,6 +48,11 @@ export class LktTableColumn {
 
     setIsHidden(status: boolean = true): this {
         this.hidden = status;
+        return this;
+    }
+
+    setIsLoading(status: boolean = true): this {
+        this.isLoading = status;
         return this;
     }
 
@@ -119,6 +135,48 @@ export class LktTableColumn {
     defineAsSelect(options: Option[]) {
         this.type = 'select';
         this.options = options;
+        return this;
+    }
+
+    showLoading(): boolean {
+        return this.resource !== '' && !this.resourceLoaded;
+    }
+
+    hasToLoadResource(): boolean {
+        return this.resource !== '' && !this.resourceLoaded && !this.isLoading;
+    }
+
+    setIsMultiple(status: boolean = true): this {
+        this.isMultiple = status;
+        return this;
+    }
+
+    setResource(resource: string): this {
+        this.resource = resource;
+        return this;
+    }
+
+    setResourceData(data: LktObject): this {
+        this.resourceData = data;
+        return this;
+    }
+
+    async loadResource(): Promise<this> {
+        if (this.resourceLoaded) return this;
+        if (!this.resource) return this;
+
+        try {
+            this.isLoading = true;
+            const r: HTTPResponse = await httpCall(this.resource, this.resourceData);
+            // @ts-ignore
+            this.options = r.data;
+            this.isLoading = false;
+            this.resourceLoaded = true;
+
+        } catch (e) {
+            this.isLoading = false;
+        }
+
         return this;
     }
 }

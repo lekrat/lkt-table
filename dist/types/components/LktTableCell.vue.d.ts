@@ -2,7 +2,11 @@ import { LktTableColumn } from "../instances/LktTableColumn";
 import { PropType } from "vue/dist/vue";
 import { LktObject } from "lkt-ts-interfaces";
 declare const _default: {
-    new (...args: any[]): import("vue/dist/vue").CreateComponentPublicInstance<Readonly<import("vue/dist/vue").ExtractPropTypes<{
+    new (...args: any[]): import("@vue/runtime-core").CreateComponentPublicInstance<Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+        modelValue: {
+            type: PropType<LktObject>;
+            default: () => {};
+        };
         column: {
             type: PropType<LktTableColumn>;
             default: () => {};
@@ -10,14 +14,14 @@ declare const _default: {
         i: {
             type: NumberConstructor[];
             default: number;
-        };
-        modelValue: {
-            type: PropType<LktObject>;
-            default: () => {};
         };
     }>> & {
         onEdited?: ((...args: any[]) => any) | undefined;
-    }, {}, unknown, {}, {}, import("vue/dist/vue").ComponentOptionsMixin, import("vue/dist/vue").ComponentOptionsMixin, "edited"[], import("vue/dist/vue").VNodeProps & import("vue/dist/vue").AllowedComponentProps & import("vue/dist/vue").ComponentCustomProps & Readonly<import("vue/dist/vue").ExtractPropTypes<{
+    }, {}, unknown, {}, {}, import("@vue/runtime-core").ComponentOptionsMixin, import("@vue/runtime-core").ComponentOptionsMixin, "edited"[], import("@vue/runtime-core").VNodeProps & import("@vue/runtime-core").AllowedComponentProps & import("@vue/runtime-core").ComponentCustomProps & Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+        modelValue: {
+            type: PropType<LktObject>;
+            default: () => {};
+        };
         column: {
             type: PropType<LktTableColumn>;
             default: () => {};
@@ -25,10 +29,6 @@ declare const _default: {
         i: {
             type: NumberConstructor[];
             default: number;
-        };
-        modelValue: {
-            type: PropType<LktObject>;
-            default: () => {};
         };
     }>> & {
         onEdited?: ((...args: any[]) => any) | undefined;
@@ -43,7 +43,11 @@ declare const _default: {
         C: {};
         M: {};
         Defaults: {};
-    }, Readonly<import("vue/dist/vue").ExtractPropTypes<{
+    }, Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+        modelValue: {
+            type: PropType<LktObject>;
+            default: () => {};
+        };
         column: {
             type: PropType<LktTableColumn>;
             default: () => {};
@@ -51,10 +55,6 @@ declare const _default: {
         i: {
             type: NumberConstructor[];
             default: number;
-        };
-        modelValue: {
-            type: PropType<LktObject>;
-            default: () => {};
         };
     }>> & {
         onEdited?: ((...args: any[]) => any) | undefined;
@@ -66,7 +66,11 @@ declare const _default: {
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
-} & import("vue/dist/vue").ComponentOptionsBase<Readonly<import("vue/dist/vue").ExtractPropTypes<{
+} & import("@vue/runtime-core").ComponentOptionsBase<Readonly<import("@vue/runtime-core").ExtractPropTypes<{
+    modelValue: {
+        type: PropType<LktObject>;
+        default: () => {};
+    };
     column: {
         type: PropType<LktTableColumn>;
         default: () => {};
@@ -75,17 +79,13 @@ declare const _default: {
         type: NumberConstructor[];
         default: number;
     };
-    modelValue: {
-        type: PropType<LktObject>;
-        default: () => {};
-    };
 }>> & {
     onEdited?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue/dist/vue").ComponentOptionsMixin, import("vue/dist/vue").ComponentOptionsMixin, "edited"[], "edited", {
+}, {}, unknown, {}, {}, import("@vue/runtime-core").ComponentOptionsMixin, import("@vue/runtime-core").ComponentOptionsMixin, "edited"[], "edited", {
     i: number;
     column: LktTableColumn;
     modelValue: LktObject;
-}, {}, string, {}> & import("vue/dist/vue").VNodeProps & import("vue/dist/vue").AllowedComponentProps & import("vue/dist/vue").ComponentCustomProps & (new () => {
+}, {}, string, {}> & import("@vue/runtime-core").VNodeProps & import("@vue/runtime-core").AllowedComponentProps & import("@vue/runtime-core").ComponentCustomProps & (new () => {
     $slots: {};
 });
 export default _default;

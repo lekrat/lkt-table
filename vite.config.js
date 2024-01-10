@@ -20,7 +20,15 @@ export default {
         outDir,
         minify: true,
         rollupOptions: {
-            external: ['vue', 'vuedraggable', 'lkt-string-tools', 'lkt-events', 'lkt-ts-interfaces'],
+            external: [
+                'vue',
+                'vuedraggable',
+                'lkt-http-client',
+                'lkt-string-tools',
+                'lkt-events',
+                'lkt-loader',
+                'lkt-ts-interfaces'
+            ],
             output: {
                 globals: {
                     vue: 'Vue',

@@ -2,7 +2,18 @@
 import {default as table} from "./lib-components/LktTable.vue";
 import {App} from "vue";
 
-export {createColumn, createHiddenColumn, createLinkColumn, createActionColumn, createTextColumn, createCheckColumn, createSwitchColumn, createSelectColumn, createEmailColumn, createTelColumn} from "./functions/table-functions";
+export {
+    createColumn,
+    createHiddenColumn,
+    createLinkColumn,
+    createActionColumn,
+    createTextColumn,
+    createCheckColumn,
+    createSwitchColumn,
+    createSelectColumn,
+    createEmailColumn,
+    createTelColumn
+} from "./functions/table-functions";
 
 const LktTable = {
     install: (app: App) => {

@@ -6,20 +6,21 @@ export default {name: "LktTableCell", inheritAttrs: false}
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {PropType} from "vue/dist/vue";
-import {ref, watch} from "vue";
+import {nextTick, ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 
 const emit = defineEmits(['edited']);
 
 const props = defineProps({
+    modelValue: {type: Object as PropType<LktObject>, default: () => ({})},
     column: {type: Object as PropType<LktTableColumn>, default: () => ({})},
     i: {type: [Number], default: 0},
-    modelValue: {type: Object as PropType<LktObject>, default: () => ({})},
 });
 
 const item = ref(props.modelValue),
     value = ref(item.value[props.column.key]),
-    inputElement = ref(null);
+    inputElement = ref(null),
+    loadingColumn = ref(props.column.showLoading());
 
 watch(value, () => {
     const payload = JSON.parse(JSON.stringify(item.value));
@@ -31,6 +32,16 @@ watch(() => props.modelValue, (v) => {
     item.value = v
     value.value = item.value[props.column.key];
 });
+
+watch(() => props.column, () => {
+    if (props.column.resourceLoaded) {
+        nextTick(() => loadingColumn.value = false)
+    }
+}, {deep: true});
+
+if (props.column.hasToLoadResource()) {
+    props.column.loadResource();
+}
 </script>
 
 <template>
@@ -67,8 +78,16 @@ watch(() => props.modelValue, (v) => {
         <lkt-field-switch v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value"></lkt-field-switch>
     </template>
     <template v-else-if="column.type === 'select'">
+        <lkt-loader v-if="loadingColumn"></lkt-loader>
         <lkt-field-select
-            v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value" v-bind:options="column.options"></lkt-field-select>
+            v-else
+            v-bind:read-mode="!column.editable"
+            :ref="(el:any) => inputElement = el"
+            v-model="value"
+            v-bind:resource="column.resource"
+            v-bind:resource-data="column.resourceData"
+            v-bind:options="column.options"
+            v-bind:multiple="column.isMultiple"></lkt-field-select>
     </template>
     <template v-else>
         {{ getColumnDisplayContent(column, item, i) }}

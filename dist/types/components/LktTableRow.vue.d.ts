@@ -1,7 +1,7 @@
 import { LktTableColumn } from "../instances/LktTableColumn";
 import { PropType } from "vue/dist/vue";
 declare const _default: {
-    new (...args: any[]): import("vue/dist/vue").CreateComponentPublicInstance<Readonly<import("vue/dist/vue").ExtractPropTypes<{
+    new (...args: any[]): import("@vue/runtime-core").CreateComponentPublicInstance<Readonly<import("@vue/runtime-core").ExtractPropTypes<{
         isDraggable: {
             type: BooleanConstructor;
             default: boolean;
@@ -38,7 +38,7 @@ declare const _default: {
         onClick?: ((...args: any[]) => any) | undefined;
         onEdited?: ((...args: any[]) => any) | undefined;
         onShow?: ((...args: any[]) => any) | undefined;
-    }, {}, unknown, {}, {}, import("vue/dist/vue").ComponentOptionsMixin, import("vue/dist/vue").ComponentOptionsMixin, ("show" | "click" | "edited")[], import("vue/dist/vue").VNodeProps & import("vue/dist/vue").AllowedComponentProps & import("vue/dist/vue").ComponentCustomProps & Readonly<import("vue/dist/vue").ExtractPropTypes<{
+    }, {}, unknown, {}, {}, import("@vue/runtime-core").ComponentOptionsMixin, import("@vue/runtime-core").ComponentOptionsMixin, ("show" | "click" | "edited")[], import("@vue/runtime-core").VNodeProps & import("@vue/runtime-core").AllowedComponentProps & import("@vue/runtime-core").ComponentCustomProps & Readonly<import("@vue/runtime-core").ExtractPropTypes<{
         isDraggable: {
             type: BooleanConstructor;
             default: boolean;
@@ -78,8 +78,8 @@ declare const _default: {
     }, {
         item: any;
         i: number;
-        isDraggable: boolean;
         sortable: boolean;
+        isDraggable: boolean;
         visibleColumns: LktTableColumn[];
         emptyColumns: string[];
         hiddenIsVisible: boolean;
@@ -91,7 +91,7 @@ declare const _default: {
         C: {};
         M: {};
         Defaults: {};
-    }, Readonly<import("vue/dist/vue").ExtractPropTypes<{
+    }, Readonly<import("@vue/runtime-core").ExtractPropTypes<{
         isDraggable: {
             type: BooleanConstructor;
             default: boolean;
@@ -131,8 +131,8 @@ declare const _default: {
     }, {}, {}, {}, {}, {
         item: any;
         i: number;
-        isDraggable: boolean;
         sortable: boolean;
+        isDraggable: boolean;
         visibleColumns: LktTableColumn[];
         emptyColumns: string[];
         hiddenIsVisible: boolean;
@@ -141,7 +141,7 @@ declare const _default: {
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
-} & import("vue/dist/vue").ComponentOptionsBase<Readonly<import("vue/dist/vue").ExtractPropTypes<{
+} & import("@vue/runtime-core").ComponentOptionsBase<Readonly<import("@vue/runtime-core").ExtractPropTypes<{
     isDraggable: {
         type: BooleanConstructor;
         default: boolean;
@@ -178,16 +178,16 @@ declare const _default: {
     onClick?: ((...args: any[]) => any) | undefined;
     onEdited?: ((...args: any[]) => any) | undefined;
     onShow?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue/dist/vue").ComponentOptionsMixin, import("vue/dist/vue").ComponentOptionsMixin, ("show" | "click" | "edited")[], "show" | "click" | "edited", {
+}, {}, unknown, {}, {}, import("@vue/runtime-core").ComponentOptionsMixin, import("@vue/runtime-core").ComponentOptionsMixin, ("show" | "click" | "edited")[], "show" | "click" | "edited", {
     item: any;
     i: number;
-    isDraggable: boolean;
     sortable: boolean;
+    isDraggable: boolean;
     visibleColumns: LktTableColumn[];
     emptyColumns: string[];
     hiddenIsVisible: boolean;
     displayHiddenColumnsIndicator: boolean;
-}, {}, string, {}> & import("vue/dist/vue").VNodeProps & import("vue/dist/vue").AllowedComponentProps & import("vue/dist/vue").ComponentCustomProps & (new () => {
+}, {}, string, {}> & import("@vue/runtime-core").VNodeProps & import("@vue/runtime-core").AllowedComponentProps & import("@vue/runtime-core").ComponentCustomProps & (new () => {
     $slots: Record<string, {
         value: any;
         item: any;
