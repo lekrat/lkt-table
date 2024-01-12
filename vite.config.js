@@ -27,6 +27,10 @@ export default {
                 'lkt-string-tools',
                 'lkt-events',
                 'lkt-loader',
+                'lkt-field-text',
+                'lkt-field-select',
+                'lkt-field-switch',
+                'lkt-field-check',
                 'lkt-ts-interfaces'
             ],
             output: {

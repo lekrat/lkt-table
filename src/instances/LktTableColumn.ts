@@ -20,6 +20,8 @@ export class LktTableColumn {
     isMultiple: boolean
     isLoading: boolean
     resourceLoaded: boolean
+    valueSlot: string
+    editSlot: string
 
     constructor(key: string = '', label: string = '') {
         this.key = key;
@@ -34,6 +36,8 @@ export class LktTableColumn {
         this.isMultiple = false;
         this.isLoading = false;
         this.resourceLoaded = false;
+        this.valueSlot = '';
+        this.editSlot = '';
     }
 
     setIsSortable(status: boolean = true): this {
@@ -177,6 +181,16 @@ export class LktTableColumn {
             this.isLoading = false;
         }
 
+        return this;
+    }
+
+    setEditSlot(str: string): this {
+        this.editSlot = str;
+        return this;
+    }
+
+    setValueSlot(str: string): this {
+        this.valueSlot = str;
         return this;
     }
 }
