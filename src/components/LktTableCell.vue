@@ -93,7 +93,9 @@ if (props.column.hasToLoadResource()) {
             v-bind:resource="column.resource"
             v-bind:resource-data="column.resourceData"
             v-bind:options="column.options"
-            v-bind:multiple="column.isMultiple"></lkt-field-select>
+            v-bind:multiple="column.isMultiple"
+            v-bind:multiple-display="column.multipleDisplay"
+            v-bind:multiple-display-edition="column.multipleDisplayEdition"></lkt-field-select>
     </template>
     <template v-else>
         {{ getColumnDisplayContent(column, item, i) }}

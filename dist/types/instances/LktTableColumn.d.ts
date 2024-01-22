@@ -20,6 +20,7 @@ export declare class LktTableColumn {
     resourceLoaded: boolean;
     valueSlot: string;
     editSlot: string;
+    multipleDisplay: string;
     constructor(key?: string, label?: string);
     setIsSortable(status?: boolean): this;
     setIsEditable(status?: boolean): this;
@@ -48,4 +49,5 @@ export declare class LktTableColumn {
     loadResource(): Promise<this>;
     setEditSlot(str: string): this;
     setValueSlot(str: string): this;
+    setMultipleDisplay(str: string): this;
 }
