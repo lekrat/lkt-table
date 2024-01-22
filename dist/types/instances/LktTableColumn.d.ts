@@ -21,6 +21,7 @@ export declare class LktTableColumn {
     valueSlot: string;
     editSlot: string;
     multipleDisplay: string;
+    multipleDisplayEdition: string;
     constructor(key?: string, label?: string);
     setIsSortable(status?: boolean): this;
     setIsEditable(status?: boolean): this;
@@ -50,4 +51,5 @@ export declare class LktTableColumn {
     setEditSlot(str: string): this;
     setValueSlot(str: string): this;
     setMultipleDisplay(str: string): this;
+    setMultipleDisplayEdition(str: string): this;
 }
