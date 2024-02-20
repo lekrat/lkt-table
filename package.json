@@ -1,6 +1,6 @@
 {
   "name": "lkt-table",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "",
   "keywords": [
     "lkt",
@@ -11,14 +11,14 @@
     "javascript"
   ],
   "type": "module",
-  "module": "./dist/lkt-modal-confirm.js",
+  "module": "./dist/lkt-table.js",
   "exports": {
     ".": {
-      "import": "./dist/lkt-modal-confirm.js"
+      "import": "./dist/lkt-table.js"
     },
-    "./styles": "./build/style.css"
+    "./styles": "./dist/style.css"
   },
-  "types": "./dist/lkt-modal-confirm.d.ts",
+  "types": "./dist/lkt-table.d.ts",
   "files": ["dist/*"],
   "license": "MIT",
   "sideEffects": false,
