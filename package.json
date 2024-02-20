@@ -1,6 +1,6 @@
 {
   "name": "lkt-table",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "",
   "keywords": [
     "lkt",
@@ -19,7 +19,7 @@
     "./styles": "./dist/style.css"
   },
   "types": "./dist/lkt-table.d.ts",
-  "files": ["dist/*"],
+  "files": ["dist/*", "src/**/*.vue"],
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
