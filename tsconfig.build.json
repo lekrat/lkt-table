@@ -16,5 +16,5 @@
     "moduleResolution": "Bundler",
     "esModuleInterop": true
   },
-  "include": ["src/**/*"]
+  "include": ["build/"]
 }

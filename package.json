@@ -1,6 +1,6 @@
 {
   "name": "lkt-table",
-  "version": "1.0.20",
+  "version": "1.1.0",
   "description": "",
   "keywords": [
     "lkt",
@@ -11,19 +11,19 @@
     "javascript"
   ],
   "type": "module",
-  "module": "./dist/lkt-table.js",
+  "module": "./dist/build.js",
   "exports": {
     ".": {
-      "import": "./dist/lkt-table.js"
+      "import": "./dist/build.js"
     },
     "./styles": "./dist/style.css"
   },
-  "types": "./dist/lkt-table.d.ts",
+  "types": "./dist/index.d.ts",
   "files": ["dist/*", "src/**/*.vue"],
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "build": "vite build && tsc --project tsconfig.json && cp build/style.css dist/style.css"
+    "build": "rm -rf dist/*; vue-tsc --declaration --emitDeclarationOnly; vite build; tsc --project tsconfig.build.json; cp build/* dist/"
   },
   "author": "Antonio Ibáñez",
   "devDependencies": {
@@ -41,7 +41,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "lkt-events": "^1.0.2",
+    "lkt-events": "file:../lkt-events",
     "lkt-field-check": "^1.0.0",
     "lkt-field-select": "^1.0.0",
     "lkt-field-switch": "^1.0.0",

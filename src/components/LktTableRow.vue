@@ -6,9 +6,8 @@ export default {name: "LktTableRow", inheritAttrs: false}
 import {createLktEvent} from "lkt-events";
 import {getColumnDisplayContent, getHorizontalColSpan, canRenderColumn} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
-import {PropType} from "vue/dist/vue";
 import LktTableCell from "./LktTableCell.vue";
-import {ref, watch} from "vue";
+import {ref, watch, PropType} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 
 const emit = defineEmits(['edited', 'click', 'show']);

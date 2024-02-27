@@ -1,4 +1,5 @@
-import {Option} from "lkt-field-select/dist/types/types/Option";
+//@ts-ignore
+import {Option} from "lkt-field-select";
 import {LktObject} from "lkt-ts-interfaces";
 import {httpCall, HTTPResponse} from "lkt-http-client";
 

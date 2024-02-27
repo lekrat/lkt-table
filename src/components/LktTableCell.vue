@@ -5,8 +5,7 @@ export default {name: "LktTableCell", inheritAttrs: false}
 <script lang="ts" setup>
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
-import {PropType} from "vue/dist/vue";
-import {nextTick, ref, watch} from "vue";
+import {nextTick, ref, watch, PropType} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 
 const emit = defineEmits(['edited']);

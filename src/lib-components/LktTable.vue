@@ -1,7 +1,3 @@
-<script lang="ts">
-export default {name: "LktTable", inheritAttrs: false}
-</script>
-
 <script lang="ts" setup>
 import draggable from "vuedraggable";
 import {
@@ -13,11 +9,10 @@ import {
 import LktTableRow from "../components/LktTableRow.vue";
 import {computed, onMounted, PropType, ref, useSlots, watch} from "vue";
 import {LktTableColumn} from "../instances/LktTableColumn";
-import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
+import {LktEvent} from "lkt-events";
 import LktHiddenRow from "../components/LktHiddenRow.vue";
 import {generateRandomString} from "lkt-string-tools";
 import {LktObject} from "lkt-ts-interfaces";
-
 const emit = defineEmits(['update:modelValue', 'sort', 'click']);
 
 const slots = useSlots();

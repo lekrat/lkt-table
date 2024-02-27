@@ -1,6 +1,7 @@
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {LktObject} from "lkt-ts-interfaces";
-import {Option} from "lkt-field-select/dist/types/types/Option";
+//@ts-ignore
+import {Option} from "lkt-field-select";
 import {reactive} from "vue";
 
 /**
