@@ -18,6 +18,7 @@ export class LktTableColumn {
     options: Option[]
     resource: string
     resourceData: LktObject
+    slotData: LktObject
     isMultiple: boolean
     isLoading: boolean
     resourceLoaded: boolean
@@ -200,12 +201,49 @@ export class LktTableColumn {
     }
 
     setMultipleDisplay(str: string): this {
+        this.setIsMultiple(true);
         this.multipleDisplay = str;
         return this;
     }
 
+    setMultipleDisplayToList(): this {
+        this.setIsMultiple(true);
+        this.multipleDisplay = 'list';
+        return this;
+    }
+
+    setMultipleDisplayToInline(): this {
+        this.setIsMultiple(true);
+        this.multipleDisplay = 'inline';
+        return this;
+    }
+
+    setMultipleDisplayToCount(): this {
+        this.setIsMultiple(true);
+        this.multipleDisplay = 'count';
+        return this;
+    }
+
     setMultipleDisplayEdition(str: string): this {
+        this.setIsMultiple(true);
         this.multipleDisplayEdition = str;
+        return this;
+    }
+
+    setMultipleDisplayEditionToList(): this {
+        this.setIsMultiple(true);
+        this.multipleDisplayEdition = 'list';
+        return this;
+    }
+
+    setMultipleDisplayEditionToInline(): this {
+        this.setIsMultiple(true);
+        this.multipleDisplayEdition = 'inline';
+        return this;
+    }
+
+    setSlotData(data: LktObject): this {
+        this.slotData = data;
         return this;
     }
 }

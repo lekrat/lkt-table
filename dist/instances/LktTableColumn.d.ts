@@ -15,6 +15,7 @@ export declare class LktTableColumn {
     options: Option[];
     resource: string;
     resourceData: LktObject;
+    slotData: LktObject;
     isMultiple: boolean;
     isLoading: boolean;
     resourceLoaded: boolean;
@@ -51,5 +52,11 @@ export declare class LktTableColumn {
     setEditSlot(str: string): this;
     setValueSlot(str: string): this;
     setMultipleDisplay(str: string): this;
+    setMultipleDisplayToList(): this;
+    setMultipleDisplayToInline(): this;
+    setMultipleDisplayToCount(): this;
     setMultipleDisplayEdition(str: string): this;
+    setMultipleDisplayEditionToList(): this;
+    setMultipleDisplayEditionToInline(): this;
+    setSlotData(data: LktObject): this;
 }

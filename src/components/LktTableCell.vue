@@ -56,6 +56,7 @@ if (props.column.hasToLoadResource()) {
             :ref="(el:any) => inputElement = el"
             :edit-slot="column.editSlot"
             :value-slot="column.valueSlot"
+            :slot-data="column.slotData"
             v-model="value"></lkt-field-text>
     </template>
     <template v-else-if="column.type === 'email'">
@@ -64,6 +65,7 @@ if (props.column.hasToLoadResource()) {
             :ref="(el:any) => inputElement = el"
             :edit-slot="column.editSlot"
             :value-slot="column.valueSlot"
+            :slot-data="column.slotData"
             is-email
             v-model="value"></lkt-field-text>
     </template>
@@ -73,6 +75,7 @@ if (props.column.hasToLoadResource()) {
             :ref="(el:any) => inputElement = el"
             :edit-slot="column.editSlot"
             :value-slot="column.valueSlot"
+            :slot-data="column.slotData"
             is-tel
             v-model="value"></lkt-field-text>
     </template>
@@ -89,6 +92,7 @@ if (props.column.hasToLoadResource()) {
             v-bind:read-mode="!column.editable"
             :ref="(el:any) => inputElement = el"
             v-model="value"
+            :slot-data="column.slotData"
             v-bind:resource="column.resource"
             v-bind:resource-data="column.resourceData"
             v-bind:options="column.options"

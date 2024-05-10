@@ -1,6 +1,6 @@
 {
   "name": "lkt-table",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "keywords": [
     "lkt",
@@ -19,7 +19,10 @@
     "./styles": "./dist/style.css"
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist/*", "src/**/*.vue"],
+  "files": [
+    "dist/*",
+    "src/**/*.vue"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
@@ -34,14 +37,13 @@
     "rollup": "^4.9.6",
     "typescript": "^5.3.3",
     "vite": "^5.1.3",
-    "vue": "^3.3.0",
     "vue-tsc": "^1.8.27"
   },
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "lkt-events": "file:../lkt-events",
+    "lkt-events": "^1.0.4",
     "lkt-field-check": "^1.0.0",
     "lkt-field-select": "^1.0.0",
     "lkt-field-switch": "^1.0.0",
