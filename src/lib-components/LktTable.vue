@@ -35,7 +35,8 @@ const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTa
     SortDirection = ref('asc'),
     Items = ref(props.modelValue),
     Hidden = ref(hiddenColumnsStack),
-    drag = ref(false);
+    drag = ref(false),
+    Columns = ref(props.columns);
 
 
 const uniqueId = generateRandomString(12);
@@ -46,7 +47,7 @@ const hasData = computed(() => {
     emptyColumns = computed(() => {
         if (!props.hideEmptyColumns) return [];
         let r: string[] = [];
-        props.columns.forEach((column: LktTableColumn) => {
+        Columns.value.forEach((column: LktTableColumn) => {
             let key = column.key;
 
             let ok = false;
@@ -62,10 +63,10 @@ const hasData = computed(() => {
         return r;
     }),
     visibleColumns = computed(() => {
-        return props.columns.filter((c: LktTableColumn) => !c.hidden);
+        return Columns.value.filter((c: LktTableColumn) => !c.hidden);
     }),
     hiddenColumns = computed(() => {
-        return props.columns.filter((c: LktTableColumn) => c.hidden);
+        return Columns.value.filter((c: LktTableColumn) => c.hidden);
     }),
     hiddenColumnsColSpan = computed(() => {
         let r = visibleColumns.value.length + 1;
@@ -76,7 +77,7 @@ const hasData = computed(() => {
         return hiddenColumns.value.length > 0 && !props.sortable;
     }),
     columnKeys = computed((): string[] => {
-        return props.columns.map(c => c.key);
+        return Columns.value.map(c => c.key);
 
     }),
     colSlots = computed((): LktObject => {
@@ -122,6 +123,30 @@ const getItemByEvent = (e: any) => {
     show = ($event: any, $lkt: LktEvent) => {
         let k = 'tr_' + $lkt.value.i;
         Hidden.value[k] = typeof Hidden.value[k] === 'undefined' ? true : !Hidden.value[k];
+    },
+    autoLoadSelectColumnsOptions = () => {
+
+        Columns.value.forEach(col => {
+            if (col.type === 'select') {
+
+                let key = col.autoLoadSelectOptionsKey !== '' ? col.autoLoadSelectOptionsKey : col.key,
+                    opts = [];
+
+                Items.value.forEach(item => {
+                    item[key].forEach (opt => opts.push(opt));
+                });
+
+                let flags = {};
+
+                opts = opts.filter(function(opt) {
+                    if (flags[opt.value]) return false;
+                    flags[opt.value] = true;
+                    return true;
+                });
+
+                col.setOptions(opts);
+            }
+        })
     };
 
 
@@ -130,12 +155,15 @@ const onEdited = (payload: LktObject, i: any) => {
 }
 
 onMounted(() => {
+    autoLoadSelectColumnsOptions();
     sort(getColumnByKey(props.columns, SortBy.value));
 })
 
+watch(() => props.columns, (v) => Columns.value = v);
 watch(() => props.modelValue, (v) => Items.value = v);
 watch(Items, (v: any) => {
-    emit('update:modelValue', v)
+    autoLoadSelectColumnsOptions();
+    emit('update:modelValue', v);
 });
 
 defineExpose({getItemByEvent});

@@ -14,10 +14,13 @@ export declare class LktTableColumn {
     action: Function;
     options: Option[];
     resource: string;
+    resourceSlot: string;
     resourceData: LktObject;
     slotData: LktObject;
     isMultiple: boolean;
     isLoading: boolean;
+    autoLoadSelectOptions: boolean;
+    autoLoadSelectOptionsKey: string;
     resourceLoaded: boolean;
     valueSlot: string;
     editSlot: string;
@@ -47,6 +50,7 @@ export declare class LktTableColumn {
     hasToLoadResource(): boolean;
     setIsMultiple(status?: boolean): this;
     setResource(resource: string): this;
+    setResourceSlot(resource: string): this;
     setResourceData(data: LktObject): this;
     loadResource(): Promise<this>;
     setEditSlot(str: string): this;
@@ -59,4 +63,6 @@ export declare class LktTableColumn {
     setMultipleDisplayEditionToList(): this;
     setMultipleDisplayEditionToInline(): this;
     setSlotData(data: LktObject): this;
+    setAutoLoadSelectOptions(enabled?: boolean, searchKey?: string): this;
+    setOptions(opts?: Option[]): this;
 }

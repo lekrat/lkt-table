@@ -17,10 +17,13 @@ export class LktTableColumn {
     action: Function
     options: Option[]
     resource: string
+    resourceSlot: string
     resourceData: LktObject
     slotData: LktObject
     isMultiple: boolean
     isLoading: boolean
+    autoLoadSelectOptions: boolean
+    autoLoadSelectOptionsKey: string
     resourceLoaded: boolean
     valueSlot: string
     editSlot: string
@@ -166,6 +169,11 @@ export class LktTableColumn {
         return this;
     }
 
+    setResourceSlot(resource: string): this {
+        this.resourceSlot = resource;
+        return this;
+    }
+
     setResourceData(data: LktObject): this {
         this.resourceData = data;
         return this;
@@ -244,6 +252,17 @@ export class LktTableColumn {
 
     setSlotData(data: LktObject): this {
         this.slotData = data;
+        return this;
+    }
+
+    setAutoLoadSelectOptions(enabled: boolean = true, searchKey: string = ''): this {
+        this.autoLoadSelectOptions = enabled;
+        this.autoLoadSelectOptionsKey = searchKey;
+        return this;
+    }
+
+    setOptions (opts: Option[] = []): this {
+        this.options = opts;
         return this;
     }
 }

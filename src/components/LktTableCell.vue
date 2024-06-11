@@ -5,7 +5,7 @@ export default {name: "LktTableCell", inheritAttrs: false}
 <script lang="ts" setup>
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
-import {nextTick, ref, watch, PropType} from "vue";
+import {nextTick, ref, watch, PropType, computed} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 
 const emit = defineEmits(['edited']);
@@ -41,6 +41,10 @@ watch(() => props.column, () => {
 if (props.column.hasToLoadResource()) {
     props.column.loadResource();
 }
+
+const slotData = computed(() => {
+    return {...props.column.slotData, item: item.value};
+})
 </script>
 
 <template>
@@ -56,7 +60,7 @@ if (props.column.hasToLoadResource()) {
             :ref="(el:any) => inputElement = el"
             :edit-slot="column.editSlot"
             :value-slot="column.valueSlot"
-            :slot-data="column.slotData"
+            :slot-data="slotData"
             v-model="value"></lkt-field-text>
     </template>
     <template v-else-if="column.type === 'email'">
@@ -65,7 +69,7 @@ if (props.column.hasToLoadResource()) {
             :ref="(el:any) => inputElement = el"
             :edit-slot="column.editSlot"
             :value-slot="column.valueSlot"
-            :slot-data="column.slotData"
+            :slot-data="slotData"
             is-email
             v-model="value"></lkt-field-text>
     </template>
@@ -75,12 +79,12 @@ if (props.column.hasToLoadResource()) {
             :ref="(el:any) => inputElement = el"
             :edit-slot="column.editSlot"
             :value-slot="column.valueSlot"
-            :slot-data="column.slotData"
+            :slot-data="slotData"
             is-tel
             v-model="value"></lkt-field-text>
     </template>
     <template v-else-if="column.type === 'check'">
-        <lkt-field-check v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value"></lkt-field-check>
+        <lkt-field-switch is-check v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value"></lkt-field-switch>
     </template>
     <template v-else-if="column.type === 'switch'">
         <lkt-field-switch v-bind:read-mode="!column.editable" :ref="(el:any) => inputElement = el" v-model="value"></lkt-field-switch>
@@ -92,8 +96,9 @@ if (props.column.hasToLoadResource()) {
             v-bind:read-mode="!column.editable"
             :ref="(el:any) => inputElement = el"
             v-model="value"
-            :slot-data="column.slotData"
+            :slot-data="slotData"
             v-bind:resource="column.resource"
+            v-bind:use-resource-slot="column.resourceSlot ? column.resourceSlot : column.resource"
             v-bind:resource-data="column.resourceData"
             v-bind:options="column.options"
             v-bind:multiple="column.isMultiple"
