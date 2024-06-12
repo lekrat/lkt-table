@@ -1,9 +1,9 @@
-import { reactive as L, defineComponent as F, ref as g, watch as D, nextTick as oe, computed as w, resolveComponent as R, openBlock as u, createBlock as b, withCtx as x, createTextVNode as ee, toDisplayString as K, unref as C, createElementBlock as f, Fragment as I, createCommentVNode as T, normalizeClass as re, renderList as $, renderSlot as O, withDirectives as de, createElementVNode as M, vShow as ce, useSlots as me, onMounted as he, createSlots as W } from "vue";
+import { reactive as A, defineComponent as F, ref as g, watch as D, nextTick as oe, computed as w, resolveComponent as R, openBlock as u, createBlock as b, withCtx as x, createTextVNode as ee, toDisplayString as K, unref as C, createElementBlock as f, Fragment as I, createCommentVNode as T, normalizeClass as re, renderList as $, renderSlot as B, withDirectives as de, createElementVNode as M, vShow as ce, useSlots as me, onMounted as he, createSlots as W } from "vue";
 import fe from "vuedraggable";
 import { httpCall as ye } from "lkt-http-client";
 import { createLktEvent as X } from "lkt-events";
 import { generateRandomString as ve } from "lkt-string-tools";
-class A {
+class L {
   constructor(t = "", l = "") {
     this.key = t, this.label = l, this.sortable = !0, this.hidden = !1, this.formatter = void 0, this.checkEmpty = void 0, this.colspan = void 0, this.resource = "", this.resourceData = {}, this.isMultiple = !1, this.isLoading = !1, this.resourceLoaded = !1, this.valueSlot = "", this.editSlot = "", this.multipleDisplay = "", this.multipleDisplayEdition = "";
   }
@@ -131,11 +131,14 @@ class A {
   setAutoLoadSelectOptions(t = !0, l = "") {
     return this.autoLoadSelectOptions = t, this.autoLoadSelectOptionsKey = l, this;
   }
+  setTagMode(t = !0) {
+    return this.tags = t, this;
+  }
   setOptions(t = []) {
     return this.options = t, this;
   }
 }
-const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s = !0) => L(new A(e, t).setIsSortable(s).defineAsLink(l)), Qe = (e, t, l, s = !0) => L(new A(e, t).setIsSortable(s).defineAsAction(l)), We = (e, t, l = !0) => L(new A(e, t).setIsSortable(l).defineAsText()), Xe = (e, t, l = !0) => L(new A(e, t).setIsSortable(l).defineAsEmail()), Ye = (e, t, l = !0) => L(new A(e, t).setIsSortable(l).defineAsTel()), Ze = (e, t, l = !0) => L(new A(e, t).setIsSortable(l).defineAsCheck()), _e = (e, t, l = !0) => L(new A(e, t).setIsSortable(l).defineAsSwitch()), et = (e, t, l, s = !0) => L(new A(e, t).setIsSortable(s).defineAsSelect(l)), tt = (e, t, l = !0) => L(new A(e, t).setIsSortable(l).setIsHidden(!0)), te = (e, t, l, s) => {
+const Ge = (e, t, l = !0) => A(new L(e, t).setIsSortable(l)), Pe = (e, t, l, s = !0) => A(new L(e, t).setIsSortable(s).defineAsLink(l)), Qe = (e, t, l, s = !0) => A(new L(e, t).setIsSortable(s).defineAsAction(l)), We = (e, t, l = !0) => A(new L(e, t).setIsSortable(l).defineAsText()), Xe = (e, t, l = !0) => A(new L(e, t).setIsSortable(l).defineAsEmail()), Ye = (e, t, l = !0) => A(new L(e, t).setIsSortable(l).defineAsTel()), Ze = (e, t, l = !0) => A(new L(e, t).setIsSortable(l).defineAsCheck()), _e = (e, t, l = !0) => A(new L(e, t).setIsSortable(l).defineAsSwitch()), et = (e, t, l, s = !0) => A(new L(e, t).setIsSortable(s).defineAsSelect(l)), tt = (e, t, l = !0) => A(new L(e, t).setIsSortable(l).setIsHidden(!0)), te = (e, t, l, s) => {
   if (!l)
     return 0;
   let o = e[l.key], n = t[l.key];
@@ -198,7 +201,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
     }, { deep: !0 }), s.column.hasToLoadResource() && s.column.loadResource();
     const c = w(() => ({ ...s.column.slotData, item: o.value }));
     return (h, a) => {
-      const V = R("router-link"), B = R("lkt-field-text"), E = R("lkt-field-switch"), N = R("lkt-loader"), j = R("lkt-field-select");
+      const V = R("router-link"), O = R("lkt-field-text"), E = R("lkt-field-switch"), N = R("lkt-loader"), j = R("lkt-field-select");
       return e.column.type === "link" ? (u(), b(V, {
         key: 0,
         to: e.column.getHref(o.value)
@@ -211,7 +214,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
         key: 1,
         href: "#",
         onClick: a[0] || (a[0] = (m) => e.column.doAction(o.value))
-      }, K(C(U)(e.column, o.value, e.i)), 1)) : e.column.type === "text" ? (u(), b(B, {
+      }, K(C(U)(e.column, o.value, e.i)), 1)) : e.column.type === "text" ? (u(), b(O, {
         key: 2,
         "read-mode": !e.column.editable,
         ref: (m) => k.value = m,
@@ -220,7 +223,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
         "slot-data": c.value,
         modelValue: n.value,
         "onUpdate:modelValue": a[1] || (a[1] = (m) => n.value = m)
-      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : e.column.type === "email" ? (u(), b(B, {
+      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : e.column.type === "email" ? (u(), b(O, {
         key: 3,
         "read-mode": !e.column.editable,
         ref: (m) => k.value = m,
@@ -230,7 +233,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
         "is-email": "",
         modelValue: n.value,
         "onUpdate:modelValue": a[2] || (a[2] = (m) => n.value = m)
-      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : e.column.type === "tel" ? (u(), b(B, {
+      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : e.column.type === "tel" ? (u(), b(O, {
         key: 4,
         "read-mode": !e.column.editable,
         ref: (m) => k.value = m,
@@ -266,9 +269,10 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
           "resource-data": e.column.resourceData,
           options: e.column.options,
           multiple: e.column.isMultiple,
+          tags: e.column.tags,
           "multiple-display": e.column.multipleDisplay,
           "multiple-display-edition": e.column.multipleDisplayEdition
-        }, null, 8, ["read-mode", "modelValue", "slot-data", "resource", "use-resource-slot", "resource-data", "options", "multiple", "multiple-display", "multiple-display-edition"]))
+        }, null, 8, ["read-mode", "modelValue", "slot-data", "resource", "use-resource-slot", "resource-data", "options", "multiple", "tags", "multiple-display", "multiple-display-edition"]))
       ], 64)) : (u(), f(I, { key: 8 }, [
         ee(K(C(U)(e.column, o.value, e.i)), 1)
       ], 64));
@@ -280,8 +284,8 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
 }, Ie = {
   key: 1,
   "data-role": "invalid-drag-indicator"
-}, De = ["data-column", "colspan", "title", "onClick"], Le = { name: "LktTableRow", inheritAttrs: !1 }, le = /* @__PURE__ */ F({
-  ...Le,
+}, De = ["data-column", "colspan", "title", "onClick"], Ae = { name: "LktTableRow", inheritAttrs: !1 }, le = /* @__PURE__ */ F({
+  ...Ae,
   props: {
     isDraggable: { type: Boolean, default: !0 },
     sortable: { type: Boolean, default: !0 },
@@ -320,7 +324,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
           title: C(U)(a, e.item, e.i),
           onClick: (V) => n(V, e.item, a)
         }, [
-          c.$slots[a.key] ? O(c.$slots, a.key, {
+          c.$slots[a.key] ? B(c.$slots, a.key, {
             key: 0,
             value: e.item[a.key],
             item: e.item,
@@ -338,7 +342,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
       ], 64))), 256))
     ], 8, Se));
   }
-}), Ae = { "data-role": "hidden-row" }, Ee = ["colspan"], we = ["data-column"], $e = ["data-i"], Te = ["data-column", "title", "onClick"], Me = { name: "LktHiddenRow", inheritAttrs: !1 }, Be = /* @__PURE__ */ F({
+}), Le = { "data-role": "hidden-row" }, Ee = ["colspan"], we = ["data-column"], $e = ["data-i"], Te = ["data-column", "title", "onClick"], Me = { name: "LktHiddenRow", inheritAttrs: !1 }, Oe = /* @__PURE__ */ F({
   ...Me,
   props: {
     isDraggable: { type: Boolean, default: !0 },
@@ -356,7 +360,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
     const l = t, s = e, o = g(s.modelValue), n = (k, S, c) => {
       l("click", k, X("", { item: S, column: c }));
     };
-    return D(() => s.modelValue, (k) => o.value = k), D(o, () => l("update:modelValue", o.value)), (k, S) => de((u(), f("tr", Ae, [
+    return D(() => s.modelValue, (k) => o.value = k), D(o, () => l("update:modelValue", o.value)), (k, S) => de((u(), f("tr", Le, [
       M("td", { colspan: e.hiddenColumnsColSpan }, [
         M("table", null, [
           M("tr", null, [
@@ -372,7 +376,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
               title: C(U)(c, o.value, h),
               onClick: (a) => n(a, o.value, c)
             }, [
-              k.$slots[c.key] ? O(k.$slots, c.key, {
+              k.$slots[c.key] ? B(k.$slots, c.key, {
                 key: 0,
                 value: o.value[c.key],
                 item: o.value,
@@ -393,7 +397,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
       [ce, e.hiddenIsVisible]
     ]);
   }
-}), Oe = ["data-sortable"], Ne = {
+}), Be = ["data-sortable"], Ne = {
   key: 0,
   "data-role": "drag-indicator"
 }, He = { key: 1 }, Re = ["data-column", "data-sortable", "data-sort", "colspan", "title", "onClick"], xe = { key: 1 }, Ke = {
@@ -413,62 +417,62 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
   },
   emits: ["update:modelValue", "sort", "click"],
   setup(e, { expose: t, emit: l }) {
-    const s = l, o = me(), n = e, k = {}, S = g(typeof n.sorter == "function" ? n.sorter : te), c = g(pe(n.columns)), h = g("asc"), a = g(n.modelValue), V = g(k), B = g(!1), E = g(n.columns), N = ve(12), j = w(() => a.value.length > 0), m = w(() => {
+    const s = l, o = me(), n = e, k = {}, S = g(typeof n.sorter == "function" ? n.sorter : te), c = g(pe(n.columns)), h = g("asc"), a = g(n.modelValue), V = g(k), O = g(!1), E = g(n.columns), N = ve(12), j = w(() => a.value.length > 0), m = w(() => {
       if (!n.hideEmptyColumns)
         return [];
       let i = [];
-      return E.value.forEach((d) => {
-        let r = d.key, y = !1;
-        a.value.forEach((v) => {
-          if (typeof v.checkEmpty == "function")
-            return v.checkEmpty(v);
-          v[r] && (y = !0);
-        }), y || i.push(r);
+      return E.value.forEach((r) => {
+        let d = r.key, v = !1;
+        a.value.forEach((y) => {
+          if (typeof y.checkEmpty == "function")
+            return y.checkEmpty(y);
+          y[d] && (v = !0);
+        }), v || i.push(d);
       }), i;
     }), H = w(() => E.value.filter((i) => !i.hidden)), z = w(() => E.value.filter((i) => i.hidden)), ie = w(() => {
       let i = H.value.length + 1;
       return n.sortable && ++i, i;
     }), J = w(() => z.value.length > 0 && !n.sortable), ne = w(() => E.value.map((i) => i.key)), q = w(() => {
       let i = [];
-      for (let d in o)
-        ne.value.indexOf(d) !== -1 && i.push(d);
+      for (let r in o)
+        ne.value.indexOf(r) !== -1 && i.push(r);
       return i;
     }), se = (i) => {
-      let d = i.target;
-      if (typeof d.dataset.column > "u")
+      let r = i.target;
+      if (typeof r.dataset.column > "u")
         do
-          d = d.parentNode;
-        while (typeof d.dataset.column > "u" && d.tagName !== "TABLE" && d.tagName !== "body");
-      if (d.tagName === "TD" && (d = d.parentNode, d = d.dataset.i, typeof d < "u"))
-        return a.value[d];
+          r = r.parentNode;
+        while (typeof r.dataset.column > "u" && r.tagName !== "TABLE" && r.tagName !== "body");
+      if (r.tagName === "TD" && (r = r.parentNode, r = r.dataset.i, typeof r < "u"))
+        return a.value[r];
     }, G = (i) => V.value["tr_" + i] === !0, Z = (i) => {
-      i && i.sortable && (a.value = a.value.sort((d, r) => S.value(d, r, i, h.value)), h.value = h.value === "asc" ? "desc" : "asc", c.value = i.key, s("sort", [c.value, h.value]));
-    }, P = (i, d) => {
-      s("click", i, d);
-    }, Q = (i, d) => {
-      let r = "tr_" + d.value.i;
-      V.value[r] = typeof V.value[r] > "u" ? !0 : !V.value[r];
+      i && i.sortable && (a.value = a.value.sort((r, d) => S.value(r, d, i, h.value)), h.value = h.value === "asc" ? "desc" : "asc", c.value = i.key, s("sort", [c.value, h.value]));
+    }, P = (i, r) => {
+      s("click", i, r);
+    }, Q = (i, r) => {
+      let d = "tr_" + r.value.i;
+      V.value[d] = typeof V.value[d] > "u" ? !0 : !V.value[d];
     }, _ = () => {
       E.value.forEach((i) => {
-        if (i.type === "select") {
-          let d = i.autoLoadSelectOptionsKey !== "" ? i.autoLoadSelectOptionsKey : i.key, r = [];
-          a.value.forEach((v) => {
-            v[d].forEach((p) => r.push(p));
+        if (i.type === "select" && i.autoLoadSelectOptions) {
+          let r = i.autoLoadSelectOptionsKey !== "" ? i.autoLoadSelectOptionsKey : i.key, d = [];
+          a.value.forEach((y) => {
+            Array.isArray(y[r]) && y[r].forEach((p) => d.push(p));
           });
-          let y = {};
-          r = r.filter(function(v) {
-            return y[v.value] ? !1 : (y[v.value] = !0, !0);
-          }), i.setOptions(r);
+          let v = {};
+          d = d.filter(function(y) {
+            return v[y.value] ? !1 : (v[y.value] = !0, !0);
+          }), i.setOptions(d);
         }
       });
-    }, ue = (i, d) => {
-      a.value[d] = i;
+    }, ue = (i, r) => {
+      a.value[r] = i;
     };
     return he(() => {
       _(), Z(ge(n.columns, c.value));
     }), D(() => n.columns, (i) => E.value = i), D(() => n.modelValue, (i) => a.value = i), D(a, (i) => {
       _(), s("update:modelValue", i);
-    }), t({ getItemByEvent: se }), (i, d) => j.value ? (u(), f("div", {
+    }), t({ getItemByEvent: se }), (i, r) => j.value ? (u(), f("div", {
       key: 0,
       class: "lkt-table",
       "data-sortable": e.sortable
@@ -478,17 +482,17 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
           M("tr", null, [
             e.sortable ? (u(), f("th", Ne)) : T("", !0),
             J.value ? (u(), f("th", He)) : T("", !0),
-            (u(!0), f(I, null, $(H.value, (r) => (u(), f(I, null, [
-              m.value.indexOf(r.key) === -1 ? (u(), f("th", {
+            (u(!0), f(I, null, $(H.value, (d) => (u(), f(I, null, [
+              m.value.indexOf(d.key) === -1 ? (u(), f("th", {
                 key: 0,
-                "data-column": r.key,
-                "data-sortable": r.sortable === !0,
-                "data-sort": r.sortable === !0 && c.value === r.key ? h.value : "",
-                colspan: C(ke)(r, e.columns.length, a.value),
-                title: r.label,
-                onClick: (y) => Z(r)
+                "data-column": d.key,
+                "data-sortable": d.sortable === !0,
+                "data-sort": d.sortable === !0 && c.value === d.key ? h.value : "",
+                colspan: C(ke)(d, e.columns.length, a.value),
+                title: d.label,
+                onClick: (v) => Z(d)
               }, [
-                M("div", null, K(r.label), 1)
+                M("div", null, K(d.label), 1)
               ], 8, Re)) : T("", !0)
             ], 64))), 256))
           ])
@@ -496,33 +500,33 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
         e.sortable ? (u(), b(C(fe), {
           key: 0,
           modelValue: a.value,
-          "onUpdate:modelValue": d[0] || (d[0] = (r) => a.value = r),
+          "onUpdate:modelValue": r[0] || (r[0] = (d) => a.value = d),
           move: e.checkValidDrag,
           itemKey: e.draggableItemKey,
-          onStart: d[1] || (d[1] = (r) => B.value = !0),
-          onEnd: d[2] || (d[2] = (r) => B.value = !1),
+          onStart: r[1] || (r[1] = (d) => O.value = !0),
+          onEnd: r[2] || (r[2] = (d) => O.value = !1),
           tag: "tbody",
           class: "lkt-sortable-table",
           handle: "[data-handle-drag]"
         }, {
-          item: x(({ element: r, index: y }) => [
+          item: x(({ element: d, index: v }) => [
             (u(), b(le, {
-              key: C(N) + "-" + y,
-              i: y,
-              item: r,
+              key: C(N) + "-" + v,
+              i: v,
+              item: d,
               "display-hidden-columns-indicator": J.value,
-              "is-draggable": e.draggableChecker ? e.draggableChecker(r) : !0,
+              "is-draggable": e.draggableChecker ? e.draggableChecker(d) : !0,
               sortable: e.sortable,
               "visible-columns": H.value,
               "empty-columns": m.value,
-              "hidden-is-visible": G(y),
+              "hidden-is-visible": G(v),
               onClick: P,
               onShow: Q
             }, W({ _: 2 }, [
-              $(q.value, (v) => ({
-                name: v,
+              $(q.value, (y) => ({
+                name: y,
                 fn: x((p) => [
-                  O(i.$slots, v, {
+                  B(i.$slots, y, {
                     item: p.item,
                     value: p.value,
                     column: p.column
@@ -533,24 +537,24 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
           ]),
           _: 3
         }, 8, ["modelValue", "move", "itemKey"])) : (u(), f("tbody", xe, [
-          (u(!0), f(I, null, $(a.value, (r, y) => (u(), b(le, {
-            key: C(N) + "-" + y,
-            i: y,
-            item: r,
+          (u(!0), f(I, null, $(a.value, (d, v) => (u(), b(le, {
+            key: C(N) + "-" + v,
+            i: v,
+            item: d,
             "display-hidden-columns-indicator": J.value,
-            "is-draggable": e.draggableChecker ? e.draggableChecker(r) : !0,
+            "is-draggable": e.draggableChecker ? e.draggableChecker(d) : !0,
             sortable: e.sortable,
             "visible-columns": H.value,
             "empty-columns": m.value,
-            "hidden-is-visible": G(y),
+            "hidden-is-visible": G(v),
             onClick: P,
             onShow: Q,
             onEdited: ue
           }, W({ _: 2 }, [
-            $(q.value, (v) => ({
-              name: v,
+            $(q.value, (y) => ({
+              name: y,
               fn: x((p) => [
-                O(i.$slots, v, {
+                B(i.$slots, y, {
                   item: p.item,
                   value: p.value,
                   column: p.column
@@ -558,24 +562,24 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
               ])
             }))
           ]), 1032, ["i", "item", "display-hidden-columns-indicator", "is-draggable", "sortable", "visible-columns", "empty-columns", "hidden-is-visible"]))), 128)),
-          z.value.length > 0 ? (u(!0), f(I, { key: 0 }, $(a.value, (r, y) => (u(), b(Be, {
-            key: C(N) + "-" + y,
-            i: y,
-            item: r,
+          z.value.length > 0 ? (u(!0), f(I, { key: 0 }, $(a.value, (d, v) => (u(), b(Oe, {
+            key: C(N) + "-" + v,
+            i: v,
+            item: d,
             "hidden-columns": z.value,
             "hidden-columns-col-span": ie.value,
-            "is-draggable": e.draggableChecker ? e.draggableChecker(r) : !0,
+            "is-draggable": e.draggableChecker ? e.draggableChecker(d) : !0,
             sortable: e.sortable,
             "visible-columns": H.value,
             "empty-columns": m.value,
-            "hidden-is-visible": G(y),
+            "hidden-is-visible": G(v),
             onClick: P,
             onShow: Q
           }, W({ _: 2 }, [
-            $(q.value, (v) => ({
-              name: v,
+            $(q.value, (y) => ({
+              name: y,
               fn: x((p) => [
-                O(i.$slots, v, {
+                B(i.$slots, y, {
                   item: p.item,
                   value: p.value,
                   column: p.column
@@ -585,8 +589,8 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
           ]), 1032, ["i", "item", "hidden-columns", "hidden-columns-col-span", "is-draggable", "sortable", "visible-columns", "empty-columns", "hidden-is-visible"]))), 128)) : T("", !0)
         ]))
       ])
-    ], 8, Oe)) : i.$slots["no-items"] ? (u(), f("div", Ke, [
-      O(i.$slots, "no-items")
+    ], 8, Be)) : i.$slots["no-items"] ? (u(), f("div", Ke, [
+      B(i.$slots, "no-items")
     ])) : T("", !0);
   }
 }), lt = {
@@ -595,7 +599,7 @@ const Ge = (e, t, l = !0) => L(new A(e, t).setIsSortable(l)), Pe = (e, t, l, s =
   }
 };
 export {
-  A as LktTableColumn,
+  L as LktTableColumn,
   Qe as createActionColumn,
   Ze as createCheckColumn,
   Ge as createColumn,

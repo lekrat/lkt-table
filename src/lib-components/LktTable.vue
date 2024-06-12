@@ -127,13 +127,15 @@ const getItemByEvent = (e: any) => {
     autoLoadSelectColumnsOptions = () => {
 
         Columns.value.forEach(col => {
-            if (col.type === 'select') {
+            if (col.type === 'select' && col.autoLoadSelectOptions) {
 
                 let key = col.autoLoadSelectOptionsKey !== '' ? col.autoLoadSelectOptionsKey : col.key,
                     opts = [];
 
                 Items.value.forEach(item => {
-                    item[key].forEach (opt => opts.push(opt));
+                    if (Array.isArray(item[key])) {
+                        item[key].forEach (opt => opts.push(opt));
+                    }
                 });
 
                 let flags = {};

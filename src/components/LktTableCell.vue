@@ -102,6 +102,7 @@ const slotData = computed(() => {
             v-bind:resource-data="column.resourceData"
             v-bind:options="column.options"
             v-bind:multiple="column.isMultiple"
+            v-bind:tags="column.tags"
             v-bind:multiple-display="column.multipleDisplay"
             v-bind:multiple-display-edition="column.multipleDisplayEdition"></lkt-field-select>
     </template>

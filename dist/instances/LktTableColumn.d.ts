@@ -19,6 +19,7 @@ export declare class LktTableColumn {
     slotData: LktObject;
     isMultiple: boolean;
     isLoading: boolean;
+    tags: boolean;
     autoLoadSelectOptions: boolean;
     autoLoadSelectOptionsKey: string;
     resourceLoaded: boolean;
@@ -64,5 +65,6 @@ export declare class LktTableColumn {
     setMultipleDisplayEditionToInline(): this;
     setSlotData(data: LktObject): this;
     setAutoLoadSelectOptions(enabled?: boolean, searchKey?: string): this;
+    setTagMode(enabled?: boolean): this;
     setOptions(opts?: Option[]): this;
 }

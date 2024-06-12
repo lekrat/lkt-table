@@ -22,6 +22,7 @@ export class LktTableColumn {
     slotData: LktObject
     isMultiple: boolean
     isLoading: boolean
+    tags: boolean
     autoLoadSelectOptions: boolean
     autoLoadSelectOptionsKey: string
     resourceLoaded: boolean
@@ -258,6 +259,11 @@ export class LktTableColumn {
     setAutoLoadSelectOptions(enabled: boolean = true, searchKey: string = ''): this {
         this.autoLoadSelectOptions = enabled;
         this.autoLoadSelectOptionsKey = searchKey;
+        return this;
+    }
+
+    setTagMode(enabled: boolean = true): this {
+        this.tags = enabled;
         return this;
     }
 
