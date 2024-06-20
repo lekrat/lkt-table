@@ -17,6 +17,7 @@ export declare const createTelColumn: (key: string, label: string, sortable?: bo
 export declare const createCheckColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
 export declare const createSwitchColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
 export declare const createSelectColumn: (key: string, label: string, options: Option[], sortable?: boolean) => LktTableColumn;
+export declare const createFileColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
 export declare const createHiddenColumn: (key: string, label: string, sortable?: boolean) => LktTableColumn;
 /**
  *
@@ -32,9 +33,10 @@ export declare const defaultTableSorter: (a: any, b: any, c: LktTableColumn, sor
  * @param column
  * @param item
  * @param i
+ * @param columnStack
  * @returns {*}
  */
-export declare const getColumnDisplayContent: (column: LktTableColumn, item: any, i: number) => any;
+export declare const getColumnDisplayContent: (column: LktTableColumn, item: any, i: number, columnStack?: LktTableColumn[]) => any;
 /**
  *
  * @param column

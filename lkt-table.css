@@ -1,41 +1,48 @@
+.lkt-table-page {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: var(--lkt-table-page-gap);
+}
+
 .lkt-table {
-    width: var(--table-width);
+    width: var(--lkt-table-width);
     overflow-x: auto;
-    font-family: var(--table-font-family);
+    font-family: var(--lkt-table-font-family), serif;
 }
 
 .lkt-table > table {
     width: 100%;
     max-width: 100%;
     border-collapse: separate;
-    border-radius: var(--table-border-radius);
+    border-radius: var(--lkt-table-border-radius);
     border-spacing: 0;
 }
 
 .lkt-table th,
 .lkt-table td {
     vertical-align: middle;
-    text-align: var(--table-text-align);
-    padding: var(--table-row-padding);
-    font-size: var(--table-row-font-size);
-    color: var(--table-row-color);
+    text-align: var(--lkt-table-text-align);
+    padding: var(--lkt-table-padding-row);
+    font-size: var(--lkt-table-font-size-row);
+    color: var(--lkt-table-color-row);
 }
 
 .lkt-table th {
-    font-family: var(--table-header-font-family);
-    padding: var(--table-header-padding);
+    font-family: var(--lkt-table-font-family-header), serif;
+    padding: var(--lkt-table-padding-header);
 }
 
 .lkt-table thead tr {
-    background-color: var(--table-header-background)
+    background-color: var(--lkt-table-bg-header)
 }
 
 .lkt-table tbody tr {
-    background-color: var(--table-row-background);
+    background-color: var(--lkt-table-bg-row);
 }
 
 .lkt-table tbody tr:nth-child(odd) {
-    background-color: var(--table-row-background-odd);
+    background-color: var(--lkt-table-bg-row-odd);
 }
 
 .lkt-table [data-sort="asc"] > div,
@@ -45,22 +52,22 @@
 
 .lkt-table [data-sort="asc"] > div:after,
 .lkt-table [data-sort="desc"] > div:after {
-    font-family: var(--table-sort-icon-font-family);
+    font-family: var(--lkt-table-font-family-sort-icon), serif;
     display: inline-block;
-    font-size: var(--table-sort-icon-font-size);
+    font-size: var(--lkt-table-font-size-sort-icon);
 }
 
 .lkt-table [data-sort="asc"] > div:after {
-    content: var(--table-sort-asc-icon-content);
+    content: var(--lkt-table-sort-icon-content-asc);
 }
 
 .lkt-table [data-sort="desc"] > div:after {
-    content: var(--table-sort-desc-icon-content);
+    content: var(--lkt-table-sort-icon-content-desc);
 }
 
 .lkt-table td[data-role="drag-indicator"],
 .lkt-table td[data-role="invalid-drag-indicator"] {
-    width: var(--table-drag-indicator-width);
+    width: var(--lkt-table-width-drag);
     height: 40px;
     padding: 0 !important;
     position: relative;
@@ -95,20 +102,20 @@
 
 [data-lkt="empty-table"] {
     border: 1px solid #ddd;
-    border-radius: var(--table-border-radius);
+    border-radius: var(--lkt-table-border-radius);
     width: 100%;
     padding: 10px;
     background-color: #f8f7e5;
-    font-family: var(--table-font-family);
+    font-family: var(--lkt-table-font-family);
     font-size: 13px;
     color: #444;
-    text-align: var(--table-text-align);
+    text-align: var(--lkt-table-text-align);
 }
 
 .sortable-chosen {
-    border: var(--table-sortable-chosen-border);
+    border: var(--lkt-table-border-sortable-chosen);
 }
 
 .sortable-chosen.ghost {
-    background: var(--table-sortable-chosen-ghost-background);
+    background: var(--lkt-table-bg-sortable-chosen-ghost);
 }

@@ -12,7 +12,7 @@ export class LktTableColumn {
     formatter?: Function
     checkEmpty?: Function
     colspan?: Function | boolean | number
-    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action' | 'email' | 'tel'
+    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action' | 'email' | 'tel' | 'file'
     link: string | Function
     action: Function
     options: Option[]
@@ -30,6 +30,7 @@ export class LktTableColumn {
     editSlot: string
     multipleDisplay: string
     multipleDisplayEdition: string
+    extractTitleFromColumn: string
 
     constructor(key: string = '', label: string = '') {
         this.key = key;
@@ -137,6 +138,11 @@ export class LktTableColumn {
 
     defineAsSwitch() {
         this.type = 'switch';
+        return this;
+    }
+
+    defineAsFile() {
+        this.type = 'file';
         return this;
     }
 
@@ -269,6 +275,11 @@ export class LktTableColumn {
 
     setOptions (opts: Option[] = []): this {
         this.options = opts;
+        return this;
+    }
+
+    setTitleSourceColumn (key: string): this {
+        this.extractTitleFromColumn = key;
         return this;
     }
 }

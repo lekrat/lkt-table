@@ -9,7 +9,7 @@ export declare class LktTableColumn {
     formatter?: Function;
     checkEmpty?: Function;
     colspan?: Function | boolean | number;
-    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action' | 'email' | 'tel';
+    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action' | 'email' | 'tel' | 'file';
     link: string | Function;
     action: Function;
     options: Option[];
@@ -27,6 +27,7 @@ export declare class LktTableColumn {
     editSlot: string;
     multipleDisplay: string;
     multipleDisplayEdition: string;
+    extractTitleFromColumn: string;
     constructor(key?: string, label?: string);
     setIsSortable(status?: boolean): this;
     setIsEditable(status?: boolean): this;
@@ -45,6 +46,7 @@ export declare class LktTableColumn {
     defineAsFloat(): this;
     defineAsCheck(): this;
     defineAsSwitch(): this;
+    defineAsFile(): this;
     defineAsAction(action: Function): this;
     defineAsSelect(options: Option[]): this;
     showLoading(): boolean;
@@ -67,4 +69,5 @@ export declare class LktTableColumn {
     setAutoLoadSelectOptions(enabled?: boolean, searchKey?: string): this;
     setTagMode(enabled?: boolean): this;
     setOptions(opts?: Option[]): this;
+    setTitleSourceColumn(key: string): this;
 }

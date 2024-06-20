@@ -47,6 +47,10 @@ export const createSelectColumn = (key: string, label: string, options: Option[]
     return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsSelect(options));
 }
 
+export const createFileColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsFile(options));
+}
+
 export const createHiddenColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
     return reactive(new LktTableColumn(key, label).setIsSortable(sortable).setIsHidden(true));
 }
@@ -80,9 +84,17 @@ export const defaultTableSorter = (a: any, b: any, c: LktTableColumn, sortDirect
  * @param column
  * @param item
  * @param i
+ * @param columnStack
  * @returns {*}
  */
-export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: number) => {
+export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: number, columnStack: LktTableColumn[] = []) => {
+
+    if (column.extractTitleFromColumn) {
+        let columnForTitle = columnStack.find(c => c.key === column.extractTitleFromColumn);
+        if (columnForTitle) {
+            return getColumnDisplayContent(columnForTitle, item, i, columnStack);
+        }
+    }
 
     if (column.formatter && typeof column.formatter === 'function') {
         return column.formatter(item[column.key], item, column, i);

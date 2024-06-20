@@ -33,7 +33,8 @@ export default {
                 'lkt-field-select',
                 'lkt-field-switch',
                 'lkt-field-check',
-                'lkt-ts-interfaces'
+                'lkt-ts-interfaces',
+                'lkt-data-state'
             ],
             output: {
                 globals: {
