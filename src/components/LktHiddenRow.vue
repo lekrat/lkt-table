@@ -3,7 +3,7 @@ import {createLktEvent} from "lkt-events";
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import LktTableCell from "./LktTableCell.vue";
-import {ref, watch, PropType} from "vue";
+import {ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 
 const emit = defineEmits(['update:modelValue', 'click']);

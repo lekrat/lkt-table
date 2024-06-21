@@ -18,6 +18,7 @@ export {
 export {LktTableColumn} from "./instances/LktTableColumn";
 
 import "./../lkt-table.css"
+import {Settings} from "./settings/Settings";
 
 const LktTable = {
     install: (app: App) => {
@@ -27,3 +28,18 @@ const LktTable = {
 };
 
 export default LktTable;
+
+export const setTableNavButtonSlot = (component: string|Component) => {
+    Settings.navButtonSlot = component;
+    return true;
+}
+
+export const setTableDropButtonSlot = (component: string|Component) => {
+    Settings.dropButtonSlot = component;
+    return true;
+}
+
+export const setTableCreateButtonSlot = (component: string|Component) => {
+    Settings.createButtonSlot = component;
+    return true;
+}

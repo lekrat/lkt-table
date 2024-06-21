@@ -34,7 +34,9 @@ export default {
                 'lkt-field-switch',
                 'lkt-field-check',
                 'lkt-ts-interfaces',
-                'lkt-data-state'
+                'lkt-data-state',
+                'sortablejs',
+                'sortable',
             ],
             output: {
                 globals: {

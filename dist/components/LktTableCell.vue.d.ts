@@ -5,30 +5,35 @@ declare const _default: import("vue").DefineComponent<__VLS_WithDefaults<__VLS_T
     column: LktTableColumn;
     columns: LktTableColumn[];
     i: number;
+    editModeEnabled: boolean;
 }>, {
     modelValue: () => {};
     column: () => {};
     columns: () => never[];
     i: number;
+    editModeEnabled: boolean;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
-    edited: (...args: any[]) => void;
+    "update:modelValue": (...args: any[]) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     modelValue: LktObject;
     column: LktTableColumn;
     columns: LktTableColumn[];
     i: number;
+    editModeEnabled: boolean;
 }>, {
     modelValue: () => {};
     column: () => {};
     columns: () => never[];
     i: number;
+    editModeEnabled: boolean;
 }>>> & {
-    onEdited?: ((...args: any[]) => any) | undefined;
+    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {
     columns: LktTableColumn[];
     i: number;
     column: LktTableColumn;
     modelValue: LktObject;
+    editModeEnabled: boolean;
 }, {}>;
 export default _default;
 type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;

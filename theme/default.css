@@ -26,4 +26,6 @@
     --lkt-table-width-drag: 20px;
     --lkt-table-border-sortable-chosen: 3px dashed #cccccc;
     --lkt-table-bg-sortable-chosen-ghost: #aaaaaa;
+
+    --lkt-table-gap-buttons: 15px;
 }

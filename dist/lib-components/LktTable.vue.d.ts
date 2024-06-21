@@ -27,6 +27,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     editModeText?: string | undefined;
     switchEditionEnabled?: boolean | undefined;
     canCreate?: boolean | undefined;
+    canDrop?: boolean | undefined;
+    dropConfirm?: string | undefined;
+    dropResource?: string | undefined;
+    addNavigation?: boolean | undefined;
 }>, {
     modelValue: () => never[];
     columns: () => never[];
@@ -54,14 +58,20 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     editModeText: string;
     switchEditionEnabled: boolean;
     canCreate: boolean;
+    canDrop: boolean;
+    dropConfirm: string;
+    dropResource: string;
+    addNavigation: boolean;
 }>, {
     getItemByEvent: (e: any) => LktObject | undefined;
     doRefresh: () => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     sort: (...args: any[]) => void;
+    error: (...args: any[]) => void;
     click: (...args: any[]) => void;
     "update:modelValue": (...args: any[]) => void;
     save: (...args: any[]) => void;
+    "before-save": (...args: any[]) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     modelValue: LktObject[];
     columns: LktTableColumn[];
@@ -89,6 +99,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     editModeText?: string | undefined;
     switchEditionEnabled?: boolean | undefined;
     canCreate?: boolean | undefined;
+    canDrop?: boolean | undefined;
+    dropConfirm?: string | undefined;
+    dropResource?: string | undefined;
+    addNavigation?: boolean | undefined;
 }>, {
     modelValue: () => never[];
     columns: () => never[];
@@ -116,11 +130,17 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     editModeText: string;
     switchEditionEnabled: boolean;
     canCreate: boolean;
+    canDrop: boolean;
+    dropConfirm: string;
+    dropResource: string;
+    addNavigation: boolean;
 }>>> & {
+    onError?: ((...args: any[]) => any) | undefined;
     onClick?: ((...args: any[]) => any) | undefined;
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     onSave?: ((...args: any[]) => any) | undefined;
     onSort?: ((...args: any[]) => any) | undefined;
+    "onBefore-save"?: ((...args: any[]) => any) | undefined;
 }, {
     columns: LktTableColumn[];
     page: number;
@@ -129,6 +149,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     resource: string;
     sortable: boolean;
     modelValue: LktObject[];
+    addNavigation: boolean;
+    canDrop: boolean;
+    dropConfirm: string;
+    confirmData: LktObject;
     sorter: Function;
     draggableChecker: Function;
     checkValidDrag: Function;
@@ -141,13 +165,13 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     saveDisabled: boolean;
     saveValidator: Function;
     saveConfirm: string;
-    confirmData: LktObject;
     saveResource: string;
     saveResourceData: LktObject;
     saveText: string;
     editModeText: string;
     switchEditionEnabled: boolean;
     canCreate: boolean;
+    dropResource: string;
 }, {}>, Partial<Record<any, (_: {
     item: LktObject;
     value: any;

@@ -1,58 +1,89 @@
 import { LktTableColumn } from "../instances/LktTableColumn";
 import { LktObject } from "lkt-ts-interfaces";
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-    item: LktObject;
+    modelValue: LktObject;
     isDraggable: boolean;
     sortable: boolean;
     displayHiddenColumnsIndicator: boolean;
     hiddenIsVisible: boolean;
+    addNavigation: boolean;
+    latestRow: boolean;
+    canDrop: boolean;
+    editModeEnabled: boolean;
     i: number;
     visibleColumns: LktTableColumn[];
     emptyColumns: string[];
+    dropConfirm: string;
 }>, {
-    item: () => {};
+    modelValue: () => {};
     isDraggable: boolean;
     sortable: boolean;
     displayHiddenColumnsIndicator: boolean;
     hiddenIsVisible: boolean;
+    addNavigation: boolean;
+    latestRow: boolean;
+    canDrop: boolean;
+    editModeEnabled: boolean;
     i: number;
     visibleColumns: () => never[];
     emptyColumns: () => never[];
+    dropConfirm: string;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     show: (...args: any[]) => void;
     click: (...args: any[]) => void;
-    edited: (...args: any[]) => void;
+    "update:modelValue": (...args: any[]) => void;
+    "item-up": (...args: any[]) => void;
+    "item-down": (...args: any[]) => void;
+    "item-drop": (...args: any[]) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-    item: LktObject;
+    modelValue: LktObject;
     isDraggable: boolean;
     sortable: boolean;
     displayHiddenColumnsIndicator: boolean;
     hiddenIsVisible: boolean;
+    addNavigation: boolean;
+    latestRow: boolean;
+    canDrop: boolean;
+    editModeEnabled: boolean;
     i: number;
     visibleColumns: LktTableColumn[];
     emptyColumns: string[];
+    dropConfirm: string;
 }>, {
-    item: () => {};
+    modelValue: () => {};
     isDraggable: boolean;
     sortable: boolean;
     displayHiddenColumnsIndicator: boolean;
     hiddenIsVisible: boolean;
+    addNavigation: boolean;
+    latestRow: boolean;
+    canDrop: boolean;
+    editModeEnabled: boolean;
     i: number;
     visibleColumns: () => never[];
     emptyColumns: () => never[];
+    dropConfirm: string;
 }>>> & {
     onClick?: ((...args: any[]) => any) | undefined;
-    onEdited?: ((...args: any[]) => any) | undefined;
+    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     onShow?: ((...args: any[]) => any) | undefined;
+    "onItem-up"?: ((...args: any[]) => any) | undefined;
+    "onItem-down"?: ((...args: any[]) => any) | undefined;
+    "onItem-drop"?: ((...args: any[]) => any) | undefined;
 }, {
-    item: LktObject;
     i: number;
     sortable: boolean;
+    modelValue: LktObject;
+    editModeEnabled: boolean;
     isDraggable: boolean;
     hiddenIsVisible: boolean;
     visibleColumns: LktTableColumn[];
     emptyColumns: string[];
     displayHiddenColumnsIndicator: boolean;
+    addNavigation: boolean;
+    latestRow: boolean;
+    canDrop: boolean;
+    dropConfirm: string;
 }, {}>, Partial<Record<string, (_: {
     value: any;
     item: LktObject;

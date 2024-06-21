@@ -119,3 +119,33 @@
 .sortable-chosen.ghost {
     background: var(--lkt-table-bg-sortable-chosen-ghost);
 }
+
+.lkt-table td.lkt-table-nav-cell {
+    padding: 0;
+}
+
+.lkt-table-nav-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lkt-table-page-buttons {
+    position: sticky;
+    top: calc(-1 * var(--lkt-table-gap-buttons));
+    display: flex;
+    align-items: center;
+    gap: var(--lkt-table-gap-buttons);
+    transition: all linear .150s;
+    background: transparent;
+    z-index: 2;
+}
+
+.lkt-table-page-buttons-bottom {
+    justify-content: center;
+}
+
+.lkt-table-page-buttons > .switch-edition-mode {
+    margin-left: auto;
+}

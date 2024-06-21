@@ -6,3 +6,6 @@ declare const LktTable: {
     install: (app: App) => void;
 };
 export default LktTable;
+export declare const setTableNavButtonSlot: (component: string | Component) => boolean;
+export declare const setTableDropButtonSlot: (component: string | Component) => boolean;
+export declare const setTableCreateButtonSlot: (component: string | Component) => boolean;
