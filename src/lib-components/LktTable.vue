@@ -55,6 +55,7 @@ const props = withDefaults(defineProps<{
     dropConfirm?: string
     dropResource?: string
     addNavigation?: boolean
+    createEnabledValidator?: Function
 }>(), {
     modelValue: () => [],
     columns: () => [],
@@ -88,6 +89,7 @@ const props = withDefaults(defineProps<{
     dropConfirm: '',
     dropResource: '',
     addNavigation: false,
+    createEnabledValidator: undefined,
 });
 
 const hiddenColumnsStack: LktObject = {};
@@ -342,7 +344,11 @@ const getItemByEvent = (e: any) => {
         });
 
         return r.join('-');
-    };
+    },
+    createEnabled = computed(() => {
+        if (typeof props.createEnabledValidator === 'function') return props.createEnabledValidator({items: Items.value});
+        return true;
+    });
 
 onMounted(() => {
     autoLoadSelectColumnsOptions();
@@ -401,7 +407,7 @@ defineExpose({
                 <span v-else>{{ saveText }}</span>
             </lkt-button>
 
-            <create-button @click="onClickAddItem" v-if="canCreate && editModeEnabled"/>
+            <create-button @click="onClickAddItem" v-if="canCreate && editModeEnabled" :disabled="!createEnabled"/>
 
             <div class="switch-edition-mode">
                 <lkt-field-switch
@@ -521,7 +527,7 @@ defineExpose({
         </div>
 
         <div class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
-            <create-button @click="onClickAddItem" v-if="canCreate && editModeEnabled"/>
+            <create-button @click="onClickAddItem" v-if="canCreate && editModeEnabled" :disabled="!createEnabled"/>
         </div>
 
         <lkt-paginator

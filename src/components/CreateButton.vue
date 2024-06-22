@@ -5,6 +5,12 @@ import {Settings} from "../settings/Settings";
 
 const emit = defineEmits(['click']);
 
+const props = withDefaults(defineProps<{
+    disabled: boolean
+}>(), {
+    disabled: false,
+});
+
 const hasCreateButtonSlot = computed(() => {
         return Settings.createButtonSlot !== '';
     }),
@@ -14,7 +20,10 @@ const hasCreateButtonSlot = computed(() => {
 </script>
 
 <template>
-    <lkt-button palette="table-create" @click="emit('click')">
+    <lkt-button
+        palette="table-create"
+        :disabled="disabled"
+        @click="emit('click')">
         <template v-if="hasCreateButtonSlot">
             <component
                 :is="createButtonSlot"/>
