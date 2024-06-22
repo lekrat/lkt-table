@@ -417,7 +417,7 @@ defineExpose({
             <table>
                 <thead>
                 <tr>
-                    <th v-if="sortable" data-role="drag-indicator"/>
+                    <th v-if="sortable && editModeEnabled" data-role="drag-indicator"/>
                     <th v-if="addNavigation && editModeEnabled"/>
                     <th v-if="displayHiddenColumnsIndicator"/>
                     <template v-for="column in visibleColumns">

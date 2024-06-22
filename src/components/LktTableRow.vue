@@ -82,8 +82,8 @@ watch(Item, (v) => {
 
 <template>
     <tr :data-i="i" :data-draggable="isDraggable">
-        <td v-if="sortable && isDraggable" data-role="drag-indicator" :class="classes" />
-        <td v-else-if="sortable" data-role="invalid-drag-indicator"/>
+        <td v-if="sortable && isDraggable && editModeEnabled" data-role="drag-indicator" :class="classes" />
+        <td v-else-if="sortable && editModeEnabled" data-role="invalid-drag-indicator"/>
         <td v-if="addNavigation && editModeEnabled" class="lkt-table-nav-cell">
             <div class="lkt-table-nav-container">
                 <lkt-button palette="table-nav" :disabled="i === 0" @click="onClickUp">

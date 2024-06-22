@@ -70,7 +70,7 @@ declare class F {
     useForRowKey(e?: boolean): this;
     isForRowKey: boolean | undefined;
 }
-declare function zt(l: any, e: any, i: any, r?: boolean): {
+declare function qt(l: any, e: any, i: any, r?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -283,7 +283,7 @@ declare function Pt(l: any, e: any, i?: boolean): {
     useForRowKey: (e?: boolean) => F;
     isForRowKey: boolean | undefined;
 };
-declare function Wt(l: any, e: any, i?: boolean): {
+declare function _t(l: any, e: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -425,7 +425,7 @@ declare function Zt(l: any, e: any, i?: boolean): {
     useForRowKey: (e?: boolean) => F;
     isForRowKey: boolean | undefined;
 };
-declare function _t(l: any, e: any, i: any, r?: boolean): {
+declare function zt(l: any, e: any, i: any, r?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -709,7 +709,7 @@ declare function Gt(l: any, e: any, i?: boolean): {
     useForRowKey: (e?: boolean) => F;
     isForRowKey: boolean | undefined;
 };
-declare function qt(l: any, e: any, i?: boolean): {
+declare function Wt(l: any, e: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -786,4 +786,4 @@ declare namespace xt {
 declare function ll(l: any): boolean;
 declare function tl(l: any): boolean;
 declare function el(l: any): boolean;
-export { F as LktTableColumn, zt as createActionColumn, Qt as createCheckColumn, Pt as createColumn, Wt as createEmailColumn, Zt as createHiddenColumn, _t as createLinkColumn, Yt as createSelectColumn, Xt as createSwitchColumn, Gt as createTelColumn, qt as createTextColumn, xt as default, ll as setTableCreateButtonSlot, tl as setTableDropButtonSlot, el as setTableNavButtonSlot };
+export { F as LktTableColumn, qt as createActionColumn, Qt as createCheckColumn, Pt as createColumn, _t as createEmailColumn, Zt as createHiddenColumn, zt as createLinkColumn, Yt as createSelectColumn, Xt as createSwitchColumn, Gt as createTelColumn, Wt as createTextColumn, xt as default, ll as setTableCreateButtonSlot, tl as setTableDropButtonSlot, el as setTableNavButtonSlot };
