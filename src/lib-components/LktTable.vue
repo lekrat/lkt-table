@@ -319,7 +319,15 @@ const getItemByEvent = (e: any) => {
                 let clone = JSON.parse(JSON.stringify(Items.value));
                 Items.value.splice(oldIndex, 1, clone[newIndex]);
                 Items.value.splice(newIndex, 1, clone[oldIndex]);
-            }
+            },
+            onMove: function (evt, originalEvent) {
+                return validDragChecker(evt);
+                // return false; — for cancel
+                // return -1; — insert before target
+                // return 1; — insert after target
+                // return true; — keep default insertion point based on the direction
+                // return void; — keep default insertion point based on the direction
+            },
         });
     },
     getRowKey = (item: LktObject, index: number, isHidden: boolean = false) => {
