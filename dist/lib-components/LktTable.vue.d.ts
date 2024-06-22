@@ -180,10 +180,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     item: LktObject;
     value: any;
     column: LktTableColumn;
-}) => any>> & Partial<Record<any, (_: {
-    item: LktObject;
-    value: any;
-    column: LktTableColumn;
 }) => any>> & {
     title?(_: {}): any;
     "button-save"?(_: {

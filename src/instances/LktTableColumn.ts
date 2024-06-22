@@ -22,6 +22,7 @@ export class LktTableColumn {
     slotData: LktObject
     isMultiple: boolean
     isLoading: boolean
+    isForRowKey: boolean
     tags: boolean
     autoLoadSelectOptions: boolean
     autoLoadSelectOptionsKey: string
@@ -280,6 +281,11 @@ export class LktTableColumn {
 
     setTitleSourceColumn (key: string): this {
         this.extractTitleFromColumn = key;
+        return this;
+    }
+
+    useForRowKey (enabled: boolean = true): this {
+        this.isForRowKey = enabled;
         return this;
     }
 }

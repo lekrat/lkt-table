@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import draggable from "vuedraggable";
 import {
     defaultTableSorter,
     getColumnByKey,
@@ -11,7 +10,7 @@ import {computed, nextTick, onMounted, ref, useSlots, watch} from "vue";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {LktEvent} from "lkt-events";
 import LktHiddenRow from "../components/LktHiddenRow.vue";
-import {generateRandomString} from "lkt-string-tools";
+import {generateRandomString, replaceAll} from "lkt-string-tools";
 import {LktObject} from "lkt-ts-interfaces";
 import {DataState} from "lkt-data-state";
 import {HTTPResponse} from "lkt-http-client";
@@ -105,8 +104,8 @@ const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTa
 const Page = ref(props.page),
     loading = ref(true),
     firstLoadReady = ref(false),
-    refreshingAfterDrag = ref(false),
     paginator = ref(null),
+    sortableObject = ref({}),
     dataState = ref(new DataState({items: Items.value}, props.dataStateConfig)),
     editModeEnabled = ref(props.editMode)
 ;
@@ -156,6 +155,9 @@ const emptyColumns = computed(() => {
         if (props.sortable) ++r;
         return r;
     }),
+    rowKeyColumns = computed(() => {
+        return Columns.value.filter((c: LktTableColumn) => c.isForRowKey);
+    }),
     displayHiddenColumnsIndicator = computed(() => {
         return hiddenColumns.value.length > 0 && !props.sortable;
     }),
@@ -184,14 +186,6 @@ const emptyColumns = computed(() => {
         if (props.saveDisabled) return false;
         if (typeof props.saveValidator === 'function' && !props.saveValidator(Items.value)) return false;
         return dataState.value.changed();
-    }),
-    dragOptions = computed(() => {
-        return {
-            animation: 200,
-            group: "description",
-            disabled: false,
-            ghostClass: "ghost"
-        };
     }),
     amountOfItems = computed(() => {
         return Items.value.length;
@@ -314,87 +308,56 @@ const getItemByEvent = (e: any) => {
     initSortable = () => {
         let tbody = document.getElementById('lkt-table-body-' + uniqueId);
 
-        let sortable = new Sortable(tbody, {
+        sortableObject.value = new Sortable(tbody, {
+            direction: 'vertical',
             handle: '.handle',
             animation: 150,
-            onEnd: function (evt) {
+            onEnd: function (evt: CustomEvent) {
+                let oldIndex = evt.oldIndex;
+                let newIndex = evt.newIndex;
 
-                evt.oldIndex;
-                evt.newIndex;
-
-                [Items.value[evt.oldIndex], Items.value[evt.newIndex]] = [Items.value[evt.newIndex], Items.value[evt.oldIndex]];
-
-                // let duplicatedItems = JSON.parse(JSON.stringify(Items.value));
-                // // moveArrayPosition(Items.value, evt.oldIndex, evt.newIndex);
-                //
-                // console.log('duplicatedItems', duplicatedItems);
-                // console.log('duplicatedItems evt', evt.oldIndex, evt.newIndex);
-                //
-                //
-                // let b = JSON.parse(JSON.stringify(duplicatedItems[evt.oldIndex]));
-                // console.log('duplicatedItems b', b);
-                //
-                // duplicatedItems[evt.oldIndex] = JSON.parse(JSON.stringify(duplicatedItems[evt.newIndex]));
-                // duplicatedItems[evt.newIndex] = b;
-                //
-                // console.log('duplicatedItems evt', evt.oldIndex, evt.newIndex);
-                //
-                //
-                // Items.value = duplicatedItems;
-
-                refreshingAfterDrag.value = true;
-
-                // Items.value = duplicatedItems;
-
-                // let rows = tbody.getElementsByTagName('tr');
-                // console.log('rows', rows);
-                // let j = 0;
-                // let duplicatedItems = JSON.parse(JSON.stringify(Items.value));
-
-                // for (let row of rows) {
-                //     let index = parseInt(row.getAttribute('data-i'));
-                //     if (j !== index){
-                //         duplicatedItems = moveArrayPosition(duplicatedItems, j, index);
-                //     }
-                //     ++j;
-                //
-                //     console.log('row', index, row);
-                // }
-            },
+                let clone = JSON.parse(JSON.stringify(Items.value));
+                Items.value.splice(oldIndex, 1, clone[newIndex]);
+                Items.value.splice(newIndex, 1, clone[oldIndex]);
+            }
         });
+    },
+    getRowKey = (item: LktObject, index: number, isHidden: boolean) => {
+        let r = [uniqueId, 'row', index];
+        if (isHidden) r.push('hidden');
+
+        rowKeyColumns.value.forEach(col => {
+            let text = String(item[col.key]).toLowerCase();
+            if (text.length > 50) text = text.substring(0, 50);
+            text = replaceAll(text, ' ', '-');
+            r.push(text);
+        });
+
+        return r.join('-');
     };
 
 onMounted(() => {
     autoLoadSelectColumnsOptions();
     sort(getColumnByKey(props.columns, SortBy.value));
     dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
-    // if (props.sortable) {
-    //     nextTick(() => {
-    //         initSortable();
-    //     })
-    // }
-})
-
-watch(() => props.columns, (v) => Columns.value = v);
-watch(() => props.modelValue, (v) => Items.value = v);
-watch(Items, (v: any) => {
-    console.log('watch Items', v);
-    autoLoadSelectColumnsOptions();
-    dataState.value.increment({items: v});
-    emit('update:modelValue', v);
-}, {deep: true});
-
-watch(refreshingAfterDrag, (v) => {
-    if (v) {
-        refreshingAfterDrag.value = false;
+    if (props.sortable) {
         nextTick(() => {
             initSortable();
         })
     }
 })
+
+watch(() => props.columns, (v) => Columns.value = v);
+watch(() => props.modelValue, (v) => Items.value = v);
+watch(Items, (v: any) => {
+    autoLoadSelectColumnsOptions();
+    dataState.value.increment({items: v});
+    emit('update:modelValue', v);
+}, {deep: true});
+
 defineExpose({
     getItemByEvent,
-    doRefresh
+    doRefresh,
 });
 
 </script>
@@ -472,72 +435,22 @@ defineExpose({
                     <th v-if="canDrop && editModeEnabled"/>
                 </tr>
                 </thead>
-                <draggable v-if="sortable"
-                           v-model="Items"
-                           v-bind:move="validDragChecker"
-                           v-bind:itemKey="draggableItemKey"
-                           v-on:start="drag=true"
-                           v-on:end="drag=false"
-                           tag="tbody"
-                           class="lkt-sortable-table"
-                           handle=".handle"
-                           v-bind="dragOptions"
-                           :component-data="{ type: 'transition' }"
-                >
-                    <template #item="{element, index}">
-                        <lkt-table-row
-                            v-model="Items[index]"
-                            v-bind:key="uniqueId + '-'  + index"
-                            v-bind:i="index"
-                            v-bind:display-hidden-columns-indicator="displayHiddenColumnsIndicator"
-                            v-bind:is-draggable="isDraggable(element)"
-                            v-bind:sortable="sortable"
-                            v-bind:visible-columns="visibleColumns"
-                            v-bind:empty-columns="emptyColumns"
-                            v-bind:add-navigation="addNavigation"
-                            v-bind:hidden-is-visible="isVisible(index)"
-                            :latest-row="index+1 === amountOfItems"
-                            :can-drop="canDrop"
-                            :drop-confirm="dropConfirm"
-                            :edit-mode-enabled="editModeEnabled"
-                            v-on:click="onClick"
-                            v-on:show="show"
-                            v-on:item-up="onItemUp"
-                            v-on:item-down="onItemDown"
-                            v-on:item-drop="onItemDrop"
-                        >
-                            <template
-                                v-for="column in colSlots"
-                                v-slot:[column]="row">
-                                <slot
-                                    v-bind:name="column"
-                                    v-bind:item="row.item"
-                                    v-bind:value="row.value"
-                                    v-bind:column="row.column"
-                                />
-                            </template>
-                        </lkt-table-row>
-                    </template>
-                </draggable>
-
                 <tbody
-                    v-else
                     :ref="(el) => tableBody = el"
                     :id="'lkt-table-body-' + uniqueId"
-                    v-if="!refreshingAfterDrag"
                 >
                 <lkt-table-row
                     v-for="(item, i) in Items"
                     v-model="Items[i]"
-                    v-bind:key="uniqueId + '-'  + i"
-                    v-bind:i="i"
-                    v-bind:display-hidden-columns-indicator="displayHiddenColumnsIndicator"
-                    v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
-                    v-bind:sortable="sortable"
-                    v-bind:visible-columns="visibleColumns"
-                    v-bind:empty-columns="emptyColumns"
-                    v-bind:add-navigation="addNavigation"
-                    v-bind:hidden-is-visible="isVisible(i)"
+                    :key="getRowKey(item, i)"
+                    :i="i"
+                    :display-hidden-columns-indicator="displayHiddenColumnsIndicator"
+                    :is-draggable="isDraggable(item)"
+                    :sortable="sortable"
+                    :visible-columns="visibleColumns"
+                    :empty-columns="emptyColumns"
+                    :add-navigation="addNavigation"
+                    :hidden-is-visible="isVisible(i)"
                     :latest-row="i+1 === amountOfItems"
                     :can-drop="canDrop"
                     :drop-confirm="dropConfirm"
@@ -552,10 +465,10 @@ defineExpose({
                         v-for="column in colSlots"
                         v-slot:[column]="row">
                         <slot
-                            v-bind:name="column"
-                            v-bind:item="row.item"
-                            v-bind:value="row.value"
-                            v-bind:column="row.column"
+                            :name="column"
+                            :item="row.item"
+                            :value="row.value"
+                            :column="row.column"
                         />
                     </template>
                 </lkt-table-row>
@@ -563,11 +476,11 @@ defineExpose({
                     v-if="hiddenColumns.length > 0"
                     v-model="Items[i]"
                     v-for="(item, i) in Items"
-                    v-bind:key="uniqueId + '-'  + i"
+                    :key="getRowKey(item, i, true)"
                     v-bind:i="i"
                     v-bind:hidden-columns="hiddenColumns"
                     v-bind:hidden-columns-col-span="hiddenColumnsColSpan"
-                    v-bind:is-draggable="draggableChecker ? draggableChecker(item) : true"
+                    v-bind:is-draggable="isDraggable(item)"
                     v-bind:sortable="sortable"
                     v-bind:visible-columns="visibleColumns"
                     v-bind:empty-columns="emptyColumns"

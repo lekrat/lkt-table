@@ -19,6 +19,7 @@ export declare class LktTableColumn {
     slotData: LktObject;
     isMultiple: boolean;
     isLoading: boolean;
+    isForRowKey: boolean;
     tags: boolean;
     autoLoadSelectOptions: boolean;
     autoLoadSelectOptionsKey: string;
@@ -70,4 +71,5 @@ export declare class LktTableColumn {
     setTagMode(enabled?: boolean): this;
     setOptions(opts?: Option[]): this;
     setTitleSourceColumn(key: string): this;
+    useForRowKey(enabled?: boolean): this;
 }
