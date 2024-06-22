@@ -322,7 +322,7 @@ const getItemByEvent = (e: any) => {
             }
         });
     },
-    getRowKey = (item: LktObject, index: number, isHidden: boolean) => {
+    getRowKey = (item: LktObject, index: number, isHidden: boolean = false) => {
         let r = [uniqueId, 'row', index];
         if (isHidden) r.push('hidden');
 
@@ -377,19 +377,19 @@ defineExpose({
                 ref="saveButton"
                 v-show="showSaveButton"
                 palette="success"
-                v-bind:disabled="!ableToSave"
-                v-bind:confirm-modal="saveConfirm"
-                v-bind:confirm-data="confirmData"
-                v-bind:resource="saveResource"
-                v-bind:resource-data="saveResourceData"
+                :disabled="!ableToSave"
+                :confirm-modal="saveConfirm"
+                :confirm-data="confirmData"
+                :resource="saveResource"
+                :resource-data="saveResourceData"
                 v-on:loading="onButtonLoading"
                 v-on:loaded="onButtonLoaded"
                 v-on:click="onSave">
                 <slot v-if="!!slots['button-save']"
                       name="button-save"
-                      v-bind:items="Items"
-                      v-bind:edit-mode="editMode"
-                      v-bind:can-update="!saveDisabled"></slot>
+                      :items="Items"
+                      :edit-mode="editMode"
+                      :can-update="!saveDisabled"></slot>
                 <span v-else>{{ saveText }}</span>
             </lkt-button>
 
@@ -423,10 +423,10 @@ defineExpose({
                     <template v-for="column in visibleColumns">
                         <th :data-column="column.key"
                             v-if="emptyColumns.indexOf(column.key) === -1"
-                            v-bind:data-sortable="column.sortable === true"
-                            v-bind:data-sort="column.sortable === true && SortBy === column.key ? SortDirection : ''"
-                            v-bind:colspan="getVerticalColSpan(column, columns.length, Items)"
-                            v-bind:title="column.label"
+                            :data-sortable="column.sortable === true"
+                            :data-sort="column.sortable === true && SortBy === column.key ? SortDirection : ''"
+                            :colspan="getVerticalColSpan(column, columns.length, Items)"
+                            :title="column.label"
                             v-on:click="sort(column)"
                         >
                             <div>{{ column.label }}</div>
@@ -477,14 +477,14 @@ defineExpose({
                     v-model="Items[i]"
                     v-for="(item, i) in Items"
                     :key="getRowKey(item, i, true)"
-                    v-bind:i="i"
-                    v-bind:hidden-columns="hiddenColumns"
-                    v-bind:hidden-columns-col-span="hiddenColumnsColSpan"
-                    v-bind:is-draggable="isDraggable(item)"
-                    v-bind:sortable="sortable"
-                    v-bind:visible-columns="visibleColumns"
-                    v-bind:empty-columns="emptyColumns"
-                    v-bind:hidden-is-visible="isVisible(i)"
+                    :i="i"
+                    :hidden-columns="hiddenColumns"
+                    :hidden-columns-col-span="hiddenColumnsColSpan"
+                    :is-draggable="isDraggable(item)"
+                    :sortable="sortable"
+                    :visible-columns="visibleColumns"
+                    :empty-columns="emptyColumns"
+                    :hidden-is-visible="isVisible(i)"
                     v-on:click="onClick"
                     v-on:show="show"
                 >
@@ -492,10 +492,10 @@ defineExpose({
                         v-for="column in colSlots"
                         v-slot:[column]="row">
                         <slot
-                            v-bind:name="column"
-                            v-bind:item="row.item"
-                            v-bind:value="row.value"
-                            v-bind:column="row.column"
+                            :name="column"
+                            :item="row.item"
+                            :value="row.value"
+                            :column="row.column"
                         />
                     </template>
                 </lkt-hidden-row>
@@ -519,8 +519,8 @@ defineExpose({
         <lkt-paginator
             ref="paginator"
             v-model="Page"
-            v-bind:resource="resource"
-            v-bind:filters="filters"
+            :resource="resource"
+            :filters="filters"
             v-on:results="onResults"
             v-on:loading="onLoading"
         />

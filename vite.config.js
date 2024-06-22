@@ -29,9 +29,13 @@ export default {
                 'lkt-string-tools',
                 'lkt-events',
                 'lkt-loader',
+                'lkt-button',
+                'lkt-paginator',
                 'lkt-field-text',
+                'lkt-field-textarea',
                 'lkt-field-select',
                 'lkt-field-switch',
+                'lkt-field-file',
                 'lkt-field-check',
                 'lkt-ts-interfaces',
                 'lkt-data-state',
@@ -41,7 +45,6 @@ export default {
             output: {
                 globals: {
                     vue: 'Vue',
-                    vuedraggable: 'draggable',
                     "lkt-string-tools": 'LktStringTools',
                     "lkt-ts-interfaces": 'LktTsInterfaces',
                     "lkt-events": 'LktEvents'
