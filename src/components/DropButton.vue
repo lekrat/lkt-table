@@ -13,11 +13,11 @@ const props = withDefaults(defineProps<{
     text: '',
 });
 
-const hasCreateButtonSlot = computed(() => {
-        return Settings.createButtonSlot !== '';
+const hasButtonSlot = computed(() => {
+        return Settings.dropButtonSlot !== '';
     }),
-    createButtonSlot = computed(() => {
-        return Settings.createButtonSlot;
+    buttonSlot = computed(() => {
+        return Settings.dropButtonSlot;
     }),
     computedText = computed(() => {
         if (props.text.startsWith('__:')) {
@@ -29,12 +29,12 @@ const hasCreateButtonSlot = computed(() => {
 
 <template>
     <lkt-button
-        palette="table-create"
+        palette="table-delete"
         :disabled="disabled"
-        @click="emit('click')">
-        <template v-if="hasCreateButtonSlot">
+        @click.prevent.stop="emit('click')">
+        <template v-if="hasButtonSlot">
             <component
-                :is="createButtonSlot"/>
+                :is="buttonSlot"/>
         </template>
         <template v-else>
             <i class=""/> {{computedText}}

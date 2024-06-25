@@ -1,20 +1,21 @@
-import { reactive as O, defineComponent as ee, ref as b, watch as F, nextTick as se, computed as g, resolveComponent as A, openBlock as n, createBlock as C, withCtx as q, createTextVNode as X, toDisplayString as z, unref as E, createElementBlock as f, Fragment as B, normalizeClass as Se, createCommentVNode as y, createElementVNode as S, createVNode as Y, resolveDynamicComponent as oe, renderList as P, renderSlot as K, withModifiers as qe, withDirectives as _, vShow as x, useSlots as We, onMounted as Ge, createSlots as Ve } from "vue";
-import { httpCall as Qe } from "lkt-http-client";
-import { createLktEvent as ie } from "lkt-events";
-import { generateRandomString as Xe, replaceAll as Ye } from "lkt-string-tools";
-import { DataState as Ze } from "lkt-data-state";
-import _e from "sortablejs";
-import xe from "lkt-loader";
-import et from "lkt-button";
-import tt from "lkt-paginator";
-import lt from "lkt-field-text";
-import ot from "lkt-field-textarea";
-import at from "lkt-field-select";
-import nt from "lkt-field-switch";
-import st from "lkt-field-file";
-class U {
-  constructor(e = "", i = "") {
-    this.key = e, this.label = i, this.sortable = !0, this.hidden = !1, this.formatter = void 0, this.checkEmpty = void 0, this.colspan = void 0, this.resource = "", this.resourceData = {}, this.isMultiple = !1, this.isLoading = !1, this.resourceLoaded = !1, this.valueSlot = "", this.editSlot = "", this.multipleDisplay = "", this.multipleDisplayEdition = "";
+import { reactive as U, defineComponent as Q, ref as g, watch as N, nextTick as ue, computed as p, resolveComponent as $, openBlock as s, createBlock as k, withCtx as O, createTextVNode as G, toDisplayString as F, unref as E, createElementBlock as c, Fragment as L, withModifiers as Ze, resolveDynamicComponent as x, createElementVNode as S, normalizeClass as ae, createCommentVNode as b, createVNode as Y, renderList as J, renderSlot as W, withDirectives as ee, vShow as te, useSlots as xe, onMounted as et, createSlots as De } from "vue";
+import { httpCall as tt } from "lkt-http-client";
+import { __ as q } from "lkt-i18n";
+import { createLktEvent as re } from "lkt-events";
+import { generateRandomString as lt, replaceAll as ot } from "lkt-string-tools";
+import { DataState as at } from "lkt-data-state";
+import nt from "sortablejs";
+import st from "lkt-loader";
+import it from "lkt-button";
+import ut from "lkt-paginator";
+import rt from "lkt-field-text";
+import dt from "lkt-field-textarea";
+import mt from "lkt-field-select";
+import ct from "lkt-field-switch";
+import ft from "lkt-field-file";
+class H {
+  constructor(e = "", u = "") {
+    this.key = e, this.label = u, this.sortable = !0, this.hidden = !1, this.formatter = void 0, this.checkEmpty = void 0, this.colspan = void 0, this.resource = "", this.resourceData = {}, this.isMultiple = !1, this.isLoading = !1, this.resourceLoaded = !1, this.valueSlot = "", this.editSlot = "", this.multipleDisplay = "", this.multipleDisplayEdition = "";
   }
   setIsSortable(e = !0) {
     return this.sortable = e, this;
@@ -101,7 +102,7 @@ class U {
     if (!this.resource) return this;
     try {
       this.isLoading = !0;
-      const e = await Qe(this.resource, this.resourceData);
+      const e = await tt(this.resource, this.resourceData);
       this.options = e.data, this.isLoading = !1, this.resourceLoaded = !0;
     } catch {
       this.isLoading = !1;
@@ -138,8 +139,8 @@ class U {
   setSlotData(e) {
     return this.slotData = e, this;
   }
-  setAutoLoadSelectOptions(e = !0, i = "") {
-    return this.autoLoadSelectOptions = e, this.autoLoadSelectOptionsKey = i, this;
+  setAutoLoadSelectOptions(e = !0, u = "") {
+    return this.autoLoadSelectOptions = e, this.autoLoadSelectOptionsKey = u, this;
   }
   setTagMode(e = !0) {
     return this.tags = e, this;
@@ -154,48 +155,52 @@ class U {
     return this.isForRowKey = e, this;
   }
 }
-const il = (l, e, i = !0) => O(new U(l, e).setIsSortable(i)), ul = (l, e, i, r = !0) => O(new U(l, e).setIsSortable(r).defineAsLink(i)), rl = (l, e, i, r = !0) => O(new U(l, e).setIsSortable(r).defineAsAction(i)), dl = (l, e, i = !0) => O(new U(l, e).setIsSortable(i).defineAsText()), ml = (l, e, i = !0) => O(new U(l, e).setIsSortable(i).defineAsEmail()), fl = (l, e, i = !0) => O(new U(l, e).setIsSortable(i).defineAsTel()), cl = (l, e, i = !0) => O(new U(l, e).setIsSortable(i).defineAsCheck()), pl = (l, e, i = !0) => O(new U(l, e).setIsSortable(i).defineAsSwitch()), vl = (l, e, i, r = !0) => O(new U(l, e).setIsSortable(r).defineAsSelect(i)), hl = (l, e, i = !0) => O(new U(l, e).setIsSortable(i).setIsHidden(!0)), De = (l, e, i, r) => {
-  if (!i) return 0;
-  let u = l[i.key], a = e[i.key];
-  if (r === "asc") {
-    if (u > a) return 1;
-    if (a > u) return -1;
+const hl = (l, e, u = !0) => U(new H(l, e).setIsSortable(u)), yl = (l, e, u, n = !0) => U(new H(l, e).setIsSortable(n).defineAsLink(u)), kl = (l, e, u, n = !0) => U(new H(l, e).setIsSortable(n).defineAsAction(u)), bl = (l, e, u = !0) => U(new H(l, e).setIsSortable(u).defineAsText()), gl = (l, e, u = !0) => U(new H(l, e).setIsSortable(u).defineAsEmail()), Cl = (l, e, u = !0) => U(new H(l, e).setIsSortable(u).defineAsTel()), Sl = (l, e, u = !0) => U(new H(l, e).setIsSortable(u).defineAsCheck()), Vl = (l, e, u = !0) => U(new H(l, e).setIsSortable(u).defineAsSwitch()), Dl = (l, e, u, n = !0) => U(new H(l, e).setIsSortable(n).defineAsSelect(u)), wl = (l, e, u = !0) => U(new H(l, e).setIsSortable(u).setIsHidden(!0)), we = (l, e, u, n) => {
+  if (!u) return 0;
+  let r = l[u.key], o = e[u.key];
+  if (n === "asc") {
+    if (r > o) return 1;
+    if (o > r) return -1;
   } else {
-    if (u > a) return -1;
-    if (a > u) return 1;
+    if (r > o) return -1;
+    if (o > r) return 1;
   }
   return 0;
-}, Z = (l, e, i, r = []) => {
+}, Z = (l, e, u, n = []) => {
   if (l.extractTitleFromColumn) {
-    let u = r.find((a) => a.key === l.extractTitleFromColumn);
-    if (u)
-      return Z(u, e, i, r);
+    let r = n.find((o) => o.key === l.extractTitleFromColumn);
+    if (r)
+      return Z(r, e, u, n);
   }
-  return l.formatter && typeof l.formatter == "function" ? l.formatter(e[l.key], e, l, i) : e[l.key];
-}, it = (l, e, i) => {
+  if (l.formatter && typeof l.formatter == "function") {
+    let r = l.formatter(e[l.key], e, l, u);
+    return r.startsWith("__:") ? q(r.substring(3)) : r;
+  }
+  return e[l.key];
+}, pt = (l, e, u) => {
   if (!l.colspan) return -1;
-  let r = e;
-  return i.forEach((u) => {
-    let a = ue(l, u);
-    a > 0 && a < r && (r = a);
-  }), r;
-}, ue = (l, e) => l.colspan === !1 ? !1 : typeof l.colspan == "function" ? l.colspan(e) : l.colspan, ut = (l, e, i) => {
+  let n = e;
+  return u.forEach((r) => {
+    let o = de(l, r);
+    o > 0 && o < n && (n = o);
+  }), n;
+}, de = (l, e) => l.colspan === !1 ? !1 : typeof l.colspan == "function" ? l.colspan(e) : l.colspan, vt = (l, e, u) => {
   if (typeof l != "object" || !l.key || e.indexOf(l.key) > -1) return !1;
-  let r = ue(l, i);
-  return typeof l.colspan > "u" ? !0 : (typeof l.colspan < "u" && (typeof l.colspan == "function" ? r = parseInt(l.colspan()) : r = parseInt(l.colspan)), r > 0);
-}, rt = (l = []) => {
+  let n = de(l, u);
+  return typeof l.colspan > "u" ? !0 : (typeof l.colspan < "u" && (typeof l.colspan == "function" ? n = parseInt(l.colspan()) : n = parseInt(l.colspan)), n > 0);
+}, ht = (l = []) => {
   if (l.length > 0) {
     for (let e = 0; e < l.length; ++e)
       if (l[e].sortable) return l[e].key;
   }
   return "";
-}, dt = (l, e) => {
+}, yt = (l, e) => {
   if (l.length > 0) {
-    for (let i = 0; i < l.length; ++i)
-      if (l[i].key === e) return l[i];
+    for (let u = 0; u < l.length; ++u)
+      if (l[u].key === e) return l[u];
   }
   return null;
-}, we = /* @__PURE__ */ ee({
+}, Te = /* @__PURE__ */ Q({
   __name: "LktTableCell",
   props: {
     modelValue: { default: () => ({}) },
@@ -206,114 +211,140 @@ const il = (l, e, i = !0) => O(new U(l, e).setIsSortable(i)), ul = (l, e, i, r =
   },
   emits: ["update:modelValue"],
   setup(l, { emit: e }) {
-    const i = e, r = l, u = b(r.modelValue), a = b(u.value[r.column.key]), p = b(null), L = b(r.column.showLoading());
-    F(a, (o) => {
-      const s = JSON.parse(JSON.stringify(u.value));
-      s[r.column.key] = o, i("update:modelValue", s);
-    }), F(() => r.modelValue, (o) => {
-      u.value = o, a.value = u.value[r.column.key];
-    }), F(() => r.column, () => {
-      r.column.resourceLoaded && se(() => L.value = !1);
-    }, { deep: !0 }), r.column.hasToLoadResource() && r.column.loadResource();
-    const v = g(() => ({ ...r.column.slotData, item: u.value }));
-    return (o, s) => {
-      const J = A("router-link"), W = A("lkt-field-text"), T = A("lkt-field-switch"), Q = A("lkt-field-file"), d = A("lkt-loader"), I = A("lkt-field-select");
-      return o.column.type === "link" ? (n(), C(J, {
+    const u = e, n = l, r = g(n.modelValue), o = g(r.value[n.column.key]), h = g(null), C = g(n.column.showLoading());
+    N(o, (a) => {
+      const i = JSON.parse(JSON.stringify(r.value));
+      i[n.column.key] = a, u("update:modelValue", i);
+    }), N(() => n.modelValue, (a) => {
+      r.value = a, o.value = r.value[n.column.key];
+    }), N(() => n.column, () => {
+      n.column.resourceLoaded && ue(() => C.value = !1);
+    }, { deep: !0 }), n.column.hasToLoadResource() && n.column.loadResource();
+    const v = p(() => ({ ...n.column.slotData, item: r.value }));
+    return (a, i) => {
+      const j = $("router-link"), P = $("lkt-field-text"), d = $("lkt-field-switch"), I = $("lkt-field-file"), V = $("lkt-loader"), D = $("lkt-field-select");
+      return a.column.type === "link" ? (s(), k(j, {
         key: 0,
-        to: o.column.getHref(u.value)
+        to: a.column.getHref(r.value)
       }, {
-        default: q(() => [
-          X(z(E(Z)(o.column, u.value, o.i)), 1)
+        default: O(() => [
+          G(F(E(Z)(a.column, r.value, a.i)), 1)
         ]),
         _: 1
-      }, 8, ["to"])) : o.column.type === "action" ? (n(), f("a", {
+      }, 8, ["to"])) : a.column.type === "action" ? (s(), c("a", {
         key: 1,
         href: "#",
-        onClick: s[0] || (s[0] = (c) => o.column.doAction(u.value))
-      }, z(E(Z)(o.column, u.value, o.i)), 1)) : o.column.type === "text" ? (n(), C(W, {
+        onClick: i[0] || (i[0] = (f) => a.column.doAction(r.value))
+      }, F(E(Z)(a.column, r.value, a.i)), 1)) : a.column.type === "text" ? (s(), k(P, {
         key: 2,
-        "read-mode": !o.column.editable || !o.editModeEnabled,
-        ref: (c) => p.value = c,
-        "edit-slot": o.column.editSlot,
-        "value-slot": o.column.valueSlot,
+        "read-mode": !a.column.editable || !a.editModeEnabled,
+        ref: (f) => h.value = f,
+        "edit-slot": a.column.editSlot,
+        "value-slot": a.column.valueSlot,
         "slot-data": v.value,
-        modelValue: a.value,
-        "onUpdate:modelValue": s[1] || (s[1] = (c) => a.value = c)
-      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : o.column.type === "email" ? (n(), C(W, {
+        modelValue: o.value,
+        "onUpdate:modelValue": i[1] || (i[1] = (f) => o.value = f)
+      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : a.column.type === "email" ? (s(), k(P, {
         key: 3,
-        "read-mode": !o.column.editable || !o.editModeEnabled,
-        ref: (c) => p.value = c,
-        "edit-slot": o.column.editSlot,
-        "value-slot": o.column.valueSlot,
+        "read-mode": !a.column.editable || !a.editModeEnabled,
+        ref: (f) => h.value = f,
+        "edit-slot": a.column.editSlot,
+        "value-slot": a.column.valueSlot,
         "slot-data": v.value,
         "is-email": "",
-        modelValue: a.value,
-        "onUpdate:modelValue": s[2] || (s[2] = (c) => a.value = c)
-      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : o.column.type === "tel" ? (n(), C(W, {
+        modelValue: o.value,
+        "onUpdate:modelValue": i[2] || (i[2] = (f) => o.value = f)
+      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : a.column.type === "tel" ? (s(), k(P, {
         key: 4,
-        "read-mode": !o.column.editable || !o.editModeEnabled,
-        ref: (c) => p.value = c,
-        "edit-slot": o.column.editSlot,
-        "value-slot": o.column.valueSlot,
+        "read-mode": !a.column.editable || !a.editModeEnabled,
+        ref: (f) => h.value = f,
+        "edit-slot": a.column.editSlot,
+        "value-slot": a.column.valueSlot,
         "slot-data": v.value,
         "is-tel": "",
-        modelValue: a.value,
-        "onUpdate:modelValue": s[3] || (s[3] = (c) => a.value = c)
-      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : o.column.type === "check" ? (n(), C(T, {
+        modelValue: o.value,
+        "onUpdate:modelValue": i[3] || (i[3] = (f) => o.value = f)
+      }, null, 8, ["read-mode", "edit-slot", "value-slot", "slot-data", "modelValue"])) : a.column.type === "check" ? (s(), k(d, {
         key: 5,
         "is-check": "",
-        "read-mode": !o.column.editable || !o.editModeEnabled,
-        ref: (c) => p.value = c,
-        modelValue: a.value,
-        "onUpdate:modelValue": s[4] || (s[4] = (c) => a.value = c)
-      }, null, 8, ["read-mode", "modelValue"])) : o.column.type === "switch" ? (n(), C(T, {
+        "read-mode": !a.column.editable || !a.editModeEnabled,
+        ref: (f) => h.value = f,
+        modelValue: o.value,
+        "onUpdate:modelValue": i[4] || (i[4] = (f) => o.value = f)
+      }, null, 8, ["read-mode", "modelValue"])) : a.column.type === "switch" ? (s(), k(d, {
         key: 6,
-        "read-mode": !o.column.editable || !o.editModeEnabled,
-        ref: (c) => p.value = c,
-        modelValue: a.value,
-        "onUpdate:modelValue": s[5] || (s[5] = (c) => a.value = c)
-      }, null, 8, ["read-mode", "modelValue"])) : o.column.type === "file" ? (n(), C(Q, {
+        "read-mode": !a.column.editable || !a.editModeEnabled,
+        ref: (f) => h.value = f,
+        modelValue: o.value,
+        "onUpdate:modelValue": i[5] || (i[5] = (f) => o.value = f)
+      }, null, 8, ["read-mode", "modelValue"])) : a.column.type === "file" ? (s(), k(I, {
         key: 7,
-        "read-mode": !o.column.editable || !o.editModeEnabled,
-        ref: (c) => p.value = c,
-        modelValue: a.value,
-        "onUpdate:modelValue": s[6] || (s[6] = (c) => a.value = c)
-      }, null, 8, ["read-mode", "modelValue"])) : o.column.type === "select" ? (n(), f(B, { key: 8 }, [
-        L.value ? (n(), C(d, { key: 0 })) : (n(), C(I, {
+        "read-mode": !a.column.editable || !a.editModeEnabled,
+        ref: (f) => h.value = f,
+        modelValue: o.value,
+        "onUpdate:modelValue": i[6] || (i[6] = (f) => o.value = f)
+      }, null, 8, ["read-mode", "modelValue"])) : a.column.type === "select" ? (s(), c(L, { key: 8 }, [
+        C.value ? (s(), k(V, { key: 0 })) : (s(), k(D, {
           key: 1,
-          "read-mode": !o.column.editable || !o.editModeEnabled,
-          ref: (c) => p.value = c,
-          modelValue: a.value,
-          "onUpdate:modelValue": s[7] || (s[7] = (c) => a.value = c),
+          "read-mode": !a.column.editable || !a.editModeEnabled,
+          ref: (f) => h.value = f,
+          modelValue: o.value,
+          "onUpdate:modelValue": i[7] || (i[7] = (f) => o.value = f),
           "slot-data": v.value,
-          resource: o.column.resource,
-          "use-resource-slot": o.column.resourceSlot ? o.column.resourceSlot : o.column.resource,
-          "resource-data": o.column.resourceData,
-          options: o.column.options,
-          multiple: o.column.isMultiple,
-          tags: o.column.tags,
-          "multiple-display": o.column.multipleDisplay,
-          "multiple-display-edition": o.column.multipleDisplayEdition
+          resource: a.column.resource,
+          "use-resource-slot": a.column.resourceSlot ? a.column.resourceSlot : a.column.resource,
+          "resource-data": a.column.resourceData,
+          options: a.column.options,
+          multiple: a.column.isMultiple,
+          tags: a.column.tags,
+          "multiple-display": a.column.multipleDisplay,
+          "multiple-display-edition": a.column.multipleDisplayEdition
         }, null, 8, ["read-mode", "modelValue", "slot-data", "resource", "use-resource-slot", "resource-data", "options", "multiple", "tags", "multiple-display", "multiple-display-edition"]))
-      ], 64)) : (n(), f(B, { key: 9 }, [
-        X(z(E(Z)(o.column, u.value, o.i, o.columns)), 1)
+      ], 64)) : (s(), c(L, { key: 9 }, [
+        G(F(E(Z)(a.column, r.value, a.i, a.columns)), 1)
       ], 64));
     };
   }
-}), j = {
+}), R = {
   navButtonSlot: "",
   dropButtonSlot: "",
   createButtonSlot: ""
-}, mt = ["data-i", "data-draggable"], ft = {
+}, kt = /* @__PURE__ */ S("i", { class: "" }, null, -1), bt = /* @__PURE__ */ Q({
+  __name: "DropButton",
+  props: {
+    disabled: { type: Boolean, default: !1 },
+    text: { type: Boolean, default: "" }
+  },
+  emits: ["click"],
+  setup(l, { emit: e }) {
+    const u = e, n = l, r = p(() => R.dropButtonSlot !== ""), o = p(() => R.dropButtonSlot), h = p(() => n.text.startsWith("__:") ? q(n.text.substring(3)) : n.text);
+    return (C, v) => {
+      const a = $("lkt-button");
+      return s(), k(a, {
+        palette: "table-delete",
+        disabled: C.disabled,
+        onClick: v[0] || (v[0] = Ze((i) => u("click"), ["prevent", "stop"]))
+      }, {
+        default: O(() => [
+          r.value ? (s(), k(x(o.value), { key: 0 })) : (s(), c(L, { key: 1 }, [
+            kt,
+            G(" " + F(h.value), 1)
+          ], 64))
+        ]),
+        _: 1
+      }, 8, ["disabled"]);
+    };
+  }
+}), gt = ["data-i", "data-draggable"], Ct = {
   key: 1,
   "data-role": "invalid-drag-indicator"
-}, ct = {
+}, St = {
   key: 2,
   class: "lkt-table-nav-cell"
-}, pt = { class: "lkt-table-nav-container" }, vt = /* @__PURE__ */ S("i", { class: "" }, null, -1), ht = /* @__PURE__ */ S("i", { class: "" }, null, -1), yt = ["data-column", "colspan", "title", "onClick"], kt = {
+}, Vt = { class: "lkt-table-nav-container" }, Dt = /* @__PURE__ */ S("i", { class: "" }, null, -1), wt = /* @__PURE__ */ S("i", { class: "" }, null, -1), Bt = ["data-column", "colspan", "title", "onClick"], Tt = {
   key: 4,
   class: "lkt-table-delete-cell"
-}, bt = /* @__PURE__ */ S("i", { class: "" }, null, -1), gt = /* @__PURE__ */ ee({
+}, Et = /* @__PURE__ */ Q({
   __name: "LktTableRow",
   props: {
     modelValue: { default: () => ({}) },
@@ -328,124 +359,117 @@ const il = (l, e, i = !0) => O(new U(l, e).setIsSortable(i)), ul = (l, e, i, r =
     i: { default: 0 },
     visibleColumns: { default: () => [] },
     emptyColumns: { default: () => [] },
-    dropConfirm: { default: "" }
+    dropConfirm: { default: "" },
+    dropText: { default: "" }
   },
   emits: ["update:modelValue", "click", "show", "item-up", "item-down", "item-drop"],
   setup(l, { emit: e }) {
-    const i = e, r = l, u = b(r.modelValue), a = (d, I, c) => {
-      i("click", d, ie("", { item: I, column: c }));
-    }, p = (d, I) => {
-      i("show", d, ie("", { i: I }));
-    }, L = g(() => {
+    const u = e, n = l, r = g(n.modelValue), o = (d, I, V) => {
+      u("click", d, re("", { item: I, column: V }));
+    }, h = (d, I) => {
+      u("show", d, re("", { i: I }));
+    }, C = p(() => {
       let d = [];
-      return r.sortable && r.isDraggable && d.push("handle"), d.join(" ");
-    }), v = g(() => j.navButtonSlot !== ""), o = g(() => j.navButtonSlot), s = g(() => j.dropButtonSlot !== ""), J = g(() => j.dropButtonSlot), W = () => {
-      i("item-up", r.i);
-    }, T = () => {
-      i("item-down", r.i);
-    }, Q = () => {
-      i("item-drop", r.i);
+      return n.sortable && n.isDraggable && d.push("handle"), d.join(" ");
+    }), v = p(() => R.navButtonSlot !== ""), a = p(() => R.navButtonSlot);
+    p(() => R.dropButtonSlot !== ""), p(() => R.dropButtonSlot);
+    const i = () => {
+      u("item-up", n.i);
+    }, j = () => {
+      u("item-down", n.i);
+    }, P = () => {
+      u("item-drop", n.i);
     };
-    return F(() => r.modelValue, (d) => u.value = d), F(u, (d) => {
-      i("update:modelValue", d, r.i);
+    return N(() => n.modelValue, (d) => r.value = d), N(r, (d) => {
+      u("update:modelValue", d, n.i);
     }, { deep: !0 }), (d, I) => {
-      const c = A("lkt-button");
-      return n(), f("tr", {
+      const V = $("lkt-button");
+      return s(), c("tr", {
         "data-i": d.i,
         "data-draggable": d.isDraggable
       }, [
-        d.sortable && d.isDraggable && d.editModeEnabled ? (n(), f("td", {
+        d.sortable && d.isDraggable && d.editModeEnabled ? (s(), c("td", {
           key: 0,
           "data-role": "drag-indicator",
-          class: Se(L.value)
-        }, null, 2)) : d.sortable && d.editModeEnabled ? (n(), f("td", ft)) : y("", !0),
-        d.addNavigation && d.editModeEnabled ? (n(), f("td", ct, [
-          S("div", pt, [
-            Y(c, {
+          class: ae(C.value)
+        }, null, 2)) : d.sortable && d.editModeEnabled ? (s(), c("td", Ct)) : b("", !0),
+        d.addNavigation && d.editModeEnabled ? (s(), c("td", St, [
+          S("div", Vt, [
+            Y(V, {
               palette: "table-nav",
               disabled: d.i === 0,
-              onClick: W
+              onClick: i
             }, {
-              default: q(() => [
-                v.value ? (n(), C(oe(o.value), {
+              default: O(() => [
+                v.value ? (s(), k(x(a.value), {
                   key: 0,
                   direction: "up"
-                })) : (n(), f(B, { key: 1 }, [
-                  vt,
-                  X(" UP ")
+                })) : (s(), c(L, { key: 1 }, [
+                  Dt,
+                  G(" UP ")
                 ], 64))
               ]),
               _: 1
             }, 8, ["disabled"]),
-            Y(c, {
+            Y(V, {
               palette: "table-nav",
               disabled: d.latestRow,
-              onClick: T
+              onClick: j
             }, {
-              default: q(() => [
-                v.value ? (n(), C(oe(o.value), {
+              default: O(() => [
+                v.value ? (s(), k(x(a.value), {
                   key: 0,
                   direction: "down"
-                })) : (n(), f(B, { key: 1 }, [
-                  ht,
-                  X(" DOWN ")
+                })) : (s(), c(L, { key: 1 }, [
+                  wt,
+                  G(" DOWN ")
                 ], 64))
               ]),
               _: 1
             }, 8, ["disabled"])
           ])
-        ])) : y("", !0),
-        d.displayHiddenColumnsIndicator ? (n(), f("td", {
+        ])) : b("", !0),
+        d.displayHiddenColumnsIndicator ? (s(), c("td", {
           key: 3,
-          onClick: I[0] || (I[0] = (w) => p(w, d.i)),
+          onClick: I[0] || (I[0] = (D) => h(D, d.i)),
           "data-role": "show-more",
-          class: Se(d.hiddenIsVisible ? "state-open" : "")
-        }, null, 2)) : y("", !0),
-        (n(!0), f(B, null, P(d.visibleColumns, (w) => (n(), f(B, null, [
-          E(ut)(w, d.emptyColumns, u.value) ? (n(), f("td", {
+          class: ae(d.hiddenIsVisible ? "state-open" : "")
+        }, null, 2)) : b("", !0),
+        (s(!0), c(L, null, J(d.visibleColumns, (D) => (s(), c(L, null, [
+          E(vt)(D, d.emptyColumns, r.value) ? (s(), c("td", {
             key: 0,
-            "data-column": w.key,
-            colspan: E(ue)(w, u.value),
-            title: E(Z)(w, u.value, d.i, d.visibleColumns),
-            onClick: (R) => a(R, u.value, w)
+            "data-column": D.key,
+            colspan: E(de)(D, r.value),
+            title: E(Z)(D, r.value, d.i, d.visibleColumns),
+            onClick: (f) => o(f, r.value, D)
           }, [
-            d.$slots[w.key] ? K(d.$slots, w.key, {
+            d.$slots[D.key] ? W(d.$slots, D.key, {
               key: 0,
-              value: u.value[w.key],
-              item: u.value,
-              column: w,
+              value: r.value[D.key],
+              item: r.value,
+              column: D,
               i: d.i
-            }) : u.value ? (n(), C(we, {
+            }) : r.value ? (s(), k(Te, {
               key: 1,
-              modelValue: u.value,
-              "onUpdate:modelValue": I[1] || (I[1] = (R) => u.value = R),
-              column: w,
+              modelValue: r.value,
+              "onUpdate:modelValue": I[1] || (I[1] = (f) => r.value = f),
+              column: D,
               columns: d.visibleColumns,
               "edit-mode-enabled": d.editModeEnabled,
               i: d.i
-            }, null, 8, ["modelValue", "column", "columns", "edit-mode-enabled", "i"])) : y("", !0)
-          ], 8, yt)) : y("", !0)
+            }, null, 8, ["modelValue", "column", "columns", "edit-mode-enabled", "i"])) : b("", !0)
+          ], 8, Bt)) : b("", !0)
         ], 64))), 256)),
-        d.canDrop && d.editModeEnabled ? (n(), f("td", kt, [
-          Y(c, {
-            palette: "table-delete",
-            "confirm-modal": d.dropConfirm,
-            "confirm-data": { item: u.value },
-            onClick: qe(Q, ["prevent", "stop"])
-          }, {
-            default: q(() => [
-              s.value ? (n(), C(oe(J.value), { key: 0 })) : (n(), f(B, { key: 1 }, [
-                bt,
-                X(" Delete ")
-              ], 64))
-            ]),
-            _: 1
-          }, 8, ["confirm-modal", "confirm-data"])
-        ])) : y("", !0)
-      ], 8, mt);
+        d.canDrop && d.editModeEnabled ? (s(), c("td", Tt, [
+          Y(bt, {
+            text: d.dropText,
+            onClick: P
+          }, null, 8, ["text"])
+        ])) : b("", !0)
+      ], 8, gt);
     };
   }
-}), Ct = { "data-role": "hidden-row" }, St = ["colspan"], Vt = ["data-column"], Dt = ["data-i"], Et = ["data-column", "title", "onClick"], wt = /* @__PURE__ */ ee({
+}), Lt = { "data-role": "hidden-row" }, It = ["colspan"], Mt = ["data-column"], $t = ["data-i"], At = ["data-column", "title", "onClick"], Rt = /* @__PURE__ */ Q({
   __name: "LktHiddenRow",
   props: {
     modelValue: { default: () => ({}) },
@@ -460,93 +484,122 @@ const il = (l, e, i = !0) => O(new U(l, e).setIsSortable(i)), ul = (l, e, i, r =
   },
   emits: ["update:modelValue", "click"],
   setup(l, { emit: e }) {
-    const i = e, r = l, u = b(r.modelValue), a = (p, L, v) => {
-      i("click", p, ie("", { item: L, column: v }));
+    const u = e, n = l, r = g(n.modelValue), o = (h, C, v) => {
+      u("click", h, re("", { item: C, column: v }));
     };
-    return F(() => r.modelValue, (p) => u.value = p), F(u, () => i("update:modelValue", u.value)), (p, L) => _((n(), f("tr", Ct, [
-      S("td", { colspan: p.hiddenColumnsColSpan }, [
+    return N(() => n.modelValue, (h) => r.value = h), N(r, () => u("update:modelValue", r.value)), (h, C) => ee((s(), c("tr", Lt, [
+      S("td", { colspan: h.hiddenColumnsColSpan }, [
         S("table", null, [
           S("tr", null, [
-            (n(!0), f(B, null, P(p.hiddenColumns, (v) => (n(), f("th", {
+            (s(!0), c(L, null, J(h.hiddenColumns, (v) => (s(), c("th", {
               "data-column": v.key
             }, [
-              S("div", null, z(v.label), 1)
-            ], 8, Vt))), 256))
+              S("div", null, F(v.label), 1)
+            ], 8, Mt))), 256))
           ]),
-          S("tr", { "data-i": p.i }, [
-            (n(!0), f(B, null, P(p.hiddenColumns, (v, o) => (n(), f("td", {
+          S("tr", { "data-i": h.i }, [
+            (s(!0), c(L, null, J(h.hiddenColumns, (v, a) => (s(), c("td", {
               "data-column": v.key,
-              title: E(Z)(v, u.value, o, p.hiddenColumns),
-              onClick: (s) => a(s, u.value, v)
+              title: E(Z)(v, r.value, a, h.hiddenColumns),
+              onClick: (i) => o(i, r.value, v)
             }, [
-              p.$slots[v.key] ? K(p.$slots, v.key, {
+              h.$slots[v.key] ? W(h.$slots, v.key, {
                 key: 0,
-                value: u.value[v.key],
-                item: u.value,
+                value: r.value[v.key],
+                item: r.value,
                 column: v,
-                i: o
-              }) : (n(), C(we, {
+                i: a
+              }) : (s(), k(Te, {
                 key: 1,
                 column: v,
-                columns: p.hiddenColumns,
-                modelValue: u.value,
-                "onUpdate:modelValue": L[0] || (L[0] = (s) => u.value = s),
-                i: o
+                columns: h.hiddenColumns,
+                modelValue: r.value,
+                "onUpdate:modelValue": C[0] || (C[0] = (i) => r.value = i),
+                i: a
               }, null, 8, ["column", "columns", "modelValue", "i"]))
-            ], 8, Et))), 256))
-          ], 8, Dt)
+            ], 8, At))), 256))
+          ], 8, $t)
         ])
-      ], 8, St)
+      ], 8, It)
     ], 512)), [
-      [x, p.hiddenIsVisible]
+      [te, h.hiddenIsVisible]
     ]);
   }
-}), Bt = /* @__PURE__ */ S("i", { class: "" }, null, -1), Ee = /* @__PURE__ */ ee({
+}), _t = /* @__PURE__ */ S("i", { class: "" }, null, -1), Be = /* @__PURE__ */ Q({
   __name: "CreateButton",
   props: {
-    disabled: { type: Boolean, default: !1 }
+    disabled: { type: Boolean, default: !1 },
+    text: { type: Boolean, default: "" }
   },
   emits: ["click"],
   setup(l, { emit: e }) {
-    const i = e, r = g(() => j.createButtonSlot !== ""), u = g(() => j.createButtonSlot);
-    return (a, p) => {
-      const L = A("lkt-button");
-      return n(), C(L, {
+    const u = e, n = l, r = p(() => R.createButtonSlot !== ""), o = p(() => R.createButtonSlot), h = p(() => n.text.startsWith("__:") ? q(n.text.substring(3)) : n.text);
+    return (C, v) => {
+      const a = $("lkt-button");
+      return s(), k(a, {
         palette: "table-create",
-        disabled: a.disabled,
-        onClick: p[0] || (p[0] = (v) => i("click"))
+        disabled: C.disabled,
+        onClick: v[0] || (v[0] = (i) => u("click"))
       }, {
-        default: q(() => [
-          r.value ? (n(), C(oe(u.value), { key: 0 })) : (n(), f(B, { key: 1 }, [
-            Bt,
-            X(" Add one ")
+        default: O(() => [
+          r.value ? (s(), k(x(o.value), { key: 0 })) : (s(), c(L, { key: 1 }, [
+            _t,
+            G(" " + F(h.value), 1)
           ], 64))
         ]),
         _: 1
       }, 8, ["disabled"]);
     };
   }
-}), Lt = ["id"], It = { key: 0 }, Mt = { key: 0 }, Tt = { class: "lkt-table-page-buttons" }, At = { key: 1 }, $t = { class: "switch-edition-mode" }, Rt = {
-  key: 1,
+}), Ot = ["data-column", "data-sortable", "data-sort", "colspan", "title"], Nt = /* @__PURE__ */ Q({
+  __name: "TableHeader",
+  props: {
+    column: { default: () => ({}) },
+    sortBy: { default: "" },
+    sortDirection: { default: "" },
+    amountOfColumns: { default: 0 },
+    items: { default: () => [] }
+  },
+  emits: ["click"],
+  setup(l, { emit: e }) {
+    const u = e, n = l, r = p(() => pt(n.column, n.amountOfColumns, n.items)), o = p(() => n.column.sortable === !0), h = p(() => o.value && n.sortBy === n.column.key ? n.sortDirection : ""), C = p(() => n.column.label.startsWith("__:") ? q(n.column.label.substring(3)) : n.column.label), v = () => {
+      u("click", n.column);
+    };
+    return (a, i) => (s(), c("th", {
+      "data-column": a.column.key,
+      "data-sortable": o.value,
+      "data-sort": h.value,
+      colspan: r.value,
+      title: C.value,
+      onClick: v
+    }, [
+      S("div", null, F(C.value), 1)
+    ], 8, Ot));
+  }
+}), Ft = ["id"], Ut = { key: 0 }, Ht = { class: "lkt-table-page-buttons" }, Kt = { key: 1 }, Wt = { class: "switch-edition-mode" }, jt = {
+  key: 0,
   class: "lkt-table-page-buttons"
-}, Nt = {
-  key: 2,
+}, Jt = {
+  key: 1,
   class: "lkt-table-page-filters"
-}, Ft = ["data-sortable"], Ot = {
+}, Pt = ["data-sortable"], zt = {
   key: 0,
   "data-role": "drag-indicator"
-}, Ut = { key: 1 }, Ht = { key: 2 }, Kt = ["data-column", "data-sortable", "data-sort", "colspan", "title", "onClick"], jt = { key: 3 }, Jt = ["id"], Pt = {
-  key: 4,
+}, qt = { key: 1 }, Gt = { key: 2 }, Qt = { key: 3 }, Xt = ["id"], Yt = {
+  key: 3,
   class: "lkt-empty-table"
-}, zt = {
-  key: 5,
+}, Zt = {
+  key: 4,
   class: "lkt-table-page-empty"
-}, qt = { class: "lkt-table-page-buttons lkt-table-page-buttons-bottom" }, Wt = /* @__PURE__ */ ee({
+}, xt = {
+  key: 5,
+  class: "lkt-table-page-buttons lkt-table-page-buttons-bottom"
+}, el = /* @__PURE__ */ Q({
   __name: "LktTable",
   props: {
     modelValue: { default: () => [] },
     columns: { default: () => [] },
-    sorter: { type: Function, default: De },
+    sorter: { type: Function, default: we },
     draggableChecker: { type: Function, default: (l) => !0 },
     checkValidDrag: { type: Function, default: void 0 },
     sortable: { type: Boolean, default: !1 },
@@ -556,6 +609,10 @@ const il = (l, e, i = !0) => O(new U(l, e).setIsSortable(i)), ul = (l, e, i, r =
     resource: { default: "" },
     noResultsText: { default: "No results" },
     title: { default: "" },
+    titleTag: { default: "h2" },
+    titleIcon: { default: "h2" },
+    wrapContentTag: { default: "div" },
+    wrapContentClass: { default: "" },
     filters: { default: () => [] },
     dataStateConfig: { default: () => ({}) },
     hiddenSave: { type: Boolean, default: !1 },
@@ -567,6 +624,8 @@ const il = (l, e, i = !0) => O(new U(l, e).setIsSortable(i)), ul = (l, e, i, r =
     saveResource: { default: "" },
     saveResourceData: { default: () => ({}) },
     saveText: { default: "Save" },
+    createText: { default: "Add item" },
+    dropText: { default: "Delete" },
     editModeText: { default: "Edit mode" },
     switchEditionEnabled: { type: Boolean, default: !1 },
     canCreate: { type: Boolean, default: !1 },
@@ -577,308 +636,330 @@ const il = (l, e, i = !0) => O(new U(l, e).setIsSortable(i)), ul = (l, e, i, r =
     createEnabledValidator: { type: Function, default: void 0 }
   },
   emits: ["update:modelValue", "sort", "click", "save", "error", "before-save"],
-  setup(l, { expose: e, emit: i }) {
-    const r = i, u = We(), a = l, p = {}, L = b(typeof a.sorter == "function" ? a.sorter : De), v = b(rt(a.columns)), o = b("asc"), s = b(a.modelValue), J = b(p);
-    b(!1);
-    const W = b(null), T = b(a.columns), Q = b(a.page), d = b(!0), I = b(!1), c = b(null), w = b({}), R = b(new Ze({ items: s.value }, a.dataStateConfig)), $ = b(a.editMode), Be = (t) => {
-      Array.isArray(t) && (s.value = t), d.value = !1, I.value = !0, R.value.store({ items: s.value }).turnStoredIntoOriginal();
-    }, Le = () => se(() => d.value = !0), Ie = () => {
-      c.value.doRefresh();
-    }, te = Xe(12), ae = g(() => {
-      if (!a.hideEmptyColumns) return [];
+  setup(l, { expose: e, emit: u }) {
+    const n = u, r = xe(), o = l, h = {}, C = g(typeof o.sorter == "function" ? o.sorter : we), v = g(ht(o.columns)), a = g("asc"), i = g(o.modelValue), j = g(h), P = g(null), d = g(o.columns), I = g(o.page), V = g(!0), D = g(!1), f = g(null), Ee = g({}), X = g(new at({ items: i.value }, o.dataStateConfig)), A = g(o.editMode), Le = (t) => {
+      Array.isArray(t) && (i.value = t), V.value = !1, D.value = !0, X.value.store({ items: i.value }).turnStoredIntoOriginal();
+    }, Ie = () => ue(() => V.value = !0), Me = () => {
+      f.value.doRefresh();
+    }, le = lt(12), ne = p(() => {
+      if (!o.hideEmptyColumns) return [];
       let t = [];
-      return T.value.forEach((m) => {
-        let h = m.key, D = !1;
-        s.value.forEach((V) => {
-          if (typeof V.checkEmpty == "function")
-            return V.checkEmpty(V);
-          V[h] && (D = !0);
-        }), D || t.push(h);
+      return d.value.forEach((m) => {
+        let y = m.key, B = !1;
+        i.value.forEach((w) => {
+          if (typeof w.checkEmpty == "function")
+            return w.checkEmpty(w);
+          w[y] && (B = !0);
+        }), B || t.push(y);
       }), t;
-    }), le = g(() => T.value.filter((t) => !t.hidden)), ne = g(() => T.value.filter((t) => t.hidden)), Me = g(() => {
-      let t = le.value.length + 1;
-      return a.sortable && ++t, t;
-    }), Te = g(() => T.value.filter((t) => t.isForRowKey)), re = g(() => ne.value.length > 0 && !a.sortable), Ae = g(() => T.value.map((t) => t.key)), de = g(() => {
+    }), oe = p(() => d.value.filter((t) => !t.hidden)), se = p(() => d.value.filter((t) => t.hidden)), $e = p(() => {
+      let t = oe.value.length + 1;
+      return o.sortable && ++t, t;
+    }), Ae = p(() => d.value.filter((t) => t.isForRowKey)), me = p(() => se.value.length > 0 && !o.sortable), Re = p(() => d.value.map((t) => t.key)), ce = p(() => {
       let t = [];
-      for (let m in u) Ae.value.indexOf(m) !== -1 && t.push(m);
+      for (let m in r) Re.value.indexOf(m) !== -1 && t.push(m);
       return t;
-    }), me = g(() => a.hiddenSave || d.value || !a.saveResource ? !1 : $.value && R.value.changed() ? !0 : $.value), $e = g(() => a.switchEditionEnabled ? !0 : me.value || $.value && a.canCreate), Re = g(() => a.saveDisabled || typeof a.saveValidator == "function" && !a.saveValidator(s.value) ? !1 : R.value.changed()), Ne = g(() => s.value.length), Fe = (t) => {
+    }), fe = p(() => o.hiddenSave || V.value || !o.saveResource ? !1 : A.value && X.value.changed() ? !0 : A.value), _e = p(() => o.switchEditionEnabled ? !0 : fe.value || A.value && o.canCreate), Oe = p(() => o.saveDisabled || typeof o.saveValidator == "function" && !o.saveValidator(i.value) ? !1 : X.value.changed()), Ne = p(() => i.value.length), Fe = p(() => ({
+      items: i.value,
+      ...o.saveResourceData
+    })), Ue = p(() => o.titleTag === "" ? "h2" : o.titleTag), He = p(() => o.wrapContentTag === "" ? "div" : o.wrapContentTag), ie = p(() => o.title.startsWith("__:") ? q(o.title.substring(3)) : o.title), Ke = p(() => o.saveText.startsWith("__:") ? q(o.saveText.substring(3)) : o.saveText), We = p(() => o.editModeText.startsWith("__:") ? q(o.editModeText.substring(3)) : o.editModeText), je = (t) => {
       let m = t.target;
       if (typeof m.dataset.column > "u")
         do
           m = m.parentNode;
         while (typeof m.dataset.column > "u" && m.tagName !== "TABLE" && m.tagName !== "body");
       if (m.tagName === "TD" && (m = m.parentNode, m = m.dataset.i, typeof m < "u"))
-        return s.value[m];
-    }, fe = (t) => J.value["tr_" + t] === !0, ce = (t) => {
-      t && t.sortable && (s.value = s.value.sort((m, h) => L.value(m, h, t, o.value)), o.value = o.value === "asc" ? "desc" : "asc", v.value = t.key, r("sort", [v.value, o.value]));
-    }, pe = (t, m) => {
-      r("click", t, m);
-    }, ve = (t, m) => {
-      let h = "tr_" + m.value.i;
-      J.value[h] = typeof J.value[h] > "u" ? !0 : !J.value[h];
-    }, he = () => {
-      T.value.forEach((t) => {
+        return i.value[m];
+    }, pe = (t) => j.value["tr_" + t] === !0, ve = (t) => {
+      t && t.sortable && (i.value = i.value.sort((m, y) => C.value(m, y, t, a.value)), a.value = a.value === "asc" ? "desc" : "asc", v.value = t.key, n("sort", [v.value, a.value]));
+    }, he = (t, m) => {
+      n("click", t, m);
+    }, ye = (t, m) => {
+      let y = "tr_" + m.value.i;
+      j.value[y] = typeof j.value[y] > "u" ? !0 : !j.value[y];
+    }, ke = () => {
+      d.value.forEach((t) => {
         if (t.type === "select" && t.autoLoadSelectOptions) {
-          let m = t.autoLoadSelectOptionsKey !== "" ? t.autoLoadSelectOptionsKey : t.key, h = [];
-          s.value.forEach((V) => {
-            Array.isArray(V[m]) && V[m].forEach((N) => h.push(N));
+          let m = t.autoLoadSelectOptionsKey !== "" ? t.autoLoadSelectOptionsKey : t.key, y = [];
+          i.value.forEach((w) => {
+            Array.isArray(w[m]) && w[m].forEach((_) => y.push(_));
           });
-          let D = {};
-          h = h.filter(function(V) {
-            return D[V.value] ? !1 : (D[V.value] = !0, !0);
-          }), t.setOptions(h);
+          let B = {};
+          y = y.filter(function(w) {
+            return B[w.value] ? !1 : (B[w.value] = !0, !0);
+          }), t.setOptions(y);
         }
       });
-    }, Oe = (t) => typeof a.checkValidDrag == "function" ? a.checkValidDrag(t) : !0, ye = (t) => typeof a.draggableChecker == "function" ? a.draggableChecker(t) : !0, ke = () => {
-      s.value.push({});
-    }, Ue = () => {
-      d.value = !0;
-    }, He = () => {
-      d.value = !1;
-    }, Ke = (t, m) => {
-      if (r("before-save"), a.saveResource && (d.value = !1, httpStatus.value = m.httpStatus, !m.success)) {
-        r("error", m.httpStatus);
+    }, Je = (t) => typeof o.checkValidDrag == "function" ? o.checkValidDrag(t) : !0, be = (t) => typeof o.draggableChecker == "function" ? o.draggableChecker(t) : !0, ge = () => {
+      i.value.push({});
+    }, Pe = () => {
+      V.value = !0;
+    }, ze = () => {
+      V.value = !1;
+    }, qe = (t, m) => {
+      if (n("before-save"), o.saveResource && (V.value = !1, !m.success)) {
+        n("error", m.httpStatus);
         return;
       }
-      R.value.turnStoredIntoOriginal(), r("save", m);
-    }, be = (t, m, h) => {
-      if (h >= t.length)
-        for (var D = h - t.length + 1; D--; )
-          t.push(void 0);
-      return t.splice(h, 0, t.splice(m, 1)[0]), t;
-    }, je = (t) => {
-      be(s.value, t, t - 1);
-    }, Je = (t) => {
-      be(s.value, t, t + 1);
-    }, Pe = (t) => {
-      s.value.splice(t, 1);
-    }, ze = () => {
-      let t = document.getElementById("lkt-table-body-" + te);
-      w.value = new _e(t, {
+      X.value.turnStoredIntoOriginal(), n("save", m);
+    }, Ce = (t, m, y) => {
+      if (y >= t.length) {
+        let B = y - t.length + 1;
+        for (; B--; ) t.push(void 0);
+      }
+      return t.splice(y, 0, t.splice(m, 1)[0]), t;
+    }, Ge = (t) => {
+      Ce(i.value, t, t - 1);
+    }, Qe = (t) => {
+      Ce(i.value, t, t + 1);
+    }, Xe = (t) => {
+      i.value.splice(t, 1);
+    }, Ye = () => {
+      let t = document.getElementById("lkt-table-body-" + le);
+      Ee.value = new nt(t, {
         direction: "vertical",
         handle: ".handle",
         animation: 150,
         onEnd: function(m) {
-          let h = m.oldIndex, D = m.newIndex, V = JSON.parse(JSON.stringify(s.value));
-          s.value.splice(h, 1, V[D]), s.value.splice(D, 1, V[h]);
+          let y = m.oldIndex, B = m.newIndex, w = JSON.parse(JSON.stringify(i.value));
+          i.value.splice(y, 1, w[B]), i.value.splice(B, 1, w[y]);
         },
-        onMove: function(m, h) {
-          return Oe(m);
+        onMove: function(m, y) {
+          return Je(m);
         }
       });
-    }, ge = (t, m, h = !1) => {
-      let D = [te, "row", m];
-      return h && D.push("hidden"), Te.value.forEach((V) => {
-        let N = String(t[V.key]).toLowerCase();
-        N.length > 50 && (N = N.substring(0, 50)), N = Ye(N, " ", "-"), D.push(N);
-      }), D.join("-");
-    }, Ce = g(() => typeof a.createEnabledValidator == "function" ? a.createEnabledValidator({ items: s.value }) : !0);
-    return Ge(() => {
-      he(), ce(dt(a.columns, v.value)), R.value.store({ items: s.value }).turnStoredIntoOriginal(), a.sortable && se(() => {
-        ze();
+    }, Se = (t, m, y = !1) => {
+      let B = [le, "row", m];
+      return y && B.push("hidden"), Ae.value.forEach((w) => {
+        let _ = String(t[w.key]).toLowerCase();
+        _.length > 50 && (_ = _.substring(0, 50)), _ = ot(_, " ", "-"), B.push(_);
+      }), B.join("-");
+    }, Ve = p(() => typeof o.createEnabledValidator == "function" ? o.createEnabledValidator({ items: i.value }) : !0);
+    return et(() => {
+      ke(), ve(yt(o.columns, v.value)), X.value.store({ items: i.value }).turnStoredIntoOriginal(), o.sortable && ue(() => {
+        Ye();
       });
-    }), F(() => a.columns, (t) => T.value = t), F(() => a.modelValue, (t) => s.value = t), F(s, (t) => {
-      he(), R.value.increment({ items: t }), r("update:modelValue", t);
+    }), N(() => o.columns, (t) => d.value = t), N(() => o.modelValue, (t) => i.value = t), N(i, (t) => {
+      ke(), X.value.increment({ items: t }), n("update:modelValue", t);
     }, { deep: !0 }), e({
-      getItemByEvent: Fe,
-      doRefresh: Ie
+      getItemByEvent: je,
+      doRefresh: Me
     }), (t, m) => {
-      const h = A("lkt-button"), D = A("lkt-field-switch"), V = A("lkt-loader"), N = A("lkt-paginator");
-      return n(), f("section", {
+      const y = $("lkt-button"), B = $("lkt-field-switch"), w = $("lkt-loader"), _ = $("lkt-paginator");
+      return s(), c("section", {
         class: "lkt-table-page",
-        id: "lkt-table-page-" + E(te)
+        id: "lkt-table-page-" + E(le)
       }, [
-        t.title || E(u).title ? (n(), f("header", It, [
-          t.title ? (n(), f("h2", Mt, z(t.title), 1)) : y("", !0),
-          E(u).title ? K(t.$slots, "title", { key: 1 }) : y("", !0)
-        ])) : y("", !0),
-        _(S("div", Tt, [
-          _(Y(h, {
-            ref: "saveButton",
-            palette: "success",
-            disabled: !Re.value,
-            "confirm-modal": t.saveConfirm,
-            "confirm-data": t.confirmData,
-            resource: t.saveResource,
-            "resource-data": t.saveResourceData,
-            onLoading: Ue,
-            onLoaded: He,
-            onClick: Ke
-          }, {
-            default: q(() => [
-              E(u)["button-save"] ? K(t.$slots, "button-save", {
+        ie.value || E(r).title ? (s(), c("header", Ut, [
+          ie.value ? (s(), k(x(Ue.value), { key: 0 }, {
+            default: O(() => [
+              t.titleIcon ? (s(), c("i", {
                 key: 0,
-                items: s.value,
-                editMode: t.editMode,
-                canUpdate: !t.saveDisabled
-              }) : (n(), f("span", At, z(t.saveText), 1))
+                class: ae(t.titleIcon)
+              }, null, 2)) : b("", !0),
+              G(" " + F(ie.value), 1)
             ]),
-            _: 3
-          }, 8, ["disabled", "confirm-modal", "confirm-data", "resource", "resource-data"]), [
-            [x, me.value]
-          ]),
-          t.canCreate && $.value ? (n(), C(Ee, {
-            key: 0,
-            onClick: ke,
-            disabled: !Ce.value
-          }, null, 8, ["disabled"])) : y("", !0),
-          S("div", $t, [
-            _(Y(D, {
-              modelValue: $.value,
-              "onUpdate:modelValue": m[0] || (m[0] = (k) => $.value = k),
-              label: t.editModeText
-            }, null, 8, ["modelValue", "label"]), [
-              [x, t.switchEditionEnabled]
-            ])
-          ])
-        ], 512), [
-          [x, $e.value]
-        ]),
-        E(u).buttons ? (n(), f("div", Rt, [
-          K(t.$slots, "buttons")
-        ])) : y("", !0),
-        I.value && E(u).filters ? (n(), f("div", Nt, [
-          K(t.$slots, "filters")
-        ])) : y("", !0),
-        d.value ? (n(), C(V, { key: 3 })) : y("", !0),
-        _(S("div", {
-          class: "lkt-table",
-          "data-sortable": t.sortable
-        }, [
-          S("table", null, [
-            S("thead", null, [
-              S("tr", null, [
-                t.sortable && $.value ? (n(), f("th", Ot)) : y("", !0),
-                t.addNavigation && $.value ? (n(), f("th", Ut)) : y("", !0),
-                re.value ? (n(), f("th", Ht)) : y("", !0),
-                (n(!0), f(B, null, P(le.value, (k) => (n(), f(B, null, [
-                  ae.value.indexOf(k.key) === -1 ? (n(), f("th", {
+            _: 1
+          })) : b("", !0),
+          E(r).title ? W(t.$slots, "title", { key: 1 }) : b("", !0)
+        ])) : b("", !0),
+        (s(), k(x(He.value), {
+          class: ae(["lkt-table-page-content-wrapper", t.wrapContentClass])
+        }, {
+          default: O(() => [
+            ee(S("div", Ht, [
+              ee(Y(y, {
+                ref: "saveButton",
+                palette: "success",
+                disabled: !Oe.value,
+                "confirm-modal": t.saveConfirm,
+                "confirm-data": t.confirmData,
+                resource: t.saveResource,
+                "resource-data": Fe.value,
+                onLoading: Pe,
+                onLoaded: ze,
+                onClick: qe
+              }, {
+                default: O(() => [
+                  E(r)["button-save"] ? W(t.$slots, "button-save", {
                     key: 0,
-                    "data-column": k.key,
-                    "data-sortable": k.sortable === !0,
-                    "data-sort": k.sortable === !0 && v.value === k.key ? o.value : "",
-                    colspan: E(it)(k, t.columns.length, s.value),
-                    title: k.label,
-                    onClick: (M) => ce(k)
-                  }, [
-                    S("div", null, z(k.label), 1)
-                  ], 8, Kt)) : y("", !0)
-                ], 64))), 256)),
-                t.canDrop && $.value ? (n(), f("th", jt)) : y("", !0)
+                    items: i.value,
+                    editMode: t.editMode,
+                    canUpdate: !t.saveDisabled
+                  }) : (s(), c("span", Kt, F(Ke.value), 1))
+                ]),
+                _: 3
+              }, 8, ["disabled", "confirm-modal", "confirm-data", "resource", "resource-data"]), [
+                [te, fe.value]
+              ]),
+              t.canCreate && A.value ? (s(), k(Be, {
+                key: 0,
+                disabled: !Ve.value,
+                text: t.createText,
+                onClick: ge
+              }, null, 8, ["disabled", "text"])) : b("", !0),
+              S("div", Wt, [
+                ee(Y(B, {
+                  modelValue: A.value,
+                  "onUpdate:modelValue": m[0] || (m[0] = (T) => A.value = T),
+                  label: We.value
+                }, null, 8, ["modelValue", "label"]), [
+                  [te, t.switchEditionEnabled]
+                ])
               ])
+            ], 512), [
+              [te, _e.value]
             ]),
-            S("tbody", {
-              ref: (k) => W.value = k,
-              id: "lkt-table-body-" + E(te)
+            E(r).buttons ? (s(), c("div", jt, [
+              W(t.$slots, "buttons")
+            ])) : b("", !0),
+            D.value && E(r).filters ? (s(), c("div", Jt, [
+              W(t.$slots, "filters", {
+                items: i.value,
+                isLoading: V.value
+              })
+            ])) : b("", !0),
+            V.value ? (s(), k(w, { key: 2 })) : b("", !0),
+            ee(S("div", {
+              class: "lkt-table",
+              "data-sortable": t.sortable
             }, [
-              (n(!0), f(B, null, P(s.value, (k, M) => (n(), C(gt, {
-                modelValue: s.value[M],
-                "onUpdate:modelValue": (H) => s.value[M] = H,
-                key: ge(k, M),
-                i: M,
-                "display-hidden-columns-indicator": re.value,
-                "is-draggable": ye(k),
-                sortable: t.sortable,
-                "visible-columns": le.value,
-                "empty-columns": ae.value,
-                "add-navigation": t.addNavigation,
-                "hidden-is-visible": fe(M),
-                "latest-row": M + 1 === Ne.value,
-                "can-drop": t.canDrop,
-                "drop-confirm": t.dropConfirm,
-                "edit-mode-enabled": $.value,
-                onClick: pe,
-                onShow: ve,
-                onItemUp: je,
-                onItemDown: Je,
-                onItemDrop: Pe
-              }, Ve({ _: 2 }, [
-                P(de.value, (H) => ({
-                  name: H,
-                  fn: q((G) => [
-                    K(t.$slots, H, {
-                      item: G.item,
-                      value: G.value,
-                      column: G.column
-                    })
+              S("table", null, [
+                S("thead", null, [
+                  S("tr", null, [
+                    t.sortable && A.value ? (s(), c("th", zt)) : b("", !0),
+                    t.addNavigation && A.value ? (s(), c("th", qt)) : b("", !0),
+                    me.value ? (s(), c("th", Gt)) : b("", !0),
+                    (s(!0), c(L, null, J(oe.value, (T) => (s(), c(L, null, [
+                      ne.value.indexOf(T.key) === -1 ? (s(), k(Nt, {
+                        key: 0,
+                        column: T,
+                        "sort-by": v.value,
+                        "sort-direction": a.value,
+                        "amount-of-columns": t.columns.length,
+                        items: i.value,
+                        onClick: (M) => ve(T)
+                      }, null, 8, ["column", "sort-by", "sort-direction", "amount-of-columns", "items", "onClick"])) : b("", !0)
+                    ], 64))), 256)),
+                    t.canDrop && A.value ? (s(), c("th", Qt)) : b("", !0)
                   ])
-                }))
-              ]), 1032, ["modelValue", "onUpdate:modelValue", "i", "display-hidden-columns-indicator", "is-draggable", "sortable", "visible-columns", "empty-columns", "add-navigation", "hidden-is-visible", "latest-row", "can-drop", "drop-confirm", "edit-mode-enabled"]))), 128)),
-              ne.value.length > 0 ? (n(!0), f(B, { key: 0 }, P(s.value, (k, M) => (n(), C(wt, {
-                modelValue: s.value[M],
-                "onUpdate:modelValue": (H) => s.value[M] = H,
-                key: ge(k, M, !0),
-                i: M,
-                "hidden-columns": ne.value,
-                "hidden-columns-col-span": Me.value,
-                "is-draggable": ye(k),
-                sortable: t.sortable,
-                "visible-columns": le.value,
-                "empty-columns": ae.value,
-                "hidden-is-visible": fe(M),
-                onClick: pe,
-                onShow: ve
-              }, Ve({ _: 2 }, [
-                P(de.value, (H) => ({
-                  name: H,
-                  fn: q((G) => [
-                    K(t.$slots, H, {
-                      item: G.item,
-                      value: G.value,
-                      column: G.column
-                    })
-                  ])
-                }))
-              ]), 1032, ["modelValue", "onUpdate:modelValue", "i", "hidden-columns", "hidden-columns-col-span", "is-draggable", "sortable", "visible-columns", "empty-columns", "hidden-is-visible"]))), 128)) : y("", !0)
-            ], 8, Jt)
-          ])
-        ], 8, Ft), [
-          [x, !d.value && s.value.length > 0]
-        ]),
-        t.$slots["no-items"] ? (n(), f("div", Pt, [
-          K(t.$slots, "no-items")
-        ])) : y("", !0),
-        !d.value && s.value.length === 0 ? (n(), f("div", zt, z(t.noResultsText), 1)) : y("", !0),
-        S("div", qt, [
-          t.canCreate && $.value ? (n(), C(Ee, {
-            key: 0,
-            onClick: ke,
-            disabled: !Ce.value
-          }, null, 8, ["disabled"])) : y("", !0)
-        ]),
-        Y(N, {
-          ref_key: "paginator",
-          ref: c,
-          modelValue: Q.value,
-          "onUpdate:modelValue": m[1] || (m[1] = (k) => Q.value = k),
-          resource: t.resource,
-          filters: t.filters,
-          onResults: Be,
-          onLoading: Le
-        }, null, 8, ["modelValue", "resource", "filters"])
-      ], 8, Lt);
+                ]),
+                S("tbody", {
+                  ref: (T) => P.value = T,
+                  id: "lkt-table-body-" + E(le)
+                }, [
+                  (s(!0), c(L, null, J(i.value, (T, M) => (s(), k(Et, {
+                    modelValue: i.value[M],
+                    "onUpdate:modelValue": (K) => i.value[M] = K,
+                    key: Se(T, M),
+                    i: M,
+                    "display-hidden-columns-indicator": me.value,
+                    "is-draggable": be(T),
+                    sortable: t.sortable,
+                    "visible-columns": oe.value,
+                    "empty-columns": ne.value,
+                    "add-navigation": t.addNavigation,
+                    "hidden-is-visible": pe(M),
+                    "latest-row": M + 1 === Ne.value,
+                    "can-drop": t.canDrop,
+                    "drop-confirm": t.dropConfirm,
+                    "drop-text": t.dropText,
+                    "edit-mode-enabled": A.value,
+                    onClick: he,
+                    onShow: ye,
+                    onItemUp: Ge,
+                    onItemDown: Qe,
+                    onItemDrop: Xe
+                  }, De({ _: 2 }, [
+                    J(ce.value, (K) => ({
+                      name: K,
+                      fn: O((z) => [
+                        W(t.$slots, K, {
+                          item: z.item,
+                          value: z.value,
+                          column: z.column
+                        })
+                      ])
+                    }))
+                  ]), 1032, ["modelValue", "onUpdate:modelValue", "i", "display-hidden-columns-indicator", "is-draggable", "sortable", "visible-columns", "empty-columns", "add-navigation", "hidden-is-visible", "latest-row", "can-drop", "drop-confirm", "drop-text", "edit-mode-enabled"]))), 128)),
+                  se.value.length > 0 ? (s(!0), c(L, { key: 0 }, J(i.value, (T, M) => (s(), k(Rt, {
+                    modelValue: i.value[M],
+                    "onUpdate:modelValue": (K) => i.value[M] = K,
+                    key: Se(T, M, !0),
+                    i: M,
+                    "hidden-columns": se.value,
+                    "hidden-columns-col-span": $e.value,
+                    "is-draggable": be(T),
+                    sortable: t.sortable,
+                    "visible-columns": oe.value,
+                    "empty-columns": ne.value,
+                    "hidden-is-visible": pe(M),
+                    onClick: he,
+                    onShow: ye
+                  }, De({ _: 2 }, [
+                    J(ce.value, (K) => ({
+                      name: K,
+                      fn: O((z) => [
+                        W(t.$slots, K, {
+                          item: z.item,
+                          value: z.value,
+                          column: z.column
+                        })
+                      ])
+                    }))
+                  ]), 1032, ["modelValue", "onUpdate:modelValue", "i", "hidden-columns", "hidden-columns-col-span", "is-draggable", "sortable", "visible-columns", "empty-columns", "hidden-is-visible"]))), 128)) : b("", !0)
+                ], 8, Xt)
+              ])
+            ], 8, Pt), [
+              [te, !V.value && i.value.length > 0]
+            ]),
+            t.$slots["no-items"] ? (s(), c("div", Yt, [
+              W(t.$slots, "no-items")
+            ])) : b("", !0),
+            !V.value && i.value.length === 0 ? (s(), c("div", Zt, F(t.noResultsText), 1)) : b("", !0),
+            t.canCreate && A.value ? (s(), c("div", xt, [
+              t.canCreate && A.value ? (s(), k(Be, {
+                key: 0,
+                disabled: !Ve.value,
+                text: t.createText,
+                onClick: ge
+              }, null, 8, ["disabled", "text"])) : b("", !0)
+            ])) : b("", !0),
+            Y(_, {
+              ref_key: "paginator",
+              ref: f,
+              modelValue: I.value,
+              "onUpdate:modelValue": m[1] || (m[1] = (T) => I.value = T),
+              resource: t.resource,
+              filters: t.filters,
+              onResults: Le,
+              onLoading: Ie
+            }, null, 8, ["modelValue", "resource", "filters"])
+          ]),
+          _: 3
+        }, 8, ["class"]))
+      ], 8, Ft);
     };
   }
-}), yl = {
+}), Bl = {
   install: (l) => {
-    l.component("lkt-loader") === void 0 && l.use(xe), l.component("lkt-button") === void 0 && l.use(et), l.component("lkt-paginator") === void 0 && l.use(tt), l.component("lkt-field-text") === void 0 && l.use(lt), l.component("lkt-field-textarea") === void 0 && l.use(ot), l.component("lkt-field-select") === void 0 && l.use(at), l.component("lkt-field-switch") === void 0 && l.use(nt), l.component("lkt-field-file") === void 0 && l.use(st), l.component("lkt-table") === void 0 && l.component("lkt-table", Wt);
+    l.component("lkt-loader") === void 0 && l.use(st), l.component("lkt-button") === void 0 && l.use(it), l.component("lkt-paginator") === void 0 && l.use(ut), l.component("lkt-field-text") === void 0 && l.use(rt), l.component("lkt-field-textarea") === void 0 && l.use(dt), l.component("lkt-field-select") === void 0 && l.use(mt), l.component("lkt-field-switch") === void 0 && l.use(ct), l.component("lkt-field-file") === void 0 && l.use(ft), l.component("lkt-table") === void 0 && l.component("lkt-table", el);
   }
-}, kl = (l) => (j.navButtonSlot = l, !0), bl = (l) => (j.dropButtonSlot = l, !0), gl = (l) => (j.createButtonSlot = l, !0);
+}, Tl = (l) => (R.navButtonSlot = l, !0), El = (l) => (R.dropButtonSlot = l, !0), Ll = (l) => (R.createButtonSlot = l, !0);
 export {
-  U as LktTableColumn,
-  rl as createActionColumn,
-  cl as createCheckColumn,
-  il as createColumn,
-  ml as createEmailColumn,
-  hl as createHiddenColumn,
-  ul as createLinkColumn,
-  vl as createSelectColumn,
-  pl as createSwitchColumn,
-  fl as createTelColumn,
-  dl as createTextColumn,
-  yl as default,
-  gl as setTableCreateButtonSlot,
-  bl as setTableDropButtonSlot,
-  kl as setTableNavButtonSlot
+  H as LktTableColumn,
+  kl as createActionColumn,
+  Sl as createCheckColumn,
+  hl as createColumn,
+  gl as createEmailColumn,
+  wl as createHiddenColumn,
+  yl as createLinkColumn,
+  Dl as createSelectColumn,
+  Vl as createSwitchColumn,
+  Cl as createTelColumn,
+  bl as createTextColumn,
+  Bl as default,
+  Ll as setTableCreateButtonSlot,
+  El as setTableDropButtonSlot,
+  Tl as setTableNavButtonSlot
 };

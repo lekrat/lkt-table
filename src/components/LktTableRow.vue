@@ -6,6 +6,8 @@ import LktTableCell from "./LktTableCell.vue";
 import {ref, watch, computed} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 import {Settings} from "../settings/Settings";
+import DropButton from "./DropButton.vue";
+import CreateButton from "./CreateButton.vue";
 
 const emit = defineEmits(['update:modelValue', 'click', 'show', 'item-up', 'item-down', 'item-drop']);
 
@@ -23,6 +25,7 @@ const props = withDefaults(defineProps<{
     visibleColumns: LktTableColumn[]
     emptyColumns: string[]
     dropConfirm: string
+    dropText: string
 }>(), {
     modelValue: () => ({}),
     isDraggable: true,
@@ -37,6 +40,7 @@ const props = withDefaults(defineProps<{
     visibleColumns: () => [],
     emptyColumns: () => [],
     dropConfirm: '',
+    dropText: '',
 });
 
 const Item = ref(props.modelValue);
@@ -136,19 +140,9 @@ watch(Item, (v) => {
             </td>
         </template>
         <td v-if="canDrop && editModeEnabled" class="lkt-table-delete-cell">
-            <lkt-button
-                palette="table-delete"
-                :confirm-modal="dropConfirm"
-                :confirm-data="{item: Item}"
-                @click.prevent.stop="onClickDrop">
-                <template v-if="hasDropButtonSlot">
-                    <component
-                        :is="dropButtonSlot"/>
-                </template>
-                <template v-else>
-                    <i class=""/> Delete
-                </template>
-            </lkt-button>
+            <drop-button
+                :text="dropText"
+                @click="onClickDrop"/>
         </td>
     </tr>
 

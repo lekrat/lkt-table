@@ -39,6 +39,7 @@ export default {
                 'lkt-field-check',
                 'lkt-ts-interfaces',
                 'lkt-data-state',
+                'lkt-i18n',
                 'sortablejs',
                 'sortable',
             ],

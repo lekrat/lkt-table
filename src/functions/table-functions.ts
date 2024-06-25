@@ -3,6 +3,7 @@ import {LktObject} from "lkt-ts-interfaces";
 //@ts-ignore
 import {Option} from "lkt-field-select";
 import {reactive} from "vue";
+import {__} from "lkt-i18n";
 
 /**
  *
@@ -97,7 +98,11 @@ export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: nu
     }
 
     if (column.formatter && typeof column.formatter === 'function') {
-        return column.formatter(item[column.key], item, column, i);
+        let formatted = column.formatter(item[column.key], item, column, i);
+        if (formatted.startsWith('__:')) {
+            return __(formatted.substring(3));
+        }
+        return formatted;
     }
     return item[column.key];
 }
