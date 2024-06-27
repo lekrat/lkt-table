@@ -2,15 +2,22 @@
 import {computed} from "vue";
 import {Settings} from "../settings/Settings";
 import {__} from "lkt-i18n";
+import {LktObject} from "lkt-ts-interfaces";
 
 const emit = defineEmits(['click']);
 
 const props = withDefaults(defineProps<{
     disabled: boolean
-    text: boolean
+    text: string
+    confirm: string
+    resource: string
+    resourceData: LktObject
 }>(), {
     disabled: false,
     text: '',
+    confirm: '',
+    resource: '',
+    resourceData: () => ({}),
 });
 
 const hasButtonSlot = computed(() => {
@@ -30,6 +37,9 @@ const hasButtonSlot = computed(() => {
 <template>
     <lkt-button
         palette="table-delete"
+        :resource="resource"
+        :resource-data="resourceData"
+        :confirm-modal="confirm"
         :disabled="disabled"
         @click.prevent.stop="emit('click')">
         <template v-if="hasButtonSlot">

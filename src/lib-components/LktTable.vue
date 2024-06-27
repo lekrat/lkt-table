@@ -111,9 +111,11 @@ const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTa
     tableBody = ref(null),
     Columns = ref(props.columns);
 
+let basePerms: string[] = [];
 const Page = ref(props.page),
     loading = ref(true),
     firstLoadReady = ref(false),
+    perms = ref(basePerms),
     paginator = ref(null),
     sortableObject = ref({}),
     dataState = ref(new DataState({items: Items.value}, props.dataStateConfig)),
@@ -126,6 +128,9 @@ const onResults = (r: any) => {
         loading.value = false;
         firstLoadReady.value = true;
         dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
+    },
+    onPerms = (r: string[]) => {
+        perms.value = r;
     },
     onLoading = () => nextTick(() => loading.value = true),
     doRefresh = () => {
@@ -231,7 +236,11 @@ const emptyColumns = computed(() => {
             return __(props.editModeText.substring(3));
         }
         return props.editModeText;
-    });
+    }),
+    hasCreatePerm = computed(() => perms.value.includes('create')),
+    hasReadPerm = computed(() => perms.value.includes('read')),
+    hasUpdatePerm = computed(() => perms.value.includes('update')),
+    hasDropPerm = computed(() => perms.value.includes('drop'));
 
 
 const getItemByEvent = (e: any) => {
@@ -497,7 +506,10 @@ defineExpose({
                                 v-on:click="sort(column)"
                             />
                         </template>
-                        <th v-if="canDrop && editModeEnabled"/>
+                        <th
+                            v-if="canDrop && hasDropPerm && editModeEnabled"
+                            class="lkt-table-col-drop"
+                        />
                     </tr>
                     </thead>
                     <tbody
@@ -517,8 +529,9 @@ defineExpose({
                         :add-navigation="addNavigation"
                         :hidden-is-visible="isVisible(i)"
                         :latest-row="i+1 === amountOfItems"
-                        :can-drop="canDrop"
+                        :can-drop="canDrop && hasDropPerm && editModeEnabled"
                         :drop-confirm="dropConfirm"
+                        :drop-resource="dropResource"
                         :drop-text="dropText"
                         :edit-mode-enabled="editModeEnabled"
                         v-on:click="onClick"
@@ -594,6 +607,7 @@ defineExpose({
                 :filters="filters"
                 v-on:results="onResults"
                 v-on:loading="onLoading"
+                v-on:perms="onPerms"
             />
 
         </component>

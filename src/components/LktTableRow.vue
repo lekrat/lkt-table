@@ -26,6 +26,7 @@ const props = withDefaults(defineProps<{
     emptyColumns: string[]
     dropConfirm: string
     dropText: string
+    dropResource: string
 }>(), {
     modelValue: () => ({}),
     isDraggable: true,
@@ -41,6 +42,7 @@ const props = withDefaults(defineProps<{
     emptyColumns: () => [],
     dropConfirm: '',
     dropText: '',
+    dropResource: '',
 });
 
 const Item = ref(props.modelValue);
@@ -139,8 +141,11 @@ watch(Item, (v) => {
                 </template>
             </td>
         </template>
-        <td v-if="canDrop && editModeEnabled" class="lkt-table-delete-cell">
+        <td v-if="canDrop && editModeEnabled" class="lkt-table-col-drop">
             <drop-button
+                :resource="dropResource"
+                :resource-data="Item"
+                :confirm="dropConfirm"
                 :text="dropText"
                 @click="onClickDrop"/>
         </td>

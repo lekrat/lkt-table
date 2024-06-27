@@ -156,3 +156,8 @@
 .lkt-table-page-buttons > .switch-edition-mode {
     margin-left: auto;
 }
+
+.lkt-table .lkt-table-col-drop {
+    width: var(--lkt-table-width-col-drop);
+    text-align: var(--lkt-table-text-align-col-drop);
+}

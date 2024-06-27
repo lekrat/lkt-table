@@ -28,4 +28,6 @@
     --lkt-table-bg-sortable-chosen-ghost: #aaaaaa;
 
     --lkt-table-gap-buttons: 15px;
+    --lkt-table-width-col-drop: auto;
+    --lkt-table-text-align-col-drop: right;
 }
