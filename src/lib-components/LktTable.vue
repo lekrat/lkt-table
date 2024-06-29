@@ -113,7 +113,7 @@ const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTa
 
 let basePerms: string[] = [];
 const Page = ref(props.page),
-    loading = ref(true),
+    loading = ref(false),
     firstLoadReady = ref(false),
     perms = ref(basePerms),
     paginator = ref(null),
