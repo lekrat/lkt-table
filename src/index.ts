@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import {default as table} from "./lib-components/LktTable.vue";
-import {App} from "vue";
+import {App, Plugin} from "vue";
 
 export {
     createColumn,
@@ -28,7 +28,7 @@ import LktFieldSelect from "lkt-field-select";
 import LktFieldSwitch from "lkt-field-switch";
 import LktFieldFile from "lkt-field-file";
 
-const LktTable = {
+const LktTable: Plugin = {
     install: (app: App) => {
         // Register plugin dependencies
         if (app.component('lkt-loader') === undefined) app.use(LktLoader);
