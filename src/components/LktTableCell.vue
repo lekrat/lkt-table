@@ -53,7 +53,9 @@ const slotData = computed(() => {
 
 <template>
     <template v-if="column.type === 'link'">
-        <router-link :to="column.getHref(item)">{{ getColumnDisplayContent(column, item, i) }}</router-link>
+        <lkt-anchor
+            :href="column.getHref(item)"
+        >{{ getColumnDisplayContent(column, item, i) }}</lkt-anchor>
     </template>
     <template v-else-if="column.type === 'action'">
         <a href="#" v-on:click="column.doAction(item)">{{ getColumnDisplayContent(column, item, i) }}</a>
