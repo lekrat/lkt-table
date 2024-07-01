@@ -64,6 +64,7 @@ const props = withDefaults(defineProps<{
     addNavigation?: boolean
     itemMode?: boolean
     createEnabledValidator?: Function
+    newValueGenerator?: Function
 }>(), {
     modelValue: () => [],
     columns: () => [],
@@ -109,6 +110,7 @@ const props = withDefaults(defineProps<{
     addNavigation: false,
     itemMode: false,
     createEnabledValidator: undefined,
+    newValueGenerator: undefined,
 });
 
 const hiddenColumnsStack: LktObject = {};
@@ -325,6 +327,14 @@ const getItemByEvent = (e: any) => {
         return true;
     },
     onClickAddItem = () => {
+        if (typeof props.newValueGenerator === 'function') {
+            let newValue = props.newValueGenerator();
+
+            if (typeof newValue === 'object') {
+                Items.value.push(newValue);
+                return;
+            }
+        }
         Items.value.push({});
     },
     onButtonLoading = () => {
