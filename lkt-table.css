@@ -14,7 +14,6 @@
 
 .lkt-table {
     width: var(--lkt-table-width);
-    overflow-x: auto;
     font-family: var(--lkt-table-font-family), serif;
 }
 

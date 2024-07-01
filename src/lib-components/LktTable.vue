@@ -594,9 +594,10 @@ defineExpose({
                 </table>
 
                 <div v-else class="lkt-table-items-container" :class="itemsContainerClass">
-                    <div class="lkt-table-item" v-for="item in Items">
+                    <div class="lkt-table-item" v-for="(item, i) in Items">
                         <slot name="item"
                               v-bind:item="item"
+                              v-bind:index="i"
                               v-bind:can-create="hasCreatePerm"
                               v-bind:can-read="hasReadPerm"
                               v-bind:can-update="hasUpdatePerm"
