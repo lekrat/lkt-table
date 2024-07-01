@@ -613,6 +613,7 @@ defineExpose({
                               v-bind:can-update="hasUpdatePerm"
                               v-bind:can-drop="hasDropPerm"
                               v-bind:is-loading="loading"
+                              v-bind:do-drop="() => onItemDrop(i)"
                         />
                     </div>
                 </div>
