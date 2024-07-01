@@ -31,6 +31,7 @@ const props = withDefaults(defineProps<{
 
 
     page?: number
+    perms?: string[]
     resource?: string
     noResultsText?: string
     title?: string
@@ -38,6 +39,7 @@ const props = withDefaults(defineProps<{
     titleIcon?: string
     wrapContentTag?: string
     wrapContentClass?: string
+    itemsContainerClass?: string
     filters?: LktObject[]
     dataStateConfig?: LktObject
     hiddenSave?: boolean
@@ -50,7 +52,9 @@ const props = withDefaults(defineProps<{
     saveResourceData?: LktObject
     saveText?: string
     createText?: string
+    createIcon?: string
     dropText?: string
+    dropIcon?: string
     editModeText?: string
     switchEditionEnabled?: boolean
     canCreate?: boolean
@@ -58,6 +62,7 @@ const props = withDefaults(defineProps<{
     dropConfirm?: string
     dropResource?: string
     addNavigation?: boolean
+    itemMode?: boolean
     createEnabledValidator?: Function
 }>(), {
     modelValue: () => [],
@@ -71,6 +76,7 @@ const props = withDefaults(defineProps<{
 
 
     page: 1,
+    perms: [],
     resource: '',
     noResultsText: 'No results',
     title: '',
@@ -78,6 +84,7 @@ const props = withDefaults(defineProps<{
     titleIcon: 'h2',
     wrapContentTag: 'div',
     wrapContentClass: '',
+    itemsContainerClass: '',
     filters: () => [],
     dataStateConfig: () => ({}),
     hiddenSave: false,
@@ -90,7 +97,9 @@ const props = withDefaults(defineProps<{
     saveResourceData: () => ({}),
     saveText: 'Save',
     dropText: 'Delete',
+    dropIcon: '',
     createText: 'Add item',
+    createIcon: '',
     editModeText: 'Edit mode',
     switchEditionEnabled: false,
     canCreate: false,
@@ -98,6 +107,7 @@ const props = withDefaults(defineProps<{
     dropConfirm: '',
     dropResource: '',
     addNavigation: false,
+    itemMode: false,
     createEnabledValidator: undefined,
 });
 
@@ -111,11 +121,10 @@ const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTa
     tableBody = ref(null),
     Columns = ref(props.columns);
 
-let basePerms: string[] = [];
 const Page = ref(props.page),
     loading = ref(false),
     firstLoadReady = ref(false),
-    perms = ref(basePerms),
+    perms = ref(props.perms),
     paginator = ref(null),
     sortableObject = ref({}),
     dataState = ref(new DataState({items: Items.value}, props.dataStateConfig)),
@@ -194,6 +203,7 @@ const emptyColumns = computed(() => {
         return editModeEnabled.value;
     }),
     showEditionButtons = computed(() => {
+        // if (hasCreatePerm.value || hasUpdatePerm.value || hasDropPerm.value)
         if (props.switchEditionEnabled) return true;
         return showSaveButton.value || (editModeEnabled.value && props.canCreate);
     }),
@@ -464,9 +474,10 @@ defineExpose({
                 </lkt-button>
 
                 <create-button
-                    v-if="canCreate && editModeEnabled"
+                    v-if="canCreate && hasCreatePerm && editModeEnabled"
                     :disabled="!createEnabled"
                     :text="createText"
+                    :icon="createIcon"
                     @click="onClickAddItem"
                 />
 
@@ -489,7 +500,7 @@ defineExpose({
             <lkt-loader v-if="loading"/>
 
             <div v-show="!loading && Items.length > 0" class="lkt-table" :data-sortable="sortable">
-                <table>
+                <table v-if="!itemMode">
                     <thead>
                     <tr>
                         <th v-if="sortable && editModeEnabled" data-role="drag-indicator"/>
@@ -533,6 +544,7 @@ defineExpose({
                         :drop-confirm="dropConfirm"
                         :drop-resource="dropResource"
                         :drop-text="dropText"
+                        :drop-icon="dropIcon"
                         :edit-mode-enabled="editModeEnabled"
                         v-on:click="onClick"
                         v-on:show="show"
@@ -580,6 +592,19 @@ defineExpose({
                     </lkt-hidden-row>
                     </tbody>
                 </table>
+
+                <div v-else class="lkt-table-items-container" :class="itemsContainerClass">
+                    <div class="lkt-table-item" v-for="item in Items">
+                        <slot name="item"
+                              v-bind:item="item"
+                              v-bind:can-create="hasCreatePerm"
+                              v-bind:can-read="hasReadPerm"
+                              v-bind:can-update="hasUpdatePerm"
+                              v-bind:can-drop="hasDropPerm"
+                              v-bind:is-loading="loading"
+                        />
+                    </div>
+                </div>
             </div>
 
             <div v-if="!!$slots['no-items']" class="lkt-empty-table">
@@ -591,11 +616,12 @@ defineExpose({
                 {{ noResultsText }}
             </div>
 
-            <div v-if="canCreate && editModeEnabled" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
+            <div v-if="canCreate && hasCreatePerm && editModeEnabled" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
                 <create-button
-                    v-if="canCreate && editModeEnabled"
+                    v-if="canCreate && hasCreatePerm && editModeEnabled"
                     :disabled="!createEnabled"
                     :text="createText"
+                    :icon="createIcon"
                     @click="onClickAddItem"
                 />
             </div>

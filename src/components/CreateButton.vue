@@ -7,10 +7,12 @@ const emit = defineEmits(['click']);
 
 const props = withDefaults(defineProps<{
     disabled: boolean
-    text: boolean
+    text: string
+    icon: string
 }>(), {
     disabled: false,
     text: '',
+    icon: '',
 });
 
 const hasCreateButtonSlot = computed(() => {
@@ -31,13 +33,12 @@ const hasCreateButtonSlot = computed(() => {
     <lkt-button
         palette="table-create"
         :disabled="disabled"
+        :icon="hasCreateButtonSlot ? '' : icon"
+        :text="hasCreateButtonSlot ? '' : computedText"
         @click="emit('click')">
         <template v-if="hasCreateButtonSlot">
             <component
                 :is="createButtonSlot"/>
-        </template>
-        <template v-else>
-            <i class=""/> {{computedText}}
         </template>
     </lkt-button>
 </template>

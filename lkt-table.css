@@ -18,12 +18,16 @@
     font-family: var(--lkt-table-font-family), serif;
 }
 
+.lkt-table .lkt-field {
+    --lkt-field-font-size: var(--lkt-table-font-size-row);
+}
+
 .lkt-table > table {
     width: 100%;
     max-width: 100%;
-    border-collapse: separate;
+    border-collapse: var(--lkt-table-border-collapse);
     border-radius: var(--lkt-table-border-radius);
-    border-spacing: 0;
+    border-spacing: var(--lkt-table-border-spacing);
 }
 
 .lkt-table th,

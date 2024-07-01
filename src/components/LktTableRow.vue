@@ -26,6 +26,7 @@ const props = withDefaults(defineProps<{
     emptyColumns: string[]
     dropConfirm: string
     dropText: string
+    dropIcon: string
     dropResource: string
 }>(), {
     modelValue: () => ({}),
@@ -42,6 +43,7 @@ const props = withDefaults(defineProps<{
     emptyColumns: () => [],
     dropConfirm: '',
     dropText: '',
+    dropIcon: '',
     dropResource: '',
 });
 
@@ -147,6 +149,7 @@ watch(Item, (v) => {
                 :resource-data="Item"
                 :confirm="dropConfirm"
                 :text="dropText"
+                :icon="dropIcon"
                 @click="onClickDrop"/>
         </td>
     </tr>

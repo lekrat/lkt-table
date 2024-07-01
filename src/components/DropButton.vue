@@ -9,12 +9,14 @@ const emit = defineEmits(['click']);
 const props = withDefaults(defineProps<{
     disabled: boolean
     text: string
+    icon: string
     confirm: string
     resource: string
     resourceData: LktObject
 }>(), {
     disabled: false,
     text: '',
+    icon: '',
     confirm: '',
     resource: '',
     resourceData: () => ({}),
@@ -37,6 +39,8 @@ const hasButtonSlot = computed(() => {
 <template>
     <lkt-button
         palette="table-delete"
+        :icon="hasButtonSlot ? '' : icon"
+        :text="hasButtonSlot ? '' : computedText"
         :resource="resource"
         :resource-data="resourceData"
         :confirm-modal="confirm"
@@ -45,9 +49,6 @@ const hasButtonSlot = computed(() => {
         <template v-if="hasButtonSlot">
             <component
                 :is="buttonSlot"/>
-        </template>
-        <template v-else>
-            <i class=""/> {{computedText}}
         </template>
     </lkt-button>
 </template>

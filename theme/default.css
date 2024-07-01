@@ -1,4 +1,6 @@
 :root {
+    --lkt-table-border-collapse: separate;
+    --lkt-table-border-spacing: 0;
     --lkt-table-page-gap: 15px;
 
     --lkt-table-width: 100%;
