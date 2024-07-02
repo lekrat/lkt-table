@@ -780,10 +780,10 @@ declare function wl(l: any, t: any, r?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare namespace $l {
+declare namespace Rl {
     function install(l: any): void;
 }
 declare function Ol(l: any): boolean;
-declare function Rl(l: any): boolean;
 declare function Al(l: any): boolean;
-export { K as LktTableColumn, Dl as createActionColumn, El as createCheckColumn, Sl as createColumn, Tl as createEmailColumn, Ml as createHiddenColumn, Vl as createLinkColumn, Ll as createSelectColumn, Il as createSwitchColumn, Bl as createTelColumn, wl as createTextColumn, $l as default, Ol as setTableCreateButtonSlot, Rl as setTableDropButtonSlot, Al as setTableNavButtonSlot };
+declare function $l(l: any): boolean;
+export { K as LktTableColumn, Dl as createActionColumn, El as createCheckColumn, Sl as createColumn, Tl as createEmailColumn, Ml as createHiddenColumn, Vl as createLinkColumn, Ll as createSelectColumn, Il as createSwitchColumn, Bl as createTelColumn, wl as createTextColumn, Rl as default, Ol as setTableCreateButtonSlot, Al as setTableDropButtonSlot, $l as setTableNavButtonSlot };

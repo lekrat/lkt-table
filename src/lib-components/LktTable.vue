@@ -53,6 +53,7 @@ const props = withDefaults(defineProps<{
     saveText?: string
     createText?: string
     createIcon?: string
+    createRoute?: string
     dropText?: string
     dropIcon?: string
     editModeText?: string
@@ -101,6 +102,7 @@ const props = withDefaults(defineProps<{
     dropIcon: '',
     createText: 'Add item',
     createIcon: '',
+    createRoute: '',
     editModeText: 'Edit mode',
     switchEditionEnabled: false,
     canCreate: false,
@@ -488,6 +490,7 @@ defineExpose({
                     :disabled="!createEnabled"
                     :text="createText"
                     :icon="createIcon"
+                    :to="createRoute"
                     @click="onClickAddItem"
                 />
 
@@ -634,6 +637,7 @@ defineExpose({
                     :disabled="!createEnabled"
                     :text="createText"
                     :icon="createIcon"
+                    :to="createRoute"
                     @click="onClickAddItem"
                 />
             </div>

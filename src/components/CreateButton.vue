@@ -9,10 +9,12 @@ const props = withDefaults(defineProps<{
     disabled: boolean
     text: string
     icon: string
+    to: string
 }>(), {
     disabled: false,
     text: '',
     icon: '',
+    to: '',
 });
 
 const hasCreateButtonSlot = computed(() => {
@@ -35,6 +37,7 @@ const hasCreateButtonSlot = computed(() => {
         :disabled="disabled"
         :icon="hasCreateButtonSlot ? '' : icon"
         :text="hasCreateButtonSlot ? '' : computedText"
+        :on-click-to="to"
         @click="emit('click')">
         <template v-if="hasCreateButtonSlot">
             <component
