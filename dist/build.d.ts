@@ -1,5 +1,5 @@
 declare class K {
-    constructor(t?: string, r?: string);
+    constructor(t?: string, i?: string);
     key: string;
     label: string;
     sortable: boolean;
@@ -59,7 +59,7 @@ declare class K {
     setMultipleDisplayEditionToInline(): this;
     setSlotData(t: any): this;
     slotData: any;
-    setAutoLoadSelectOptions(t?: boolean, r?: string): this;
+    setAutoLoadSelectOptions(t?: boolean, i?: string): this;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode(t?: boolean): this;
@@ -70,7 +70,7 @@ declare class K {
     useForRowKey(t?: boolean): this;
     isForRowKey: boolean | undefined;
 }
-declare function Tl(l: any, t: any, r: any, n?: boolean): {
+declare function Tl(l: any, t: any, i: any, n?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -130,7 +130,7 @@ declare function Tl(l: any, t: any, r: any, n?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -141,7 +141,7 @@ declare function Tl(l: any, t: any, r: any, n?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function Ll(l: any, t: any, r?: boolean): {
+declare function Ll(l: any, t: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -201,7 +201,7 @@ declare function Ll(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -212,7 +212,7 @@ declare function Ll(l: any, t: any, r?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function Dl(l: any, t: any, r?: boolean): {
+declare function Dl(l: any, t: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -272,7 +272,7 @@ declare function Dl(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -283,7 +283,7 @@ declare function Dl(l: any, t: any, r?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function El(l: any, t: any, r?: boolean): {
+declare function Il(l: any, t: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -343,7 +343,7 @@ declare function El(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -354,7 +354,7 @@ declare function El(l: any, t: any, r?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function $l(l: any, t: any, r?: boolean): {
+declare function $l(l: any, t: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -414,7 +414,7 @@ declare function $l(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -425,7 +425,7 @@ declare function $l(l: any, t: any, r?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function wl(l: any, t: any, r: any, n?: boolean): {
+declare function wl(l: any, t: any, i: any, n?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -485,7 +485,7 @@ declare function wl(l: any, t: any, r: any, n?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -496,7 +496,7 @@ declare function wl(l: any, t: any, r: any, n?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function Rl(l: any, t: any, r: any, n?: boolean): {
+declare function Rl(l: any, t: any, i: any, n?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -556,7 +556,7 @@ declare function Rl(l: any, t: any, r: any, n?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -567,7 +567,7 @@ declare function Rl(l: any, t: any, r: any, n?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function Ml(l: any, t: any, r?: boolean): {
+declare function Ml(l: any, t: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -627,7 +627,7 @@ declare function Ml(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -638,7 +638,7 @@ declare function Ml(l: any, t: any, r?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function Il(l: any, t: any, r?: boolean): {
+declare function El(l: any, t: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -698,7 +698,7 @@ declare function Il(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -709,7 +709,7 @@ declare function Il(l: any, t: any, r?: boolean): {
     useForRowKey: (t?: boolean) => K;
     isForRowKey: boolean | undefined;
 };
-declare function Bl(l: any, t: any, r?: boolean): {
+declare function Bl(l: any, t: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -769,7 +769,7 @@ declare function Bl(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => K;
     setSlotData: (t: any) => K;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => K;
+    setAutoLoadSelectOptions: (t?: boolean, i?: string) => K;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => K;
@@ -784,6 +784,6 @@ declare namespace Al {
     function install(l: any): void;
 }
 declare function Nl(l: any): boolean;
-declare function Fl(l: any): boolean;
 declare function Ol(l: any): boolean;
-export { K as LktTableColumn, Tl as createActionColumn, Ll as createCheckColumn, Dl as createColumn, El as createEmailColumn, $l as createHiddenColumn, wl as createLinkColumn, Rl as createSelectColumn, Ml as createSwitchColumn, Il as createTelColumn, Bl as createTextColumn, Al as default, Nl as setTableCreateButtonSlot, Fl as setTableDropButtonSlot, Ol as setTableNavButtonSlot };
+declare function Fl(l: any): boolean;
+export { K as LktTableColumn, Tl as createActionColumn, Ll as createCheckColumn, Dl as createColumn, Il as createEmailColumn, $l as createHiddenColumn, wl as createLinkColumn, Rl as createSelectColumn, Ml as createSwitchColumn, El as createTelColumn, Bl as createTextColumn, Al as default, Nl as setTableCreateButtonSlot, Ol as setTableDropButtonSlot, Fl as setTableNavButtonSlot };

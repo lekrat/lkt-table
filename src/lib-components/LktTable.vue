@@ -66,6 +66,8 @@ const props = withDefaults(defineProps<{
     itemMode?: boolean
     createEnabledValidator?: Function
     newValueGenerator?: Function
+    requiredItemsForTopCreate: number
+    requiredItemsForBottomCreate: number
 }>(), {
     modelValue: () => [],
     columns: () => [],
@@ -113,6 +115,8 @@ const props = withDefaults(defineProps<{
     itemMode: false,
     createEnabledValidator: undefined,
     newValueGenerator: undefined,
+    requiredItemsForTopCreate: 0,
+    requiredItemsForBottomCreate: 0,
 });
 
 const hiddenColumnsStack: LktObject = {};
@@ -493,7 +497,7 @@ defineExpose({
                 </lkt-button>
 
                 <create-button
-                    v-if="canCreate && hasCreatePerm && editModeEnabled"
+                    v-if="canCreate && hasCreatePerm && editModeEnabled && Items.length >= requiredItemsForTopCreate"
                     :disabled="!createEnabled"
                     :text="createText"
                     :icon="createIcon"
@@ -640,7 +644,7 @@ defineExpose({
 
             <div v-if="canCreate && hasCreatePerm && editModeEnabled" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
                 <create-button
-                    v-if="canCreate && hasCreatePerm && editModeEnabled"
+                    v-if="canCreate && hasCreatePerm && editModeEnabled && Items.length >= requiredItemsForBottomCreate"
                     :disabled="!createEnabled"
                     :text="createText"
                     :icon="createIcon"
