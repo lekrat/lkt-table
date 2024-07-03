@@ -15,7 +15,7 @@ import Sortable from 'sortablejs';
 import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
 
-const emit = defineEmits(['update:modelValue', 'sort', 'click', 'save', 'error', 'before-save']);
+const emit = defineEmits(['update:modelValue', 'sort', 'click', 'save', 'error', 'before-save', 'read-response']);
 
 const slots = useSlots();
 
@@ -144,6 +144,12 @@ const onResults = (r: any) => {
     },
     onPerms = (r: string[]) => {
         perms.value = r;
+    },
+    onCustomReceived = (r: LktObject) => {
+        // perms.value = r;
+    },
+    onPaginatorResponse = (r: HTTPResponse) => {
+        emit('read-response', r);
     },
     onLoading = () => nextTick(() => loading.value = true),
     doRefresh = () => {
@@ -650,6 +656,8 @@ defineExpose({
                 v-on:results="onResults"
                 v-on:loading="onLoading"
                 v-on:perms="onPerms"
+                v-on:custom="onCustomReceived"
+                v-on:response="onPaginatorResponse"
             />
 
         </component>
