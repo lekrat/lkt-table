@@ -436,6 +436,7 @@ onMounted(() => {
     }
 })
 
+watch(() => props.editMode, (v) => editModeEnabled.value = v);
 watch(() => props.columns, (v) => Columns.value = v);
 watch(() => props.modelValue, (v) => Items.value = v);
 watch(Items, (v: any) => {
