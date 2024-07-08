@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import {createLktEvent} from "lkt-events";
-import {getColumnDisplayContent, getHorizontalColSpan, canRenderColumn} from "../functions/table-functions";
+import {canRenderColumn, getColumnDisplayContent, getHorizontalColSpan} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import LktTableCell from "./LktTableCell.vue";
-import {ref, watch, computed} from "vue";
+import {computed, ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 import {Settings} from "../settings/Settings";
 import DropButton from "./DropButton.vue";
-import CreateButton from "./CreateButton.vue";
+import EditButton from "./EditButton.vue";
+import {replaceAll} from "lkt-string-tools";
 
 const emit = defineEmits(['update:modelValue', 'click', 'show', 'item-up', 'item-down', 'item-drop']);
 
@@ -20,6 +21,7 @@ const props = withDefaults(defineProps<{
     addNavigation: boolean
     latestRow: boolean
     canDrop: boolean
+    canEdit: boolean
     editModeEnabled: boolean
     i: number
     visibleColumns: LktTableColumn[]
@@ -28,6 +30,9 @@ const props = withDefaults(defineProps<{
     dropText: string
     dropIcon: string
     dropResource: string
+    editText: string
+    editIcon: string
+    editLink: string
 }>(), {
     modelValue: () => ({}),
     isDraggable: true,
@@ -37,6 +42,7 @@ const props = withDefaults(defineProps<{
     addNavigation: false,
     latestRow: false,
     canDrop: false,
+    canEdit: false,
     editModeEnabled: false,
     i: 0,
     visibleColumns: () => [],
@@ -45,9 +51,15 @@ const props = withDefaults(defineProps<{
     dropText: '',
     dropIcon: '',
     dropResource: '',
+    editText: '',
+    editIcon: '',
+    editLink: '',
 });
 
 const Item = ref(props.modelValue);
+
+const parsedEditLink = ref(props.editLink);
+for (let k in Item.value) parsedEditLink.value = replaceAll(parsedEditLink.value, ':'+k , Item.value[k]);
 
 const onClick = ($event: any, item: any, column: LktTableColumn) => {
         emit('click', $event, createLktEvent('', {item, column}))
@@ -66,12 +78,6 @@ const onClick = ($event: any, item: any, column: LktTableColumn) => {
     navButtonSlot = computed(() => {
         return Settings.navButtonSlot;
     }),
-    hasDropButtonSlot = computed(() => {
-        return Settings.dropButtonSlot !== '';
-    }),
-    dropButtonSlot = computed(() => {
-        return Settings.dropButtonSlot;
-    }),
     onClickUp = () => {
         emit('item-up', props.i);
     },
@@ -80,6 +86,10 @@ const onClick = ($event: any, item: any, column: LktTableColumn) => {
     },
     onClickDrop = () => {
         emit('item-drop', props.i);
+    },
+    onClickEdit = () => {
+
+        // emit('item-drop', props.i);
     };
 
 watch(() => props.modelValue, (v) => Item.value = v);
@@ -151,6 +161,14 @@ watch(Item, (v) => {
                 :text="dropText"
                 :icon="dropIcon"
                 @click="onClickDrop"/>
+        </td>
+        <td v-if="canEdit && editModeEnabled" class="lkt-table-col-edit">
+            <edit-button
+                :resource-data="Item"
+                :text="editText"
+                :icon="editIcon"
+                :link="parsedEditLink"
+                @click="onClickEdit"/>
         </td>
     </tr>
 
