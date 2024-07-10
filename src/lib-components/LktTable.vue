@@ -15,7 +15,7 @@ import Sortable from 'sortablejs';
 import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
 
-const emit = defineEmits(['update:modelValue', 'sort', 'click', 'save', 'error', 'before-save', 'read-response']);
+const emit = defineEmits(['update:modelValue', 'sort', 'click', 'save', 'error', 'before-save', 'read-response', 'click-create']);
 
 const slots = useSlots();
 
@@ -62,6 +62,7 @@ const props = withDefaults(defineProps<{
     editModeText?: string
     switchEditionEnabled?: boolean
     canCreate?: boolean
+    canCreateWithoutEdition?: boolean
     canDrop?: boolean
     dropConfirm?: string
     dropResource?: string
@@ -114,6 +115,7 @@ const props = withDefaults(defineProps<{
     editModeText: 'Edit mode',
     switchEditionEnabled: false,
     canCreate: false,
+    canCreateWithoutEdition: false,
     canDrop: false,
     dropConfirm: '',
     dropResource: '',
@@ -224,6 +226,7 @@ const emptyColumns = computed(() => {
     }),
     showEditionButtons = computed(() => {
         // if (hasCreatePerm.value || hasUpdatePerm.value || hasDropPerm.value)
+        if (computedDisplayCreateButton.value) return true;
         if (props.switchEditionEnabled) return true;
         return showSaveButton.value || (editModeEnabled.value && props.canCreate);
     }),
@@ -345,15 +348,19 @@ const getItemByEvent = (e: any) => {
         return true;
     },
     onClickAddItem = () => {
-        if (typeof props.newValueGenerator === 'function') {
-            let newValue = props.newValueGenerator();
+        if (!props.canCreateWithoutEdition) {
+            if (typeof props.newValueGenerator === 'function') {
+                let newValue = props.newValueGenerator();
 
-            if (typeof newValue === 'object') {
-                Items.value.push(newValue);
-                return;
+                if (typeof newValue === 'object') {
+                    Items.value.push(newValue);
+                    return;
+                }
             }
+            Items.value.push({});
+        } else {
+            emit('click-create');
         }
-        Items.value.push({});
     },
     onButtonLoading = () => {
         loading.value = true;
@@ -433,6 +440,10 @@ const getItemByEvent = (e: any) => {
     createEnabled = computed(() => {
         if (typeof props.createEnabledValidator === 'function') return props.createEnabledValidator({items: Items.value});
         return true;
+    }),
+    computedDisplayCreateButton = computed(() => {
+        if (!hasCreatePerm.value) return false;
+        return props.canCreateWithoutEdition || (props.canCreate && editModeEnabled.value);
     });
 
 onMounted(() => {
@@ -503,7 +514,7 @@ defineExpose({
                 </lkt-button>
 
                 <create-button
-                    v-if="canCreate && hasCreatePerm && editModeEnabled && Items.length >= requiredItemsForTopCreate"
+                    v-if="computedDisplayCreateButton && Items.length >= requiredItemsForTopCreate"
                     :disabled="!createEnabled"
                     :text="createText"
                     :icon="createIcon"
@@ -656,9 +667,9 @@ defineExpose({
                 {{ noResultsText }}
             </div>
 
-            <div v-if="canCreate && hasCreatePerm && editModeEnabled" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
+            <div v-if="computedDisplayCreateButton" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
                 <create-button
-                    v-if="canCreate && hasCreatePerm && editModeEnabled && Items.length >= requiredItemsForBottomCreate"
+                    v-if="computedDisplayCreateButton && Items.length >= requiredItemsForBottomCreate"
                     :disabled="!createEnabled"
                     :text="createText"
                     :icon="createIcon"
