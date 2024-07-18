@@ -63,6 +63,7 @@ const props = withDefaults(defineProps<{
     switchEditionEnabled?: boolean
     canCreate?: boolean
     canCreateWithoutEdition?: boolean
+    canEditButton?: boolean
     canDrop?: boolean
     dropConfirm?: string
     dropResource?: string
@@ -116,6 +117,7 @@ const props = withDefaults(defineProps<{
     switchEditionEnabled: false,
     canCreate: false,
     canCreateWithoutEdition: false,
+    canEditButton: false,
     canDrop: false,
     dropConfirm: '',
     dropResource: '',
@@ -563,7 +565,7 @@ defineExpose({
                             class="lkt-table-col-drop"
                         />
                         <th
-                            v-if="hasUpdatePerm && editModeEnabled"
+                            v-if="canEditButton && hasUpdatePerm && editModeEnabled"
                             class="lkt-table-col-edit"
                         />
                     </tr>
@@ -590,7 +592,7 @@ defineExpose({
                         :drop-resource="dropResource"
                         :drop-text="dropText"
                         :drop-icon="dropIcon"
-                        :can-edit="hasUpdatePerm && editModeEnabled"
+                        :can-edit="canEditButton && hasUpdatePerm && editModeEnabled"
                         :edit-text="editText"
                         :edit-icon="editIcon"
                         :edit-link="editLink"
