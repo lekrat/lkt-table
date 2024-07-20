@@ -49,7 +49,7 @@ export const createSelectColumn = (key: string, label: string, options: Option[]
 }
 
 export const createFileColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsFile(options));
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsFile());
 }
 
 export const createHiddenColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {

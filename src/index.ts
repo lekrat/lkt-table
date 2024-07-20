@@ -12,7 +12,8 @@ export {
     createSwitchColumn,
     createSelectColumn,
     createEmailColumn,
-    createTelColumn
+    createTelColumn,
+    createFileColumn
 } from "./functions/table-functions";
 
 export {LktTableColumn} from "./instances/LktTableColumn";
