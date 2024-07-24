@@ -122,7 +122,7 @@ export class LktTableColumn {
         return this;
     }
 
-    defineAsInt() {
+    defineAsInteger() {
         this.type = 'int';
         return this;
     }

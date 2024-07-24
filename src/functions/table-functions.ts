@@ -28,6 +28,14 @@ export const createTextColumn = (key: string, label: string, sortable: boolean =
     return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsText());
 }
 
+export const createIntegerColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsInteger());
+}
+
+export const createFloatColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
+    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsFloat());
+}
+
 export const createEmailColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
     return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsEmail());
 }

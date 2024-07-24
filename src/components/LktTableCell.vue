@@ -89,6 +89,26 @@ const slotData = computed(() => {
             is-tel
             v-model="value"/>
     </template>
+    <template v-else-if="column.type === 'int'">
+        <lkt-field-text
+            v-bind:read-mode="!column.editable || !editModeEnabled"
+            :ref="(el:any) => inputElement = el"
+            :edit-slot="column.editSlot"
+            :value-slot="column.valueSlot"
+            :slot-data="slotData"
+            is-number
+            v-model="value"/>
+    </template>
+    <template v-else-if="column.type === 'float'">
+        <lkt-field-text
+            v-bind:read-mode="!column.editable || !editModeEnabled"
+            :ref="(el:any) => inputElement = el"
+            :edit-slot="column.editSlot"
+            :value-slot="column.valueSlot"
+            :slot-data="slotData"
+            is-number
+            v-model="value"/>
+    </template>
     <template v-else-if="column.type === 'check'">
         <lkt-field-switch is-check v-bind:read-mode="!column.editable || !editModeEnabled" :ref="(el:any) => inputElement = el" v-model="value"/>
     </template>

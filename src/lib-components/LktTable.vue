@@ -90,7 +90,7 @@ const props = withDefaults(defineProps<{
     noResultsText: 'No results',
     title: '',
     titleTag: 'h2',
-    titleIcon: 'h2',
+    titleIcon: '',
     wrapContentTag: 'div',
     wrapContentClass: '',
     itemsContainerClass: '',
@@ -682,6 +682,7 @@ defineExpose({
 
             <lkt-paginator
                 ref="paginator"
+                v-if="resource.length > 0"
                 v-model="Page"
                 :resource="resource"
                 :filters="filters"
