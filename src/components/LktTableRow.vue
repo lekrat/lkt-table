@@ -131,6 +131,7 @@ watch(Item, (v) => {
             v-bind:class="hiddenIsVisible ? 'state-open' : ''"/>
         <template v-for="column in visibleColumns">
             <td v-if="canRenderColumn(column, emptyColumns, Item)"
+                :key="'td' + i"
                 v-bind:data-column="column.key"
                 v-bind:colspan="getHorizontalColSpan(column,Item)"
                 v-bind:title="getColumnDisplayContent (column, Item, i, visibleColumns)"

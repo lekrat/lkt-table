@@ -14,6 +14,7 @@ import CreateButton from "../components/CreateButton.vue";
 import Sortable from 'sortablejs';
 import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
+import {time} from "lkt-date-tools";
 
 const emit = defineEmits(['update:modelValue', 'sort', 'click', 'save', 'error', 'before-save', 'read-response', 'click-create']);
 
@@ -146,7 +147,8 @@ const Page = ref(props.page),
     paginator = ref(null),
     sortableObject = ref({}),
     dataState = ref(new DataState({items: Items.value}, props.dataStateConfig)),
-    editModeEnabled = ref(props.editMode)
+    editModeEnabled = ref(props.editMode),
+    updateTimeStamp = ref(0)
 ;
 
 const onResults = (r: any) => {
@@ -394,12 +396,15 @@ const getItemByEvent = (e: any) => {
     },
     onItemUp = (i) => {
         moveArrayPosition(Items.value, i, i - 1);
+        updateTimeStamp.value = time();
     },
     onItemDown = (i) => {
         moveArrayPosition(Items.value, i, i + 1);
+        updateTimeStamp.value = time();
     },
     onItemDrop = (i) => {
         Items.value.splice(i, 1);
+        updateTimeStamp.value = time();
     },
     initSortable = () => {
         let tbody = document.getElementById('lkt-table-body-' + uniqueId);
@@ -412,9 +417,13 @@ const getItemByEvent = (e: any) => {
                 let oldIndex = evt.oldIndex;
                 let newIndex = evt.newIndex;
 
-                let clone = JSON.parse(JSON.stringify(Items.value));
-                Items.value.splice(oldIndex, 1, clone[newIndex]);
-                Items.value.splice(newIndex, 1, clone[oldIndex]);
+                // let clone = JSON.parse(JSON.stringify(Items.value));
+                // Items.value.splice(oldIndex, 1, clone[newIndex]);
+                // Items.value.splice(newIndex, 1, clone[oldIndex]);
+
+
+                Items.value.splice(newIndex, 0, Items.value.splice(oldIndex, 1)[0]);
+                updateTimeStamp.value = time();
             },
             onMove: function (evt, originalEvent) {
                 return validDragChecker(evt);
@@ -427,7 +436,7 @@ const getItemByEvent = (e: any) => {
         });
     },
     getRowKey = (item: LktObject, index: number, isHidden: boolean = false) => {
-        let r = [uniqueId, 'row', index];
+        let r = [updateTimeStamp.value, uniqueId, 'row', index];
         if (isHidden) r.push('hidden');
 
         rowKeyColumns.value.forEach(col => {

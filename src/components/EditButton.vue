@@ -44,6 +44,7 @@ const hasButtonSlot = computed(() => {
         :icon="hasButtonSlot ? '' : icon"
         :text="hasButtonSlot ? '' : computedText"
         :on-click-to="link"
+        :is-anchor="link !== ''"
         :resource="resource"
         :resource-data="resourceData"
         :confirm-modal="confirm"

@@ -32,6 +32,7 @@ export class LktTableColumn {
     multipleDisplay: string
     multipleDisplayEdition: string
     extractTitleFromColumn: string
+    equivalentToSelectValue: boolean
 
     constructor(key: string = '', label: string = '') {
         this.key = key;
@@ -286,6 +287,11 @@ export class LktTableColumn {
 
     useForRowKey (enabled: boolean = true): this {
         this.isForRowKey = enabled;
+        return this;
+    }
+
+    setIsEquivalentToSelectValue (enabled: boolean = true): this {
+        this.equivalentToSelectValue = enabled;
         return this;
     }
 }

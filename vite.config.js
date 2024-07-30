@@ -26,6 +26,7 @@ export default {
                 'sortable',
                 'vuedraggable',
                 'lkt-http-client',
+                'lkt-date-tools',
                 'lkt-string-tools',
                 'lkt-events',
                 'lkt-loader',

@@ -1,6 +1,6 @@
 {
   "name": "lkt-table",
-  "version": "1.2.18",
+  "version": "1.2.19",
   "description": "",
   "keywords": [
     "lkt",
@@ -49,6 +49,7 @@
   "dependencies": {
     "lkt-button": "^1.1.16",
     "lkt-data-state": "^1.0.10",
+    "lkt-date-tools": "^1.0.4",
     "lkt-events": "^1.0.4",
     "lkt-field-file": "^1.1.1",
     "lkt-field-select": "^1.0.0",
