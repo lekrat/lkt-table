@@ -678,7 +678,7 @@ defineExpose({
                 {{ noResultsText }}
             </div>
 
-            <div v-if="computedDisplayCreateButton" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
+            <div v-if="computedDisplayCreateButton || slots.bottomButtons.length > 0" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
                 <create-button
                     v-if="computedDisplayCreateButton && Items.length >= requiredItemsForBottomCreate"
                     :disabled="!createEnabled"
@@ -687,6 +687,7 @@ defineExpose({
                     :to="createRoute"
                     @click="onClickAddItem"
                 />
+                <slot name="bottom-buttons"/>
             </div>
 
             <lkt-paginator
