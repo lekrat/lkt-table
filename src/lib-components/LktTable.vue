@@ -16,7 +16,7 @@ import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
 import {time} from "lkt-date-tools";
 
-const emit = defineEmits(['update:modelValue', 'sort', 'click', 'save', 'error', 'before-save', 'read-response', 'click-create']);
+const emit = defineEmits(['update:modelValue', 'update:perms', 'sort', 'click', 'save', 'error', 'before-save', 'read-response', 'click-create']);
 
 const slots = useSlots();
 
@@ -62,6 +62,7 @@ const props = withDefaults(defineProps<{
     editLink?: string
     editModeText?: string
     switchEditionEnabled?: boolean
+    createDisabled?: boolean
     canCreate?: boolean
     canCreateWithoutEdition?: boolean
     canEditButton?: boolean
@@ -143,7 +144,7 @@ const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTa
 const Page = ref(props.page),
     loading = ref(false),
     firstLoadReady = ref(false),
-    perms = ref(props.perms),
+    permissions = ref(props.perms),
     paginator = ref(null),
     sortableObject = ref({}),
     dataState = ref(new DataState({items: Items.value}, props.dataStateConfig)),
@@ -159,10 +160,10 @@ const onResults = (r: any) => {
         dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
     },
     onPerms = (r: string[]) => {
-        perms.value = r;
+        permissions.value = r;
     },
     onCustomReceived = (r: LktObject) => {
-        // perms.value = r;
+        // permissions = r;
     },
     onPaginatorResponse = (r: HTTPResponse) => {
         emit('read-response', r);
@@ -274,10 +275,10 @@ const emptyColumns = computed(() => {
         }
         return props.editModeText;
     }),
-    hasCreatePerm = computed(() => perms.value.includes('create')),
-    hasReadPerm = computed(() => perms.value.includes('read')),
-    hasUpdatePerm = computed(() => perms.value.includes('update')),
-    hasDropPerm = computed(() => perms.value.includes('drop'));
+    hasCreatePerm = computed(() => permissions.value.includes('create')),
+    hasReadPerm = computed(() => permissions.value.includes('read')),
+    hasUpdatePerm = computed(() => permissions.value.includes('update')),
+    hasDropPerm = computed(() => permissions.value.includes('drop'));
 
 
 const getItemByEvent = (e: any) => {
@@ -468,6 +469,9 @@ onMounted(() => {
     }
 })
 
+watch(() => props.perms, (v) => permissions.value = v);
+watch(permissions, (v) => emit('update:perms', v));
+
 watch(() => props.editMode, (v) => editModeEnabled.value = v);
 watch(() => props.columns, (v) => Columns.value = v);
 watch(() => props.modelValue, (v) => Items.value = v);
@@ -526,7 +530,7 @@ defineExpose({
 
                 <create-button
                     v-if="computedDisplayCreateButton && Items.length >= requiredItemsForTopCreate"
-                    :disabled="!createEnabled"
+                    :disabled="!createEnabled || createDisabled"
                     :text="createText"
                     :icon="createIcon"
                     :to="createRoute"
@@ -678,10 +682,10 @@ defineExpose({
                 {{ noResultsText }}
             </div>
 
-            <div v-if="computedDisplayCreateButton || slots.bottomButtons.length > 0" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
+            <div v-if="computedDisplayCreateButton || slots.bottomButtons" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
                 <create-button
                     v-if="computedDisplayCreateButton && Items.length >= requiredItemsForBottomCreate"
-                    :disabled="!createEnabled"
+                    :disabled="!createEnabled || createDisabled"
                     :text="createText"
                     :icon="createIcon"
                     :to="createRoute"
