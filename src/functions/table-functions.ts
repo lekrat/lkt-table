@@ -143,6 +143,13 @@ export const getHorizontalColSpan = (column: LktTableColumn, item: LktObject) =>
     if (typeof column.colspan === 'function') return column.colspan(item);
     return column.colspan;
 }
+
+export const colPreferSlot = (column: LktTableColumn, item: LktObject) => {
+    if (typeof column.preferSlot === 'undefined') return true;
+    if (column.preferSlot === false) return false;
+    if (typeof column.preferSlot === 'function') return column.preferSlot(item);
+    return true;
+}
 /**
  *
  * @param column
@@ -160,7 +167,7 @@ export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], 
 
     if (typeof column.colspan !== 'undefined') {
         if (typeof column.colspan === 'function') {
-            colspan = parseInt(column.colspan());
+            colspan = parseInt(column.colspan(item));
         } else {
             //@ts-ignore
             colspan = parseInt(column.colspan);

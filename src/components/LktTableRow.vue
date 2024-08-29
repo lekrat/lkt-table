@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import {createLktEvent} from "lkt-events";
-import {canRenderColumn, getColumnDisplayContent, getHorizontalColSpan} from "../functions/table-functions";
+import {
+    canRenderColumn,
+    colPreferSlot,
+    getColumnDisplayContent,
+    getHorizontalColSpan
+} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import LktTableCell from "./LktTableCell.vue";
 import {computed, ref, watch} from "vue";
@@ -132,17 +137,17 @@ watch(Item, (v) => {
         <template v-for="column in visibleColumns">
             <td v-if="canRenderColumn(column, emptyColumns, Item)"
                 :key="'td' + i"
-                v-bind:data-column="column.key"
-                v-bind:colspan="getHorizontalColSpan(column,Item)"
-                v-bind:title="getColumnDisplayContent (column, Item, i, visibleColumns)"
+                :data-column="column.key"
+                :colspan="getHorizontalColSpan(column,Item)"
+                :title="getColumnDisplayContent (column, Item, i, visibleColumns)"
                 v-on:click="onClick($event, Item, column)"
             >
-                <template v-if="!!$slots[column.key]">
-                    <slot v-bind:name="column.key"
-                          v-bind:value="Item[column.key]"
-                          v-bind:item="Item"
-                          v-bind:column="column"
-                          v-bind:i="i"/>
+                <template v-if="!!$slots[column.key] && colPreferSlot(column, Item)">
+                    <slot :name="column.key"
+                          :value="Item[column.key]"
+                          :item="Item"
+                          :column="column"
+                          :i="i"/>
                 </template>
                 <template v-else-if="Item">
                     <lkt-table-cell

@@ -12,6 +12,7 @@ export class LktTableColumn {
     formatter?: Function
     checkEmpty?: Function
     colspan?: Function | boolean | number
+    preferSlot?: Function | boolean = true
     type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action' | 'email' | 'tel' | 'file'
     link: string | Function
     action: Function
@@ -42,6 +43,7 @@ export class LktTableColumn {
         this.formatter = undefined;
         this.checkEmpty = undefined;
         this.colspan = undefined;
+        this.preferSlot = true;
         this.resource = '';
         this.resourceData = {};
         this.isMultiple = false;
@@ -84,7 +86,12 @@ export class LktTableColumn {
     }
 
     setColSpan(checker: any = undefined): this {
-        this.colspan = undefined;
+        this.colspan = checker;
+        return this;
+    }
+
+    setPreferSlot(checker: boolean|Function = true): this {
+        this.preferSlot = checker;
         return this;
     }
 

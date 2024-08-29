@@ -1,5 +1,6 @@
 declare class F {
-    constructor(t?: string, r?: string);
+    constructor(t?: string, s?: string);
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -23,6 +24,8 @@ declare class F {
     setEmptyChecker(t?: undefined): this;
     checkEmpty: any;
     setColSpan(t?: undefined): this;
+    colspan: any;
+    setPreferSlot(t?: boolean): this;
     getHref(t: any): any;
     doAction(t: any): any;
     defineAsLink(t: any): this;
@@ -59,7 +62,7 @@ declare class F {
     setMultipleDisplayEditionToInline(): this;
     setSlotData(t: any): this;
     slotData: any;
-    setAutoLoadSelectOptions(t?: boolean, r?: string): this;
+    setAutoLoadSelectOptions(t?: boolean, s?: string): this;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode(t?: boolean): this;
@@ -72,7 +75,8 @@ declare class F {
     setIsEquivalentToSelectValue(t?: boolean): this;
     equivalentToSelectValue: boolean | undefined;
 }
-declare function Rl(l: any, t: any, r: any, n?: boolean): {
+declare function Al(l: any, t: any, s: any, n?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -96,6 +100,8 @@ declare function Rl(l: any, t: any, r: any, n?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -132,7 +138,7 @@ declare function Rl(l: any, t: any, r: any, n?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -145,7 +151,8 @@ declare function Rl(l: any, t: any, r: any, n?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Wl(l: any, t: any, r?: boolean): {
+declare function Hl(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -169,6 +176,8 @@ declare function Wl(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -205,7 +214,7 @@ declare function Wl(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -218,7 +227,8 @@ declare function Wl(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Ml(l: any, t: any, r?: boolean): {
+declare function $l(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -242,6 +252,8 @@ declare function Ml(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -278,7 +290,7 @@ declare function Ml(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -291,7 +303,8 @@ declare function Ml(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Ol(l: any, t: any, r?: boolean): {
+declare function Nl(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -315,6 +328,8 @@ declare function Ol(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -351,7 +366,7 @@ declare function Ol(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -364,7 +379,8 @@ declare function Ol(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Pl(l: any, t: any, r?: boolean): {
+declare function ql(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -388,6 +404,8 @@ declare function Pl(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -424,7 +442,7 @@ declare function Pl(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -437,7 +455,8 @@ declare function Pl(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Ul(l: any, t: any, r?: boolean): {
+declare function Ol(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -461,6 +480,8 @@ declare function Ul(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -497,7 +518,7 @@ declare function Ul(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -510,7 +531,8 @@ declare function Ul(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function ql(l: any, t: any, r?: boolean): {
+declare function jl(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -534,6 +556,8 @@ declare function ql(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -570,7 +594,7 @@ declare function ql(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -583,7 +607,8 @@ declare function ql(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Fl(l: any, t: any, r?: boolean): {
+declare function Ul(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -607,6 +632,8 @@ declare function Fl(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -643,7 +670,7 @@ declare function Fl(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -656,7 +683,8 @@ declare function Fl(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function $l(l: any, t: any, r: any, n?: boolean): {
+declare function Rl(l: any, t: any, s: any, n?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -680,6 +708,8 @@ declare function $l(l: any, t: any, r: any, n?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -716,7 +746,7 @@ declare function $l(l: any, t: any, r: any, n?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -729,7 +759,8 @@ declare function $l(l: any, t: any, r: any, n?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Kl(l: any, t: any, r: any, n?: boolean): {
+declare function Kl(l: any, t: any, s: any, n?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -753,6 +784,8 @@ declare function Kl(l: any, t: any, r: any, n?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -789,7 +822,7 @@ declare function Kl(l: any, t: any, r: any, n?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -802,7 +835,8 @@ declare function Kl(l: any, t: any, r: any, n?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Hl(l: any, t: any, r?: boolean): {
+declare function Pl(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -826,6 +860,8 @@ declare function Hl(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -862,7 +898,7 @@ declare function Hl(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -875,7 +911,8 @@ declare function Hl(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Nl(l: any, t: any, r?: boolean): {
+declare function Wl(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -899,6 +936,8 @@ declare function Nl(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -935,7 +974,7 @@ declare function Nl(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -948,7 +987,8 @@ declare function Nl(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare function Al(l: any, t: any, r?: boolean): {
+declare function Fl(l: any, t: any, s?: boolean): {
+    preferSlot: boolean;
     key: string;
     label: string;
     sortable: boolean;
@@ -972,6 +1012,8 @@ declare function Al(l: any, t: any, r?: boolean): {
     setEmptyChecker: (t?: undefined) => F;
     checkEmpty: any;
     setColSpan: (t?: undefined) => F;
+    colspan: any;
+    setPreferSlot: (t?: boolean) => F;
     getHref: (t: any) => any;
     doAction: (t: any) => any;
     defineAsLink: (t: any) => F;
@@ -1008,7 +1050,7 @@ declare function Al(l: any, t: any, r?: boolean): {
     setMultipleDisplayEditionToInline: () => F;
     setSlotData: (t: any) => F;
     slotData: any;
-    setAutoLoadSelectOptions: (t?: boolean, r?: string) => F;
+    setAutoLoadSelectOptions: (t?: boolean, s?: string) => F;
     autoLoadSelectOptions: boolean | undefined;
     autoLoadSelectOptionsKey: string | undefined;
     setTagMode: (t?: boolean) => F;
@@ -1021,10 +1063,10 @@ declare function Al(l: any, t: any, r?: boolean): {
     setIsEquivalentToSelectValue: (t?: boolean) => F;
     equivalentToSelectValue: boolean | undefined;
 };
-declare namespace jl {
+declare namespace Gl {
     function install(l: any): void;
 }
+declare function Ql(l: any): boolean;
 declare function Jl(l: any): boolean;
 declare function zl(l: any): boolean;
-declare function Gl(l: any): boolean;
-export { F as LktTableColumn, Rl as createActionColumn, Wl as createCheckColumn, Ml as createColumn, Ol as createEmailColumn, Pl as createFileColumn, Ul as createFloatColumn, ql as createHiddenColumn, Fl as createIntegerColumn, $l as createLinkColumn, Kl as createSelectColumn, Hl as createSwitchColumn, Nl as createTelColumn, Al as createTextColumn, jl as default, Jl as setTableCreateButtonSlot, zl as setTableDropButtonSlot, Gl as setTableNavButtonSlot };
+export { F as LktTableColumn, Al as createActionColumn, Hl as createCheckColumn, $l as createColumn, Nl as createEmailColumn, ql as createFileColumn, Ol as createFloatColumn, jl as createHiddenColumn, Ul as createIntegerColumn, Rl as createLinkColumn, Kl as createSelectColumn, Pl as createSwitchColumn, Wl as createTelColumn, Fl as createTextColumn, Gl as default, Ql as setTableCreateButtonSlot, Jl as setTableDropButtonSlot, zl as setTableNavButtonSlot };

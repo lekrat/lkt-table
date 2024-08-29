@@ -28,6 +28,7 @@ const props = withDefaults(defineProps<{
     checkValidDrag?: Function
     sortable?: boolean
     hideEmptyColumns?: boolean
+    initialSorting?: boolean
     draggableItemKey?: string
 
 
@@ -83,6 +84,7 @@ const props = withDefaults(defineProps<{
     checkValidDrag: undefined,
     sortable: false,
     hideEmptyColumns: false,
+    initialSorting: false,
     draggableItemKey: 'name',
 
 
@@ -460,7 +462,9 @@ const getItemByEvent = (e: any) => {
 
 onMounted(() => {
     autoLoadSelectColumnsOptions();
-    sort(getColumnByKey(props.columns, SortBy.value));
+    if (props.initialSorting) {
+        sort(getColumnByKey(props.columns, SortBy.value));
+    }
     dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
     if (props.sortable) {
         nextTick(() => {
