@@ -3,4 +3,5 @@ export const Settings = {
     dropButtonSlot: '',
     editButtonSlot: '',
     createButtonSlot: '',
+    defaultEmptySlot: undefined,
 }

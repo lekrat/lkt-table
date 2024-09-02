@@ -15,6 +15,7 @@ import Sortable from 'sortablejs';
 import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
 import {time} from "lkt-date-tools";
+import {Settings} from "../settings/Settings";
 
 const emit = defineEmits(['update:modelValue', 'update:perms', 'sort', 'click', 'save', 'error', 'before-save', 'read-response', 'click-create']);
 
@@ -490,6 +491,13 @@ defineExpose({
     doRefresh,
 });
 
+const hasEmptySlot = computed(() => {
+        return typeof Settings.defaultEmptySlot !== 'undefined';
+    }),
+    emptySlot = computed(() => {
+        return Settings.defaultEmptySlot;
+    });
+
 </script>
 
 <template>
@@ -677,13 +685,16 @@ defineExpose({
                 </div>
             </div>
 
-            <div v-if="!!$slots['no-items']" class="lkt-empty-table">
-                <slot name="no-items"/>
-            </div>
-
-
-            <div class="lkt-table-page-empty" v-if="!loading && Items.length === 0">
-                {{ noResultsText }}
+            <div class="lkt-table-empty" v-if="!loading && Items.length === 0">
+                <template v-if="slots.empty">
+                    <slot name="empty"/>
+                </template>
+                <template v-else-if="hasEmptySlot">
+                    <component :is="emptySlot" :message="noResultsText"/>
+                </template>
+                <template v-else-if="noResultsText">
+                    {{noResultsText}}
+                </template>
             </div>
 
             <div v-if="computedDisplayCreateButton || slots.bottomButtons" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">

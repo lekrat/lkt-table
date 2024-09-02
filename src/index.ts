@@ -65,3 +65,7 @@ export const setTableCreateButtonSlot = (component: string|Component) => {
     Settings.createButtonSlot = component;
     return true;
 }
+
+export const setTableEmptySlot = (component?: string|Component) => {
+    Settings.defaultEmptySlot = component;
+}
