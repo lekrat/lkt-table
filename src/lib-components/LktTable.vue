@@ -40,6 +40,7 @@ const props = withDefaults(defineProps<{
     title?: string
     titleTag?: string
     titleIcon?: string
+    headerClass?: string
     wrapContentTag?: string
     wrapContentClass?: string
     itemsContainerClass?: string
@@ -96,6 +97,7 @@ const props = withDefaults(defineProps<{
     title: '',
     titleTag: 'h2',
     titleIcon: '',
+    headerClass: '',
     wrapContentTag: 'div',
     wrapContentClass: '',
     itemsContainerClass: '',
@@ -234,7 +236,7 @@ const emptyColumns = computed(() => {
     }),
     showEditionButtons = computed(() => {
         // if (hasCreatePerm.value || hasUpdatePerm.value || hasDropPerm.value)
-        if (computedDisplayCreateButton.value) return true;
+        if (computedDisplayCreateButton.value && Items.value.length >= props.requiredItemsForTopCreate) return true;
         if (props.switchEditionEnabled) return true;
         return showSaveButton.value || (editModeEnabled.value && props.canCreate);
     }),
@@ -502,7 +504,7 @@ const hasEmptySlot = computed(() => {
 
 <template>
     <section class="lkt-table-page" :id="'lkt-table-page-' + uniqueId">
-        <header v-if="computedTitle || slots.title">
+        <header v-if="computedTitle || slots.title" :class="headerClass">
             <component :is="computedTitleTag" v-if="computedTitle">
                 <i v-if="titleIcon" :class="titleIcon"/>
                 {{ computedTitle }}
