@@ -31,6 +31,7 @@ const props = withDefaults(defineProps<{
     hideEmptyColumns?: boolean
     initialSorting?: boolean
     draggableItemKey?: string
+    itemDisplayChecker?: Function
 
 
     page?: number
@@ -78,6 +79,8 @@ const props = withDefaults(defineProps<{
     newValueGenerator?: Function
     requiredItemsForTopCreate: number
     requiredItemsForBottomCreate: number
+
+    slotItemVar: string
 }>(), {
     modelValue: () => [],
     columns: () => [],
@@ -134,6 +137,8 @@ const props = withDefaults(defineProps<{
     newValueGenerator: undefined,
     requiredItemsForTopCreate: 0,
     requiredItemsForBottomCreate: 0,
+
+    slotItemVar: 'item',
 });
 
 const hiddenColumnsStack: LktObject = {};
@@ -461,7 +466,11 @@ const getItemByEvent = (e: any) => {
     computedDisplayCreateButton = computed(() => {
         if (!hasCreatePerm.value) return false;
         return props.canCreateWithoutEdition || (props.canCreate && editModeEnabled.value);
-    });
+    }),
+    canDisplayItem = (item) => {
+        if (typeof props.itemDisplayChecker === 'function') return props.itemDisplayChecker(item);
+        return true;
+    };
 
 onMounted(() => {
     autoLoadSelectColumnsOptions();
@@ -601,89 +610,95 @@ const hasEmptySlot = computed(() => {
                         :ref="(el) => tableBody = el"
                         :id="'lkt-table-body-' + uniqueId"
                     >
-                    <lkt-table-row
-                        v-for="(item, i) in Items"
-                        v-model="Items[i]"
-                        :key="getRowKey(item, i)"
-                        :i="i"
-                        :display-hidden-columns-indicator="displayHiddenColumnsIndicator"
-                        :is-draggable="isDraggable(item)"
-                        :sortable="sortable"
-                        :visible-columns="visibleColumns"
-                        :empty-columns="emptyColumns"
-                        :add-navigation="addNavigation"
-                        :hidden-is-visible="isVisible(i)"
-                        :latest-row="i+1 === amountOfItems"
-                        :can-drop="canDrop && hasDropPerm && editModeEnabled"
-                        :drop-confirm="dropConfirm"
-                        :drop-resource="dropResource"
-                        :drop-text="dropText"
-                        :drop-icon="dropIcon"
-                        :can-edit="canEditButton && hasUpdatePerm && editModeEnabled"
-                        :edit-text="editText"
-                        :edit-icon="editIcon"
-                        :edit-link="editLink"
-                        :edit-mode-enabled="editModeEnabled"
-                        v-on:click="onClick"
-                        v-on:show="show"
-                        v-on:item-up="onItemUp"
-                        v-on:item-down="onItemDown"
-                        v-on:item-drop="onItemDrop"
-                    >
-                        <template
-                            v-for="column in colSlots"
-                            v-slot:[column]="row">
-                            <slot
-                                :name="column"
-                                :item="row.item"
-                                :value="row.value"
-                                :column="row.column"
-                            />
-                        </template>
-                    </lkt-table-row>
-                    <lkt-hidden-row
-                        v-if="hiddenColumns.length > 0"
-                        v-model="Items[i]"
-                        v-for="(item, i) in Items"
-                        :key="getRowKey(item, i, true)"
-                        :i="i"
-                        :hidden-columns="hiddenColumns"
-                        :hidden-columns-col-span="hiddenColumnsColSpan"
-                        :is-draggable="isDraggable(item)"
-                        :sortable="sortable"
-                        :visible-columns="visibleColumns"
-                        :empty-columns="emptyColumns"
-                        :hidden-is-visible="isVisible(i)"
-                        v-on:click="onClick"
-                        v-on:show="show"
-                    >
-                        <template
-                            v-for="column in colSlots"
-                            v-slot:[column]="row">
-                            <slot
-                                :name="column"
-                                :item="row.item"
-                                :value="row.value"
-                                :column="row.column"
-                            />
-                        </template>
-                    </lkt-hidden-row>
+                    <template
+                        v-for="(item, i) in Items">
+                        <lkt-table-row
+                            v-if="canDisplayItem(item)"
+                            v-model="Items[i]"
+                            :key="getRowKey(item, i)"
+                            :i="i"
+                            :display-hidden-columns-indicator="displayHiddenColumnsIndicator"
+                            :is-draggable="isDraggable(item)"
+                            :sortable="sortable"
+                            :visible-columns="visibleColumns"
+                            :empty-columns="emptyColumns"
+                            :add-navigation="addNavigation"
+                            :hidden-is-visible="isVisible(i)"
+                            :latest-row="i+1 === amountOfItems"
+                            :can-drop="canDrop && hasDropPerm && editModeEnabled"
+                            :drop-confirm="dropConfirm"
+                            :drop-resource="dropResource"
+                            :drop-text="dropText"
+                            :drop-icon="dropIcon"
+                            :can-edit="canEditButton && hasUpdatePerm && editModeEnabled"
+                            :edit-text="editText"
+                            :edit-icon="editIcon"
+                            :edit-link="editLink"
+                            :edit-mode-enabled="editModeEnabled"
+                            v-on:click="onClick"
+                            v-on:show="show"
+                            v-on:item-up="onItemUp"
+                            v-on:item-down="onItemDown"
+                            v-on:item-drop="onItemDrop"
+                        >
+                            <template
+                                v-for="column in colSlots"
+                                v-slot:[column]="row">
+                                <slot
+                                    :name="column"
+                                    :[slotItemVar]="row.item"
+                                    :value="row.value"
+                                    :column="row.column"
+                                />
+                            </template>
+                        </lkt-table-row>
+                        <lkt-hidden-row
+                            v-if="hiddenColumns.length > 0"
+                            v-model="Items[i]"
+                            v-for="(item, i) in Items"
+                            :key="getRowKey(item, i, true)"
+                            :i="i"
+                            :hidden-columns="hiddenColumns"
+                            :hidden-columns-col-span="hiddenColumnsColSpan"
+                            :is-draggable="isDraggable(item)"
+                            :sortable="sortable"
+                            :visible-columns="visibleColumns"
+                            :empty-columns="emptyColumns"
+                            :hidden-is-visible="isVisible(i)"
+                            v-on:click="onClick"
+                            v-on:show="show"
+                        >
+                            <template
+                                v-for="column in colSlots"
+                                v-slot:[column]="row">
+                                <slot
+                                    :name="column"
+                                    :[slotItemVar]="row.item"
+                                    :value="row.value"
+                                    :column="row.column"
+                                />
+                            </template>
+                        </lkt-hidden-row>
+                    </template>
                     </tbody>
                 </table>
 
                 <div v-else class="lkt-table-items-container" :class="itemsContainerClass">
-                    <div class="lkt-table-item" v-for="(item, i) in Items">
-                        <slot name="item"
-                              v-bind:item="item"
-                              v-bind:index="i"
-                              v-bind:can-create="hasCreatePerm"
-                              v-bind:can-read="hasReadPerm"
-                              v-bind:can-update="hasUpdatePerm"
-                              v-bind:can-drop="hasDropPerm"
-                              v-bind:is-loading="loading"
-                              v-bind:do-drop="() => onItemDrop(i)"
-                        />
-                    </div>
+                    <template
+                        v-for="(item, i) in Items">
+                            <div class="lkt-table-item" v-if="canDisplayItem(item)">
+                                <slot name="item"
+                                      v-bind:[slotItemVar]="item"
+                                      v-bind:index="i"
+                                      v-bind:can-create="hasCreatePerm"
+                                      v-bind:can-read="hasReadPerm"
+                                      v-bind:can-update="hasUpdatePerm"
+                                      v-bind:can-drop="hasDropPerm"
+                                      v-bind:is-loading="loading"
+                                      v-bind:do-drop="() => onItemDrop(i)"
+                                />
+                            </div>
+                    </template>
                 </div>
             </div>
 
