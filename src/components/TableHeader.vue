@@ -41,7 +41,6 @@ const computedColSpan = computed(() => {
     });
 
 const onClick = () => emit('click', props.column)
-
 </script>
 
 <template>
