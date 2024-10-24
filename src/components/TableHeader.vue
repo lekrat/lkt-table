@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import {getVerticalColSpan} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {computed} from "vue";
@@ -41,9 +40,7 @@ const computedColSpan = computed(() => {
         return props.column.label;
     });
 
-const onClick = () => {
-    emit('click', props.column);
-}
+const onClick = () => emit('click', props.column)
 
 </script>
 

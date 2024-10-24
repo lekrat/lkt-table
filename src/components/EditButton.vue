@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
 import {Settings} from "../settings/Settings";
-import {__} from "lkt-i18n";
 import {LktObject} from "lkt-ts-interfaces";
 
 const emit = defineEmits(['click']);
@@ -24,25 +23,15 @@ const props = withDefaults(defineProps<{
     resourceData: () => ({}),
 });
 
-const hasButtonSlot = computed(() => {
-        return Settings.editButtonSlot !== '';
-    }),
-    buttonSlot = computed(() => {
-        return Settings.editButtonSlot;
-    }),
-    computedText = computed(() => {
-        if (props.text.startsWith('__:')) {
-            return __(props.text.substring(3));
-        }
-        return props.text;
-    })
+const hasButtonSlot = computed(() => Settings.editButtonSlot !== ''),
+    buttonSlot = computed(() => Settings.editButtonSlot)
 </script>
 
 <template>
     <lkt-button
         palette="table-delete"
         :icon="hasButtonSlot ? '' : icon"
-        :text="hasButtonSlot ? '' : computedText"
+        :text="hasButtonSlot ? '' : text"
         :on-click-to="link"
         :is-anchor="link !== ''"
         :resource="resource"

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {createLktEvent} from "lkt-events";
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
 import LktTableCell from "./LktTableCell.vue";
@@ -32,9 +31,7 @@ const props = withDefaults(defineProps<{
 
 const item = ref(props.modelValue);
 
-const onClick = ($event: any, item: any, column: LktTableColumn) => {
-    emit('click', $event, createLktEvent('', {item, column}))
-};
+const onClick = ($event: any) => emit('click', $event);
 
 watch(() => props.modelValue, (v) => item.value = v);
 watch(item, () => emit('update:modelValue', item.value));

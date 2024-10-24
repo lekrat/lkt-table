@@ -4,6 +4,7 @@ import {LktObject} from "lkt-ts-interfaces";
 import {Option} from "lkt-field-select";
 import {reactive} from "vue";
 import {__} from "lkt-i18n";
+import {ColumnType} from "../types/ColumnType";
 
 /**
  *
@@ -12,7 +13,7 @@ import {__} from "lkt-i18n";
  * @param sortable
  * @returns {LktTableColumn}
  */
-export const createColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
+export const createColumn = (key: string|ColumnType, label: string, sortable: boolean = true): LktTableColumn => {
     return reactive(new LktTableColumn(key, label).setIsSortable(sortable));
 }
 

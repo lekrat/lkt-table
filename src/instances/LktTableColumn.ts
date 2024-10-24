@@ -2,57 +2,50 @@
 import {Option} from "lkt-field-select";
 import {LktObject} from "lkt-ts-interfaces";
 import {httpCall, HTTPResponse} from "lkt-http-client";
+import {TypeOfColumn} from "../enums/TypeOfColumn";
 
 export class LktTableColumn {
     key: string
     label: string
-    sortable: boolean
-    hidden: boolean
+    sortable: boolean = true;
+    hidden: boolean = false
     editable: boolean
-    formatter?: Function
-    checkEmpty?: Function
-    colspan?: Function | boolean | number
+    formatter?: Function = undefined
+    checkEmpty?: Function = undefined
+    colspan?: Function | boolean | number = undefined
     preferSlot?: Function | boolean = true
-    type: '' | 'link' | 'text' | 'int' | 'float' | 'check' | 'switch' | 'select' | 'action' | 'email' | 'tel' | 'file'
+    type: '' | TypeOfColumn
     link: string | Function
     action: Function
     options: Option[]
-    resource: string
+    resource: string = ''
     resourceSlot: string
-    resourceData: LktObject
+    resourceData: LktObject = {}
     slotData: LktObject
-    isMultiple: boolean
-    isLoading: boolean
+    isMultiple: boolean = false
+    isLoading: boolean = false
     isForRowKey: boolean
     tags: boolean
     autoLoadSelectOptions: boolean
     autoLoadSelectOptionsKey: string
-    resourceLoaded: boolean
-    valueSlot: string
-    editSlot: string
-    multipleDisplay: string
-    multipleDisplayEdition: string
+    resourceLoaded: boolean = false;
+    valueSlot: string = '';
+    editSlot: string = '';
+    multipleDisplay: string = '';
+    multipleDisplayEdition: string = '';
     extractTitleFromColumn: string
     equivalentToSelectValue: boolean
 
-    constructor(key: string = '', label: string = '') {
-        this.key = key;
-        this.label = label;
-        this.sortable = true;
-        this.hidden = false;
-        this.formatter = undefined;
-        this.checkEmpty = undefined;
-        this.colspan = undefined;
-        this.preferSlot = true;
-        this.resource = '';
-        this.resourceData = {};
-        this.isMultiple = false;
-        this.isLoading = false;
-        this.resourceLoaded = false;
-        this.valueSlot = '';
-        this.editSlot = '';
-        this.multipleDisplay = '';
-        this.multipleDisplayEdition = '';
+    constructor(key: string|LktObject = '', label: string = '') {
+        if (typeof key === 'object') {
+            for (let k in key) {
+                this[k] = key[k];
+            }
+
+        } else {
+            this.key = key;
+            this.label = label;
+        }
     }
 
     setIsSortable(status: boolean = true): this {
@@ -110,59 +103,59 @@ export class LktTableColumn {
     }
 
     defineAsLink(href: string | Function) {
-        this.type = 'link';
+        this.type = TypeOfColumn.Link;
         this.link = href;
         return this;
     }
 
     defineAsText() {
-        this.type = 'text';
+        this.type = TypeOfColumn.Text;
         return this;
     }
 
     defineAsEmail() {
-        this.type = 'email';
+        this.type = TypeOfColumn.Email;
         return this;
     }
 
     defineAsTel() {
-        this.type = 'tel';
+        this.type = TypeOfColumn.Tel;
         return this;
     }
 
     defineAsInteger() {
-        this.type = 'int';
+        this.type = TypeOfColumn.Integer;
         return this;
     }
 
     defineAsFloat() {
-        this.type = 'float';
+        this.type = TypeOfColumn.Float;
         return this;
     }
 
     defineAsCheck() {
-        this.type = 'check';
+        this.type = TypeOfColumn.Check;
         return this;
     }
 
     defineAsSwitch() {
-        this.type = 'switch';
+        this.type = TypeOfColumn.Switch;
         return this;
     }
 
     defineAsFile() {
-        this.type = 'file';
+        this.type = TypeOfColumn.File;
         return this;
     }
 
     defineAsAction(action: Function) {
-        this.type = 'action';
+        this.type = TypeOfColumn.Action;
         this.action = action;
         return this;
     }
 
     defineAsSelect(options: Option[]) {
-        this.type = 'select';
+        this.type = TypeOfColumn.Select;
         this.options = options;
         return this;
     }

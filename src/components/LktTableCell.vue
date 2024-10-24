@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
-import {nextTick, ref, watch, computed} from "vue";
+import {computed, nextTick, ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
+import {TypeOfColumn} from "@/enums/TypeOfColumn";
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -52,15 +53,15 @@ const slotData = computed(() => {
 </script>
 
 <template>
-    <template v-if="column.type === 'link'">
+    <template v-if="column.type === TypeOfColumn.Link">
         <lkt-anchor
             :to="column.getHref(item)"
         >{{ getColumnDisplayContent(column, item, i) }}</lkt-anchor>
     </template>
-    <template v-else-if="column.type === 'action'">
+    <template v-else-if="column.type === TypeOfColumn.Action">
         <a href="#" v-on:click="column.doAction(item)">{{ getColumnDisplayContent(column, item, i) }}</a>
     </template>
-    <template v-else-if="column.type === 'text'">
+    <template v-else-if="column.type === TypeOfColumn.Text">
         <lkt-field-text
             v-bind:read-mode="!column.editable || !editModeEnabled"
             :ref="(el:any) => inputElement = el"
@@ -69,7 +70,7 @@ const slotData = computed(() => {
             :slot-data="slotData"
             v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'email'">
+    <template v-else-if="column.type === TypeOfColumn.Email">
         <lkt-field-text
             v-bind:read-mode="!column.editable || !editModeEnabled"
             :ref="(el:any) => inputElement = el"
@@ -79,7 +80,7 @@ const slotData = computed(() => {
             is-email
             v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'tel'">
+    <template v-else-if="column.type === TypeOfColumn.Tel">
         <lkt-field-text
             v-bind:read-mode="!column.editable || !editModeEnabled"
             :ref="(el:any) => inputElement = el"
@@ -89,7 +90,7 @@ const slotData = computed(() => {
             is-tel
             v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'int'">
+    <template v-else-if="column.type === TypeOfColumn.Integer">
         <lkt-field-text
             v-bind:read-mode="!column.editable || !editModeEnabled"
             :ref="(el:any) => inputElement = el"
@@ -99,7 +100,7 @@ const slotData = computed(() => {
             is-number
             v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'float'">
+    <template v-else-if="column.type === TypeOfColumn.Float">
         <lkt-field-text
             v-bind:read-mode="!column.editable || !editModeEnabled"
             :ref="(el:any) => inputElement = el"
@@ -109,16 +110,16 @@ const slotData = computed(() => {
             is-number
             v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'check'">
+    <template v-else-if="column.type === TypeOfColumn.Check">
         <lkt-field-switch is-check v-bind:read-mode="!column.editable || !editModeEnabled" :ref="(el:any) => inputElement = el" v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'switch'">
+    <template v-else-if="column.type === TypeOfColumn.Switch">
         <lkt-field-switch v-bind:read-mode="!column.editable || !editModeEnabled" :ref="(el:any) => inputElement = el" v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'file'">
+    <template v-else-if="column.type === TypeOfColumn.File">
         <lkt-field-file v-bind:read-mode="!column.editable || !editModeEnabled" :ref="(el:any) => inputElement = el" v-model="value"/>
     </template>
-    <template v-else-if="column.type === 'select'">
+    <template v-else-if="column.type === TypeOfColumn.Select">
         <lkt-loader v-if="loadingColumn"></lkt-loader>
         <lkt-field-select
             v-else

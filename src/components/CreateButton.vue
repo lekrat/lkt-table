@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
 import {Settings} from "../settings/Settings";
-import {__} from "lkt-i18n";
 
 const emit = defineEmits(['click']);
 
@@ -17,18 +16,8 @@ const props = withDefaults(defineProps<{
     to: '',
 });
 
-const hasCreateButtonSlot = computed(() => {
-        return Settings.createButtonSlot !== '';
-    }),
-    createButtonSlot = computed(() => {
-        return Settings.createButtonSlot;
-    }),
-    computedText = computed(() => {
-        if (props.text.startsWith('__:')) {
-            return __(props.text.substring(3));
-        }
-        return props.text;
-    })
+const hasCreateButtonSlot = computed(() => Settings.createButtonSlot !== ''),
+    createButtonSlot = computed(() => Settings.createButtonSlot)
 </script>
 
 <template>
@@ -36,7 +25,7 @@ const hasCreateButtonSlot = computed(() => {
         palette="table-create"
         :disabled="disabled"
         :icon="hasCreateButtonSlot ? '' : icon"
-        :text="hasCreateButtonSlot ? '' : computedText"
+        :text="hasCreateButtonSlot ? '' : text"
         :on-click-to="to"
         @click="emit('click')">
         <template v-if="hasCreateButtonSlot">

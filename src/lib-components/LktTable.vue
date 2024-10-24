@@ -3,14 +3,12 @@ import {defaultTableSorter, getColumnByKey, getDefaultSortColumn} from "../funct
 import LktTableRow from "../components/LktTableRow.vue";
 import {computed, nextTick, onMounted, ref, useSlots, watch} from "vue";
 import {LktTableColumn} from "../instances/LktTableColumn";
-import {LktEvent} from "lkt-events";
 import LktHiddenRow from "../components/LktHiddenRow.vue";
 import {generateRandomString, replaceAll} from "lkt-string-tools";
 import {LktObject} from "lkt-ts-interfaces";
 import {DataState} from "lkt-data-state";
 import {HTTPResponse} from "lkt-http-client";
 import CreateButton from "../components/CreateButton.vue";
-// import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
 import Sortable from 'sortablejs';
 import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
@@ -321,11 +319,11 @@ const getItemByEvent = (e: any) => {
             emit('sort', [SortBy.value, SortDirection.value]);
         }
     },
-    onClick = ($event: any, $lkt: LktEvent) => {
-        emit('click', $event, $lkt);
+    onClick = ($event: any) => {
+        emit('click', $event);
     },
-    show = ($event: any, $lkt: LktEvent) => {
-        let k = 'tr_' + $lkt.value.i;
+    show = ($event: any, i: number) => {
+        let k = 'tr_' + i;
         Hidden.value[k] = typeof Hidden.value[k] === 'undefined' ? true : !Hidden.value[k];
     },
     autoLoadSelectColumnsOptions = () => {
@@ -387,7 +385,6 @@ const getItemByEvent = (e: any) => {
         emit('before-save');
         if (props.saveResource) {
             loading.value = false;
-            // httpStatus.value = r.httpStatus;
             if (!r.success) {
                 emit('error', r.httpStatus);
                 return;
@@ -427,12 +424,6 @@ const getItemByEvent = (e: any) => {
             onEnd: function (evt: CustomEvent) {
                 let oldIndex = evt.oldIndex;
                 let newIndex = evt.newIndex;
-
-                // let clone = JSON.parse(JSON.stringify(Items.value));
-                // Items.value.splice(oldIndex, 1, clone[newIndex]);
-                // Items.value.splice(newIndex, 1, clone[oldIndex]);
-
-
                 Items.value.splice(newIndex, 0, Items.value.splice(oldIndex, 1)[0]);
                 updateTimeStamp.value = time();
             },
@@ -528,9 +519,7 @@ const hasEmptySlot = computed(() => {
             class="lkt-table-page-content-wrapper"
             :class="wrapContentClass"
         >
-
             <div class="lkt-table-page-buttons" v-show="showEditionButtons">
-
                 <lkt-button
                     ref="saveButton"
                     v-show="showSaveButton"

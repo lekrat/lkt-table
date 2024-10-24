@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {createLktEvent} from "lkt-events";
 import {
     canRenderColumn,
     colPreferSlot,
@@ -66,11 +65,9 @@ const Item = ref(props.modelValue);
 const parsedEditLink = ref(props.editLink);
 for (let k in Item.value) parsedEditLink.value = replaceAll(parsedEditLink.value, ':'+k , Item.value[k]);
 
-const onClick = ($event: any, item: any, column: LktTableColumn) => {
-        emit('click', $event, createLktEvent('', {item, column}))
-    },
+const onClick = ($event: any) => emit('click', $event),
     onShow = ($event: any, i: any) => {
-        emit('show', $event, createLktEvent('', {i}))
+        emit('show', $event, i)
     },
     classes = computed(() => {
         let r = [];
