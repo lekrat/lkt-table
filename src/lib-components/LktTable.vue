@@ -238,7 +238,6 @@ const emptyColumns = computed(() => {
         return editModeEnabled.value;
     }),
     showEditionButtons = computed(() => {
-        // if (hasCreatePerm.value || hasUpdatePerm.value || hasDropPerm.value)
         if (computedDisplayCreateButton.value && Items.value.length >= props.requiredItemsForTopCreate) return true;
         if (props.switchEditionEnabled) return true;
         return showSaveButton.value || (editModeEnabled.value && props.canCreate);
