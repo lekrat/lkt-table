@@ -17,12 +17,13 @@ export class LktTableColumn {
     type: '' | TypeOfColumn
     link: string | Function
     action: Function
-    options: Option[]
+    options: string|Option[]
     resource: string = ''
     resourceSlot: string
     resourceData: LktObject = {}
     slotData: LktObject
     isMultiple: boolean = false
+    multiple: boolean = false
     isLoading: boolean = false
     isForRowKey: boolean
     tags: boolean
@@ -31,10 +32,16 @@ export class LktTableColumn {
     resourceLoaded: boolean = false;
     valueSlot: string = '';
     editSlot: string = '';
-    multipleDisplay: string = '';
-    multipleDisplayEdition: string = '';
+    multipleDisplay?: string = 'inline';
+    multipleDisplayEdition?: string = '';
     extractTitleFromColumn: string
     equivalentToSelectValue: boolean
+    icon: string = '';
+    optionsIcon: string = '';
+    optionsModal: string|Function = '';
+    modal: string = '';
+    modalKey: string = '';
+    modalData: LktObject = {};
 
     constructor(key: string|LktObject = '', label: string = '') {
         if (typeof key === 'object') {

@@ -50,6 +50,30 @@ if (props.column.hasToLoadResource()) {
 const slotData = computed(() => {
     return {...props.column.slotData, item: item.value};
 })
+
+const newFieldSupportedColumns = [
+    TypeOfColumn.Text,
+    TypeOfColumn.Select,
+    'date',
+    'switch',
+    'check',
+];
+
+const computedModalKey = computed(() => {
+    if (props.column.modalKey.startsWith('prop:')) {
+        let prop = props.column.modalKey.substring(5);
+        return item.value[prop];
+    }
+    return props.column.modalKey;
+})
+
+const computedOptions = computed(() => {
+    if (typeof props.column.options === 'string' && props.column.options.startsWith('prop:')) {
+        let prop = props.column.options.substring(5);
+        return item.value[prop];
+    }
+    return props.column.options;
+})
 </script>
 
 <template>
@@ -60,6 +84,27 @@ const slotData = computed(() => {
     </template>
     <template v-else-if="column.type === TypeOfColumn.Action">
         <a href="#" v-on:click="column.doAction(item)">{{ getColumnDisplayContent(column, item, i) }}</a>
+    </template>
+    <template v-else-if="newFieldSupportedColumns.includes(column.type)">
+        <lkt-field
+            :type="column.type"
+            :read-mode="!column.editable || !editModeEnabled"
+            :ref="(el:any) => inputElement = el"
+            :edit-slot="column.editSlot"
+            :value-slot="column.valueSlot"
+            :slot-data="slotData"
+            :label="column.type === 'switch' || column.type === 'check' ? column.label : ''"
+            :icon="column.icon"
+            :modal="column.modal"
+            :modal-key="computedModalKey"
+            :modal-data="column.modalData"
+            :options="computedOptions"
+            :options-icon="column.optionsIcon"
+            :options-modal="column.optionsModal"
+            :multiple="column.multiple"
+            :multiple-display="column.multipleDisplay"
+            :multiple-display-edition="column.multipleDisplayEdition"
+            v-model="value"/>
     </template>
     <template v-else-if="column.type === TypeOfColumn.Text">
         <lkt-field-text
