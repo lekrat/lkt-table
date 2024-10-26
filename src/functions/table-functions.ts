@@ -13,7 +13,10 @@ import {TypeOfColumn} from "../enums/TypeOfColumn";
  * @returns {LktTableColumn}
  */
 export const createColumn = (key: string|LktObject, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label));
+    if (typeof key === 'object') {
+        return reactive(new LktTableColumn(key));
+    }
+    return reactive(new LktTableColumn({key, label, sortable}));
 }
 
 /**

@@ -1,5 +1,5 @@
-declare class M {
-    constructor(o?: string, i?: string);
+declare class L {
+    constructor(o?: {});
     key: string;
     label: string;
     sortable: boolean;
@@ -7,11 +7,14 @@ declare class M {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: Pe;
     getHref(o: any): any;
     doAction(o: any): any;
 }
-declare function Dl(t: any, o: any, i: any, a?: boolean): {
+declare function Dl(t: any, o: any, u: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -19,6 +22,9 @@ declare function Dl(t: any, o: any, i: any, a?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -78,7 +84,7 @@ declare function Dl(t: any, o: any, i: any, a?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Ml(t: any, o: any, i?: boolean): {
+declare function Fl(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -86,6 +92,9 @@ declare function Ml(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -145,7 +154,7 @@ declare function Ml(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function wl(t: any, o: any, i?: boolean): {
+declare function Vl(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -153,6 +162,9 @@ declare function wl(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -212,7 +224,7 @@ declare function wl(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Rl(t: any, o: any, i?: boolean): {
+declare function Rl(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -220,6 +232,9 @@ declare function Rl(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -279,7 +294,7 @@ declare function Rl(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Ul(t: any, o: any, i?: boolean): {
+declare function Ul(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -287,6 +302,9 @@ declare function Ul(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -346,7 +364,7 @@ declare function Ul(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function $l(t: any, o: any, i?: boolean): {
+declare function $l(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -354,6 +372,9 @@ declare function $l(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -413,7 +434,7 @@ declare function $l(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Al(t: any, o: any, i?: boolean): {
+declare function Al(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -421,6 +442,9 @@ declare function Al(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -480,7 +504,7 @@ declare function Al(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Il(t: any, o: any, i?: boolean): {
+declare function Il(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -488,6 +512,9 @@ declare function Il(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -547,7 +574,7 @@ declare function Il(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function El(t: any, o: any, i: any, a?: boolean): {
+declare function El(t: any, o: any, u: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -555,6 +582,9 @@ declare function El(t: any, o: any, i: any, a?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -614,7 +644,7 @@ declare function El(t: any, o: any, i: any, a?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Fl(t: any, o: any, i: any, a?: boolean): {
+declare function Nl(t: any, o: any, u: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -622,6 +652,9 @@ declare function Fl(t: any, o: any, i: any, a?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -681,7 +714,7 @@ declare function Fl(t: any, o: any, i: any, a?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Nl(t: any, o: any, i?: boolean): {
+declare function Ml(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -689,6 +722,9 @@ declare function Nl(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -748,7 +784,7 @@ declare function Nl(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Ll(t: any, o: any, i?: boolean): {
+declare function Ll(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -756,6 +792,9 @@ declare function Ll(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -815,7 +854,7 @@ declare function Ll(t: any, o: any, i?: boolean): {
     getHref: (o: any) => any;
     doAction: (o: any) => any;
 };
-declare function Tl(t: any, o: any, i?: boolean): {
+declare function Tl(t: any, o: any, u?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -823,6 +862,9 @@ declare function Tl(t: any, o: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    isForRowKey: boolean;
+    extractTitleFromColumn: string;
+    slotData: {};
     field: {
         modelValue: string;
         type: any;
@@ -885,9 +927,9 @@ declare function Tl(t: any, o: any, i?: boolean): {
 declare namespace Pl {
     function install(t: any): void;
 }
-declare function Kl(t: any): boolean;
 declare function Hl(t: any): boolean;
+declare function Kl(t: any): boolean;
 declare function jl(t: any): void;
 declare function Wl(t: any): boolean;
 import { Field as Pe } from "lkt-field";
-export { M as LktTableColumn, Dl as createActionColumn, Ml as createCheckColumn, wl as createColumn, Rl as createEmailColumn, Ul as createFileColumn, $l as createFloatColumn, Al as createHiddenColumn, Il as createIntegerColumn, El as createLinkColumn, Fl as createSelectColumn, Nl as createSwitchColumn, Ll as createTelColumn, Tl as createTextColumn, Pl as default, Kl as setTableCreateButtonSlot, Hl as setTableDropButtonSlot, jl as setTableEmptySlot, Wl as setTableNavButtonSlot };
+export { L as LktTableColumn, Dl as createActionColumn, Fl as createCheckColumn, Vl as createColumn, Rl as createEmailColumn, Ul as createFileColumn, $l as createFloatColumn, Al as createHiddenColumn, Il as createIntegerColumn, El as createLinkColumn, Nl as createSelectColumn, Ml as createSwitchColumn, Ll as createTelColumn, Tl as createTextColumn, Pl as default, Hl as setTableCreateButtonSlot, Kl as setTableDropButtonSlot, jl as setTableEmptySlot, Wl as setTableNavButtonSlot };

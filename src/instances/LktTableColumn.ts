@@ -1,6 +1,6 @@
 import {LktObject} from "lkt-ts-interfaces";
 import {TypeOfColumn} from "../enums/TypeOfColumn";
-import {Field, Option} from "lkt-field";
+import {Field} from "lkt-field";
 
 export class LktTableColumn {
     key: string = '';
@@ -14,25 +14,17 @@ export class LktTableColumn {
     preferSlot?: Function | boolean = true;
     type: '' | TypeOfColumn = '';
     link: string | Function
-    action: Function
-    isForRowKey: boolean
-    extractTitleFromColumn: string
-    slotData: LktObject
+    action?: Function = undefined;
+    isForRowKey: boolean = false;
+    extractTitleFromColumn: string = '';
+    slotData: LktObject = {};
 
     field: Field = new Field();
 
-
-    options: string | Option[]
-
-    constructor(key: string | LktObject = '', label: string = '') {
-        if (typeof key === 'object') {
-            for (let k in key) {
-                this[k] = key[k];
-            }
-
-        } else {
-            this.key = key;
-            this.label = label;
+    constructor(data: LktObject = {}) {
+        for (let k in data) {
+            //@ts-ignore
+            this[k] = data[k];
         }
 
         this.field = new Field(this.field);
