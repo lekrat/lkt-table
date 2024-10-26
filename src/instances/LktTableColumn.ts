@@ -1,5 +1,4 @@
 import {LktObject} from "lkt-ts-interfaces";
-import {httpCall, HTTPResponse} from "lkt-http-client";
 import {TypeOfColumn} from "../enums/TypeOfColumn";
 import {Field, Option} from "lkt-field";
 
@@ -16,25 +15,24 @@ export class LktTableColumn {
     type: '' | TypeOfColumn = '';
     link: string | Function
     action: Function
+
+    field: Field = new Field();
+
+
     options: string | Option[]
     resource: string = ''
     resourceSlot: string
     resourceData: LktObject = {}
     slotData: LktObject
     isMultiple: boolean = false
-    isLoading: boolean = false
     isForRowKey: boolean
     tags: boolean
     autoLoadSelectOptions: boolean
     autoLoadSelectOptionsKey: string
-    resourceLoaded: boolean = false;
-    valueSlot: string = '';
-    editSlot: string = '';
     multipleDisplay?: string = 'inline';
     multipleDisplayEdition?: string = '';
     extractTitleFromColumn: string
     equivalentToSelectValue: boolean
-    field: Field = new Field();
 
     constructor(key: string | LktObject = '', label: string = '') {
         if (typeof key === 'object') {
@@ -65,11 +63,6 @@ export class LktTableColumn {
         return this;
     }
 
-    setIsLoading(status: boolean = true): this {
-        this.isLoading = status;
-        return this;
-    }
-
     setFormatter(formatter: any = undefined): this {
         this.formatter = formatter;
         return this;
@@ -82,11 +75,6 @@ export class LktTableColumn {
 
     setColSpan(checker: any = undefined): this {
         this.colspan = checker;
-        return this;
-    }
-
-    setPreferSlot(checker: boolean | Function = true): this {
-        this.preferSlot = checker;
         return this;
     }
 
@@ -162,14 +150,6 @@ export class LktTableColumn {
         return this;
     }
 
-    showLoading(): boolean {
-        return this.resource !== '' && !this.resourceLoaded;
-    }
-
-    hasToLoadResource(): boolean {
-        return this.resource !== '' && !this.resourceLoaded && !this.isLoading;
-    }
-
     setIsMultiple(status: boolean = true): this {
         this.isMultiple = status;
         return this;
@@ -187,35 +167,6 @@ export class LktTableColumn {
 
     setResourceData(data: LktObject): this {
         this.resourceData = data;
-        return this;
-    }
-
-    async loadResource(): Promise<this> {
-        if (this.resourceLoaded) return this;
-        if (!this.resource) return this;
-
-        try {
-            this.isLoading = true;
-            const r: HTTPResponse = await httpCall(this.resource, this.resourceData);
-            // @ts-ignore
-            this.options = r.data;
-            this.isLoading = false;
-            this.resourceLoaded = true;
-
-        } catch (e) {
-            this.isLoading = false;
-        }
-
-        return this;
-    }
-
-    setEditSlot(str: string): this {
-        this.editSlot = str;
-        return this;
-    }
-
-    setValueSlot(str: string): this {
-        this.valueSlot = str;
         return this;
     }
 

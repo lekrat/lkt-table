@@ -325,32 +325,6 @@ const getItemByEvent = (e: any) => {
         let k = 'tr_' + i;
         Hidden.value[k] = typeof Hidden.value[k] === 'undefined' ? true : !Hidden.value[k];
     },
-    autoLoadSelectColumnsOptions = () => {
-
-        Columns.value.forEach(col => {
-            if (col.type === 'select' && col.autoLoadSelectOptions) {
-
-                let key = col.autoLoadSelectOptionsKey !== '' ? col.autoLoadSelectOptionsKey : col.key,
-                    opts = [];
-
-                Items.value.forEach(item => {
-                    if (Array.isArray(item[key])) {
-                        item[key].forEach(opt => opts.push(opt));
-                    }
-                });
-
-                let flags = {};
-
-                opts = opts.filter(function (opt) {
-                    if (flags[opt.value]) return false;
-                    flags[opt.value] = true;
-                    return true;
-                });
-
-                col.setOptions(opts);
-            }
-        })
-    },
     validDragChecker = (evt: any) => {
         if (typeof props.checkValidDrag === 'function') return props.checkValidDrag(evt);
         return true;
@@ -463,7 +437,6 @@ const getItemByEvent = (e: any) => {
     };
 
 onMounted(() => {
-    autoLoadSelectColumnsOptions();
     if (props.initialSorting) {
         sort(getColumnByKey(props.columns, SortBy.value));
     }
@@ -482,7 +455,6 @@ watch(() => props.editMode, (v) => editModeEnabled.value = v);
 watch(() => props.columns, (v) => Columns.value = v);
 watch(() => props.modelValue, (v) => Items.value = v);
 watch(Items, (v: any) => {
-    autoLoadSelectColumnsOptions();
     dataState.value.increment({items: v});
     emit('update:modelValue', v);
 }, {deep: true});

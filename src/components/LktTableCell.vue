@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {getColumnDisplayContent} from "../functions/table-functions";
 import {LktTableColumn} from "../instances/LktTableColumn";
-import {computed, nextTick, ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 import {TypeOfColumn} from "../enums/TypeOfColumn";
 
@@ -23,8 +23,7 @@ const props = withDefaults(defineProps<{
 
 const item = ref(props.modelValue),
     value = ref(item.value[props.column.key]),
-    inputElement = ref(null),
-    loadingColumn = ref(props.column.showLoading());
+    inputElement = ref(null);
 
 watch(value, (v) => {
     const payload = JSON.parse(JSON.stringify(item.value));
@@ -36,16 +35,6 @@ watch(() => props.modelValue, (v) => {
     item.value = v
     value.value = item.value[props.column.key];
 });
-
-watch(() => props.column, () => {
-    if (props.column.resourceLoaded) {
-        nextTick(() => loadingColumn.value = false)
-    }
-}, {deep: true});
-
-if (props.column.hasToLoadResource()) {
-    props.column.loadResource();
-}
 
 const slotData = computed(() => {
     return {...props.column.slotData, item: item.value};
