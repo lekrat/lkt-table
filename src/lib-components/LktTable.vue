@@ -521,7 +521,8 @@ const hasEmptySlot = computed(() => {
                 />
 
                 <div class="switch-edition-mode">
-                    <lkt-field-switch
+                    <lkt-field
+                        type="switch"
                         v-show="switchEditionEnabled"
                         v-model="editModeEnabled"
                         :label="computedEditModeText"/>

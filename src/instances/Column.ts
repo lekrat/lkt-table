@@ -13,7 +13,7 @@ export class Column {
     colspan?: Function | boolean | number = undefined;
     preferSlot?: Function | boolean = true;
     type: '' | TypeOfColumn = '';
-    link: string | Function
+    link: string | Function = '';
     action?: Function = undefined;
     isForRowKey: boolean = false;
     extractTitleFromColumn: string = '';

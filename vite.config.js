@@ -23,8 +23,6 @@ export default {
         rollupOptions: {
             external: [
                 'vue',
-                'sortable',
-                'vuedraggable',
                 'lkt-http-client',
                 'lkt-date-tools',
                 'lkt-string-tools',

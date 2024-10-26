@@ -7,6 +7,7 @@ declare class F {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -22,6 +23,7 @@ declare function Dl(t: any, n: any, i: any, a?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -92,6 +94,7 @@ declare function Fl(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -154,7 +157,7 @@ declare function Fl(t: any, n: any, i?: boolean): {
     getHref: (n: any) => any;
     doAction: (n: any) => any;
 };
-declare function Vl(t: any): {
+declare function wl(t: any): {
     key: string;
     label: string;
     sortable: boolean;
@@ -162,6 +165,7 @@ declare function Vl(t: any): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -232,6 +236,7 @@ declare function Rl(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -302,6 +307,7 @@ declare function Ul(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -372,6 +378,7 @@ declare function $l(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -442,6 +449,7 @@ declare function Al(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -512,6 +520,7 @@ declare function Il(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -582,6 +591,7 @@ declare function El(t: any, n: any, i: any, a?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -652,6 +662,7 @@ declare function Nl(t: any, n: any, i: any, a?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -722,6 +733,7 @@ declare function Ml(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -792,6 +804,7 @@ declare function Ll(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -862,6 +875,7 @@ declare function Tl(t: any, n: any, i?: boolean): {
     editable: boolean;
     preferSlot: boolean;
     type: string;
+    link: string;
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
@@ -932,4 +946,4 @@ declare function Kl(t: any): boolean;
 declare function ql(t: any): void;
 declare function Wl(t: any): boolean;
 import { Field as Pe } from "lkt-field";
-export { F as Column, Dl as createActionColumn, Fl as createCheckColumn, Vl as createColumn, Rl as createEmailColumn, Ul as createFileColumn, $l as createFloatColumn, Al as createHiddenColumn, Il as createIntegerColumn, El as createLinkColumn, Nl as createSelectColumn, Ml as createSwitchColumn, Ll as createTelColumn, Tl as createTextColumn, Pl as default, Hl as setTableCreateButtonSlot, Kl as setTableDropButtonSlot, ql as setTableEmptySlot, Wl as setTableNavButtonSlot };
+export { F as Column, Dl as createActionColumn, Fl as createCheckColumn, wl as createColumn, Rl as createEmailColumn, Ul as createFileColumn, $l as createFloatColumn, Al as createHiddenColumn, Il as createIntegerColumn, El as createLinkColumn, Nl as createSelectColumn, Ml as createSwitchColumn, Ll as createTelColumn, Tl as createTextColumn, Pl as default, Hl as setTableCreateButtonSlot, Kl as setTableDropButtonSlot, ql as setTableEmptySlot, Wl as setTableNavButtonSlot };
