@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import {default as table} from "./lib-components/LktTable.vue";
-import {App, Plugin} from "vue";
+import {App, Component, Plugin} from "vue";
 
 export {
     createColumn,
@@ -25,11 +25,7 @@ import {Settings} from "./settings/Settings";
 import LktLoader from "lkt-loader";
 import LktButton from "lkt-button";
 import LktPaginator from "lkt-paginator";
-import LktFieldText from "lkt-field-text";
-import LktFieldTextArea from "lkt-field-textarea";
-import LktFieldSelect from "lkt-field-select";
-import LktFieldSwitch from "lkt-field-switch";
-import LktFieldFile from "lkt-field-file";
+import LktField from "lkt-field";
 
 const LktTable: Plugin = {
     install: (app: App) => {
@@ -37,12 +33,7 @@ const LktTable: Plugin = {
         if (app.component('lkt-loader') === undefined) app.use(LktLoader);
         if (app.component('lkt-button') === undefined) app.use(LktButton);
         if (app.component('lkt-paginator') === undefined) app.use(LktPaginator);
-        if (app.component('lkt-field-text') === undefined) app.use(LktFieldText);
-        if (app.component('lkt-field-textarea') === undefined) app.use(LktFieldTextArea);
-        if (app.component('lkt-field-select') === undefined) app.use(LktFieldSelect);
-        if (app.component('lkt-field-switch') === undefined) app.use(LktFieldSwitch);
-        if (app.component('lkt-field-file') === undefined) app.use(LktFieldFile);
-
+        if (app.component('lkt-field') === undefined) app.use(LktField);
 
         // Register plugin components
         if (app.component('lkt-table') === undefined) app.component('lkt-table', table);

@@ -1,7 +1,6 @@
 import {LktTableColumn} from "../instances/LktTableColumn";
 import {LktObject} from "lkt-ts-interfaces";
-//@ts-ignore
-import {Option} from "lkt-field-select";
+import {Option} from "lkt-field";
 import {reactive} from "vue";
 import {__} from "lkt-i18n";
 
@@ -96,7 +95,7 @@ export const defaultTableSorter = (a: any, b: any, c: LktTableColumn, sortDirect
  * @param columnStack
  * @returns {*}
  */
-export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: number, columnStack: LktTableColumn[] = []) => {
+export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: number, columnStack: LktTableColumn[] = []): any => {
 
     if (column.extractTitleFromColumn) {
         let columnForTitle = columnStack.find(c => c.key === column.extractTitleFromColumn);

@@ -1,8 +1,7 @@
-//@ts-ignore
-import {Option} from "lkt-field-select";
 import {LktObject} from "lkt-ts-interfaces";
 import {httpCall, HTTPResponse} from "lkt-http-client";
 import {TypeOfColumn} from "../enums/TypeOfColumn";
+import {Field, Option} from "lkt-field";
 
 export class LktTableColumn {
     key: string
@@ -14,16 +13,15 @@ export class LktTableColumn {
     checkEmpty?: Function = undefined
     colspan?: Function | boolean | number = undefined
     preferSlot?: Function | boolean = true
-    type: '' | TypeOfColumn
+    type: '' | TypeOfColumn = '';
     link: string | Function
     action: Function
-    options: string|Option[]
+    options: string | Option[]
     resource: string = ''
     resourceSlot: string
     resourceData: LktObject = {}
     slotData: LktObject
     isMultiple: boolean = false
-    multiple: boolean = false
     isLoading: boolean = false
     isForRowKey: boolean
     tags: boolean
@@ -36,14 +34,9 @@ export class LktTableColumn {
     multipleDisplayEdition?: string = '';
     extractTitleFromColumn: string
     equivalentToSelectValue: boolean
-    icon: string = '';
-    optionsIcon: string = '';
-    optionsModal: string|Function = '';
-    modal: string = '';
-    modalKey: string = '';
-    modalData: LktObject = {};
+    field: Field = new Field();
 
-    constructor(key: string|LktObject = '', label: string = '') {
+    constructor(key: string | LktObject = '', label: string = '') {
         if (typeof key === 'object') {
             for (let k in key) {
                 this[k] = key[k];
@@ -53,6 +46,8 @@ export class LktTableColumn {
             this.key = key;
             this.label = label;
         }
+
+        this.field = new Field(this.field);
     }
 
     setIsSortable(status: boolean = true): this {
@@ -90,7 +85,7 @@ export class LktTableColumn {
         return this;
     }
 
-    setPreferSlot(checker: boolean|Function = true): this {
+    setPreferSlot(checker: boolean | Function = true): this {
         this.preferSlot = checker;
         return this;
     }
@@ -282,22 +277,22 @@ export class LktTableColumn {
         return this;
     }
 
-    setOptions (opts: Option[] = []): this {
+    setOptions(opts: Option[] = []): this {
         this.options = opts;
         return this;
     }
 
-    setTitleSourceColumn (key: string): this {
+    setTitleSourceColumn(key: string): this {
         this.extractTitleFromColumn = key;
         return this;
     }
 
-    useForRowKey (enabled: boolean = true): this {
+    useForRowKey(enabled: boolean = true): this {
         this.isForRowKey = enabled;
         return this;
     }
 
-    setIsEquivalentToSelectValue (enabled: boolean = true): this {
+    setIsEquivalentToSelectValue(enabled: boolean = true): this {
         this.equivalentToSelectValue = enabled;
         return this;
     }
