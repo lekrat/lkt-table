@@ -3,6 +3,7 @@ import {LktObject} from "lkt-ts-interfaces";
 import {Option} from "lkt-field";
 import {reactive} from "vue";
 import {__} from "lkt-i18n";
+import {TypeOfColumn} from "../enums/TypeOfColumn";
 
 /**
  *
@@ -12,55 +13,55 @@ import {__} from "lkt-i18n";
  * @returns {LktTableColumn}
  */
 export const createColumn = (key: string|LktObject, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable));
+    return reactive(new LktTableColumn(key, label));
 }
 
 export const createLinkColumn = (key: string, label: string, href: string | Function, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsLink(href));
+    return reactive(new LktTableColumn({key, label, sortable, type: TypeOfColumn.Link, link: href}));
 }
 
 export const createActionColumn = (key: string, label: string, action: Function, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsAction(action));
+    return reactive(new LktTableColumn({key, label, sortable, type: TypeOfColumn.Action, action}));
 }
 
 export const createTextColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsText());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Text, sortable}));
 }
 
 export const createIntegerColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsInteger());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Number, sortable}));
 }
 
 export const createFloatColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsFloat());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Number, sortable}));
 }
 
 export const createEmailColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsEmail());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Email, sortable}));
 }
 
 export const createTelColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsTel());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Tel, sortable}));
 }
 
 export const createCheckColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsCheck());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Check, sortable}));
 }
 
 export const createSwitchColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsSwitch());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Switch, sortable}));
 }
 
 export const createSelectColumn = (key: string, label: string, options: Option[], sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsSelect(options));
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Select, sortable}));
 }
 
 export const createFileColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).defineAsFile());
+    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.File, sortable}));
 }
 
 export const createHiddenColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn(key, label).setIsSortable(sortable).setIsHidden(true));
+    return reactive(new LktTableColumn(key, label).setIsHidden(true));
 }
 
 /**
