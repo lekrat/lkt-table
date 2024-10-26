@@ -7,16 +7,10 @@ import {TypeOfColumn} from "../enums/TypeOfColumn";
 
 /**
  *
- * @param key
- * @param label
- * @param sortable
- * @returns {Column}
+ * @param data
  */
-export const createColumn = (key: string|LktObject, label: string, sortable: boolean = true): Column => {
-    if (typeof key === 'object') {
-        return reactive(new Column(key));
-    }
-    return reactive(new Column({key, label, sortable}));
+export const createColumn = (data: Column): Column => {
+    return reactive(new Column(data));
 }
 
 /**

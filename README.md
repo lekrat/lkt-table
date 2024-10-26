@@ -43,14 +43,13 @@ In your component:
 ```js
 import {createColumn} from 'lkt-table';
 
-let isSortable = false;
 
 export default {
     data() {
         return {
             columns: [
-                createColumn('name', 'Name'),
-                createColumn('surname', 'Surname', isSortable),
+                createColumn({key: 'name', label: 'Name'}),
+                createColumn({key: 'surname', label: 'Surname', sortable: false}),
             ],
             items: [
                 {name: 'a', surname: 'n'},
