@@ -71,34 +71,15 @@ export default {
 
 ## Usage of `createColumn`:
 ```js
-const column = createColumn(elementProperty, propertyTextInHeader)
-    
-    // Enables/disables column being sortable 
-    // by clicking in header
-    // Default: true
-    .setIsSortable(status)
-    
-    // Make this column hidden, available by clicking a button
-    // Default: false
-    .setIsHidden(status)
-    
-    // Defines a text formatter for this column
-    // Useful if you don't need and slot
-    // Must be a function
-    // Default: undefined
-    .setFormatter(formatter)
-    
-    // Defines a check function to test if this column
-    // is empty.
-    // If all items has this column empty, this column
-    // won't be rendered
-    // Default: undefined
-    .setEmptyChecker(checker)
-    
-    // Defines a function to check which colspan should take
-    // this column
-    // Default: undefined
-    .setColSpan(checker)
+const column = createColumn({
+  key: '', // Element property
+  label: '', // Column text,
+  sortable: true,
+  hidden: false,
+  formatter: undefined,
+  emptyChecker: undefined,
+  colspan: undefined
+})
 ```
 
 ## Props

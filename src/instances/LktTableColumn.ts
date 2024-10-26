@@ -38,26 +38,6 @@ export class LktTableColumn {
         this.field = new Field(this.field);
     }
 
-    setIsHidden(status: boolean = true): this {
-        this.hidden = status;
-        return this;
-    }
-
-    setFormatter(formatter: any = undefined): this {
-        this.formatter = formatter;
-        return this;
-    }
-
-    setEmptyChecker(checker: any = undefined): this {
-        this.checkEmpty = checker;
-        return this;
-    }
-
-    setColSpan(checker: any = undefined): this {
-        this.colspan = checker;
-        return this;
-    }
-
     getHref(item: LktObject) {
         if (typeof this.link === 'function') {
             return this.link(item);
