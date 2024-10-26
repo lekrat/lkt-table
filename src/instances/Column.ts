@@ -2,7 +2,7 @@ import {LktObject} from "lkt-ts-interfaces";
 import {TypeOfColumn} from "../enums/TypeOfColumn";
 import {Field} from "lkt-field";
 
-export class LktTableColumn {
+export class Column {
     key: string = '';
     label: string = '';
     sortable: boolean = true;

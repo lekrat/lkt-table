@@ -18,7 +18,7 @@ export {
     createFloatColumn
 } from "./functions/table-functions";
 
-export {LktTableColumn} from "./instances/LktTableColumn";
+export {Column} from "./instances/Column";
 
 import "./../lkt-table.css"
 import {Settings} from "./settings/Settings";

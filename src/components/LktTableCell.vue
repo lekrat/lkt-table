@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {getColumnDisplayContent} from "../functions/table-functions";
-import {LktTableColumn} from "../instances/LktTableColumn";
+import {Column} from "../instances/Column";
 import {computed, ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 import {TypeOfColumn} from "../enums/TypeOfColumn";
@@ -9,13 +9,13 @@ const emit = defineEmits(['update:modelValue']);
 
 const props = withDefaults(defineProps<{
     modelValue: LktObject
-    column: LktTableColumn
-    columns: LktTableColumn[]
+    column: Column
+    columns: Column[]
     i: number
     editModeEnabled: boolean
 }>(), {
     modelValue: () => ({}),
-    column: () => (new LktTableColumn()),
+    column: () => (new Column()),
     columns: () => [],
     i: 0,
     editModeEnabled: false

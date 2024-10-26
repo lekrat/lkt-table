@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {getColumnDisplayContent} from "../functions/table-functions";
-import {LktTableColumn} from "../instances/LktTableColumn";
+import {Column} from "../instances/Column";
 import LktTableCell from "./LktTableCell.vue";
 import {ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
@@ -14,8 +14,8 @@ const props = withDefaults(defineProps<{
     hiddenIsVisible: boolean
     i: number
     hiddenColumnsColSpan: number
-    visibleColumns: LktTableColumn[]
-    hiddenColumns: LktTableColumn[]
+    visibleColumns: Column[]
+    hiddenColumns: Column[]
     emptyColumns: string[]
 }>(), {
     modelValue: () => ({}),

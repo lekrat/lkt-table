@@ -1,4 +1,4 @@
-import {LktTableColumn} from "../instances/LktTableColumn";
+import {Column} from "../instances/Column";
 import {LktObject} from "lkt-ts-interfaces";
 import {Option} from "lkt-field";
 import {reactive} from "vue";
@@ -10,97 +10,97 @@ import {TypeOfColumn} from "../enums/TypeOfColumn";
  * @param key
  * @param label
  * @param sortable
- * @returns {LktTableColumn}
+ * @returns {Column}
  */
-export const createColumn = (key: string|LktObject, label: string, sortable: boolean = true): LktTableColumn => {
+export const createColumn = (key: string|LktObject, label: string, sortable: boolean = true): Column => {
     if (typeof key === 'object') {
-        return reactive(new LktTableColumn(key));
+        return reactive(new Column(key));
     }
-    return reactive(new LktTableColumn({key, label, sortable}));
+    return reactive(new Column({key, label, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createLinkColumn = (key: string, label: string, href: string | Function, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, sortable, type: TypeOfColumn.Link, link: href}));
+export const createLinkColumn = (key: string, label: string, href: string | Function, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, sortable, type: TypeOfColumn.Link, link: href}));
 }
 
 /**
  * @deprecated
  */
-export const createActionColumn = (key: string, label: string, action: Function, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, sortable, type: TypeOfColumn.Action, action}));
+export const createActionColumn = (key: string, label: string, action: Function, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, sortable, type: TypeOfColumn.Action, action}));
 }
 
 /**
  * @deprecated
  */
-export const createTextColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Text, sortable}));
+export const createTextColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Text, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createIntegerColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Number, sortable}));
+export const createIntegerColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Number, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createFloatColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Number, sortable}));
+export const createFloatColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Number, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createEmailColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Email, sortable}));
+export const createEmailColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Email, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createTelColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Tel, sortable}));
+export const createTelColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Tel, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createCheckColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Check, sortable}));
+export const createCheckColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Check, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createSwitchColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Switch, sortable}));
+export const createSwitchColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Switch, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createSelectColumn = (key: string, label: string, options: Option[], sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.Select, sortable}));
+export const createSelectColumn = (key: string, label: string, options: Option[], sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.Select, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createFileColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, type: TypeOfColumn.File, sortable}));
+export const createFileColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, type: TypeOfColumn.File, sortable}));
 }
 
 /**
  * @deprecated
  */
-export const createHiddenColumn = (key: string, label: string, sortable: boolean = true): LktTableColumn => {
-    return reactive(new LktTableColumn({key, label, sortable, hidden: true}));
+export const createHiddenColumn = (key: string, label: string, sortable: boolean = true): Column => {
+    return reactive(new Column({key, label, sortable, hidden: true}));
 }
 
 /**
@@ -111,7 +111,7 @@ export const createHiddenColumn = (key: string, label: string, sortable: boolean
  * @param sortDirection
  * @returns {number}
  */
-export const defaultTableSorter = (a: any, b: any, c: LktTableColumn, sortDirection: string): number => {
+export const defaultTableSorter = (a: any, b: any, c: Column, sortDirection: string): number => {
     if (!c) return 0;
 
     let A = a[c.key],
@@ -135,7 +135,7 @@ export const defaultTableSorter = (a: any, b: any, c: LktTableColumn, sortDirect
  * @param columnStack
  * @returns {*}
  */
-export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: number, columnStack: LktTableColumn[] = []): any => {
+export const getColumnDisplayContent = (column: Column, item: any, i: number, columnStack: Column[] = []): any => {
 
     if (column.extractTitleFromColumn) {
         let columnForTitle = columnStack.find(c => c.key === column.extractTitleFromColumn);
@@ -160,7 +160,7 @@ export const getColumnDisplayContent = (column: LktTableColumn, item: any, i: nu
  * @param amountOfColumns
  * @param items
  */
-export const getVerticalColSpan = (column: LktTableColumn, amountOfColumns: number, items: Array<LktObject>) => {
+export const getVerticalColSpan = (column: Column, amountOfColumns: number, items: Array<LktObject>) => {
     if (!column.colspan) return -1;
     let max = amountOfColumns;
     items.forEach(item => {
@@ -177,13 +177,13 @@ export const getVerticalColSpan = (column: LktTableColumn, amountOfColumns: numb
  * @param item
  * @returns {boolean|*}
  */
-export const getHorizontalColSpan = (column: LktTableColumn, item: LktObject) => {
+export const getHorizontalColSpan = (column: Column, item: LktObject) => {
     if (column.colspan === false) return false;
     if (typeof column.colspan === 'function') return column.colspan(item);
     return column.colspan;
 }
 
-export const colPreferSlot = (column: LktTableColumn, item: LktObject) => {
+export const colPreferSlot = (column: Column, item: LktObject) => {
     if (typeof column.preferSlot === 'undefined') return true;
     if (column.preferSlot === false) return false;
     if (typeof column.preferSlot === 'function') return column.preferSlot(item);
@@ -196,7 +196,7 @@ export const colPreferSlot = (column: LktTableColumn, item: LktObject) => {
  * @param item
  * @returns {boolean}
  */
-export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], item: LktObject): boolean => {
+export const canRenderColumn = (column: Column, emptyColumns: string[], item: LktObject): boolean => {
     if (typeof column !== 'object' || !column.key) return false;
     if (emptyColumns.indexOf(column.key) > -1) return false;
 
@@ -216,7 +216,7 @@ export const canRenderColumn = (column: LktTableColumn, emptyColumns: string[], 
     return colspan > 0;
 }
 
-export const getDefaultSortColumn = (columns: LktTableColumn[] = []) => {
+export const getDefaultSortColumn = (columns: Column[] = []) => {
     if (columns.length > 0) {
         for (let i = 0; i < columns.length; ++i) {
             if (columns[i].sortable) return columns[i].key;
@@ -225,7 +225,7 @@ export const getDefaultSortColumn = (columns: LktTableColumn[] = []) => {
     return '';
 }
 
-export const getColumnByKey = (columns: LktTableColumn[], key: string): LktTableColumn | null => {
+export const getColumnByKey = (columns: Column[], key: string): Column | null => {
     if (columns.length > 0) {
         for (let i = 0; i < columns.length; ++i) {
             if (columns[i].key === key) return columns[i];

@@ -5,7 +5,7 @@ import {
     getColumnDisplayContent,
     getHorizontalColSpan
 } from "../functions/table-functions";
-import {LktTableColumn} from "../instances/LktTableColumn";
+import {Column} from "../instances/Column";
 import LktTableCell from "./LktTableCell.vue";
 import {computed, ref, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<{
     canEdit: boolean
     editModeEnabled: boolean
     i: number
-    visibleColumns: LktTableColumn[]
+    visibleColumns: Column[]
     emptyColumns: string[]
     dropConfirm: string
     dropText: string

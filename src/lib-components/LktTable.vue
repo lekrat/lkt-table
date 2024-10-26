@@ -2,7 +2,7 @@
 import {defaultTableSorter, getColumnByKey, getDefaultSortColumn} from "../functions/table-functions";
 import LktTableRow from "../components/LktTableRow.vue";
 import {computed, nextTick, onMounted, ref, useSlots, watch} from "vue";
-import {LktTableColumn} from "../instances/LktTableColumn";
+import {Column} from "../instances/Column";
 import LktHiddenRow from "../components/LktHiddenRow.vue";
 import {generateRandomString, replaceAll} from "lkt-string-tools";
 import {LktObject} from "lkt-ts-interfaces";
@@ -21,7 +21,7 @@ const slots = useSlots();
 
 const props = withDefaults(defineProps<{
     modelValue: LktObject[]
-    columns: LktTableColumn[]
+    columns: Column[]
     sorter?: Function
     draggableChecker?: Function
     checkValidDrag?: Function
@@ -188,7 +188,7 @@ const uniqueId = generateRandomString(12);
 const emptyColumns = computed(() => {
         if (!props.hideEmptyColumns) return [];
         let r: string[] = [];
-        Columns.value.forEach((column: LktTableColumn) => {
+        Columns.value.forEach((column: Column) => {
             let key = column.key;
 
             let ok = false;
@@ -204,10 +204,10 @@ const emptyColumns = computed(() => {
         return r;
     }),
     visibleColumns = computed(() => {
-        return Columns.value.filter((c: LktTableColumn) => !c.hidden);
+        return Columns.value.filter((c: Column) => !c.hidden);
     }),
     hiddenColumns = computed(() => {
-        return Columns.value.filter((c: LktTableColumn) => c.hidden);
+        return Columns.value.filter((c: Column) => c.hidden);
     }),
     hiddenColumnsColSpan = computed(() => {
         let r = visibleColumns.value.length + 1;
@@ -215,7 +215,7 @@ const emptyColumns = computed(() => {
         return r;
     }),
     rowKeyColumns = computed(() => {
-        return Columns.value.filter((c: LktTableColumn) => c.isForRowKey);
+        return Columns.value.filter((c: Column) => c.isForRowKey);
     }),
     displayHiddenColumnsIndicator = computed(() => {
         return hiddenColumns.value.length > 0 && !props.sortable;
@@ -307,7 +307,7 @@ const getItemByEvent = (e: any) => {
     isVisible = (index: number) => {
         return Hidden.value['tr_' + index] === true;
     },
-    sort = (column: LktTableColumn | null) => {
+    sort = (column: Column | null) => {
         if (!column) return;
         if (column.sortable) {
             Items.value = Items.value.sort((a: any, b: any) => {

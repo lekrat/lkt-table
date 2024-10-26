@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {getVerticalColSpan} from "../functions/table-functions";
-import {LktTableColumn} from "../instances/LktTableColumn";
+import {Column} from "../instances/Column";
 import {computed} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 import {__} from "lkt-i18n";
@@ -8,7 +8,7 @@ import {__} from "lkt-i18n";
 const emit = defineEmits(['click']);
 
 const props = withDefaults(defineProps<{
-    column: LktTableColumn,
+    column: Column,
     sortBy: string,
     sortDirection: string,
     amountOfColumns: number,

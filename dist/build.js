@@ -909,7 +909,7 @@ const Ft = /* @__PURE__ */ X({
   T.defaultEmptySlot = t;
 };
 export {
-  L as LktTableColumn,
+  L as Column,
   Dl as createActionColumn,
   Fl as createCheckColumn,
   Vl as createColumn,

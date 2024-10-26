@@ -932,4 +932,4 @@ declare function Kl(t: any): boolean;
 declare function jl(t: any): void;
 declare function Wl(t: any): boolean;
 import { Field as Pe } from "lkt-field";
-export { L as LktTableColumn, Dl as createActionColumn, Fl as createCheckColumn, Vl as createColumn, Rl as createEmailColumn, Ul as createFileColumn, $l as createFloatColumn, Al as createHiddenColumn, Il as createIntegerColumn, El as createLinkColumn, Nl as createSelectColumn, Ml as createSwitchColumn, Ll as createTelColumn, Tl as createTextColumn, Pl as default, Hl as setTableCreateButtonSlot, Kl as setTableDropButtonSlot, jl as setTableEmptySlot, Wl as setTableNavButtonSlot };
+export { L as Column, Dl as createActionColumn, Fl as createCheckColumn, Vl as createColumn, Rl as createEmailColumn, Ul as createFileColumn, $l as createFloatColumn, Al as createHiddenColumn, Il as createIntegerColumn, El as createLinkColumn, Nl as createSelectColumn, Ml as createSwitchColumn, Ll as createTelColumn, Tl as createTextColumn, Pl as default, Hl as setTableCreateButtonSlot, Kl as setTableDropButtonSlot, jl as setTableEmptySlot, Wl as setTableNavButtonSlot };
