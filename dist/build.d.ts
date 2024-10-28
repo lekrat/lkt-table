@@ -1,5 +1,5 @@
-declare class F {
-    constructor(n?: {});
+declare class M {
+    constructor(u?: {});
     key: string;
     label: string;
     sortable: boolean;
@@ -11,11 +11,11 @@ declare class F {
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
-    field: Pe;
-    getHref(n: any): any;
-    doAction(n: any): any;
+    field: Ae;
+    getHref(u: any): any;
+    doAction(u: any): any;
 }
-declare function Dl(t: any, n: any, i: any, a?: boolean): {
+declare function gl(t: any, u: any, i: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -83,10 +83,10 @@ declare function Dl(t: any, n: any, i: any, a?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Fl(t: any, n: any, i?: boolean): {
+declare function Vl(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -154,10 +154,10 @@ declare function Fl(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function wl(t: any): {
+declare function bl(t: any): {
     key: string;
     label: string;
     sortable: boolean;
@@ -225,10 +225,10 @@ declare function wl(t: any): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Rl(t: any, n: any, i?: boolean): {
+declare function wl(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -296,10 +296,10 @@ declare function Rl(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Ul(t: any, n: any, i?: boolean): {
+declare function Il(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -367,10 +367,10 @@ declare function Ul(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function $l(t: any, n: any, i?: boolean): {
+declare function Bl(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -438,10 +438,10 @@ declare function $l(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Al(t: any, n: any, i?: boolean): {
+declare function $l(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -509,10 +509,10 @@ declare function Al(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Il(t: any, n: any, i?: boolean): {
+declare function Sl(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -580,10 +580,10 @@ declare function Il(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function El(t: any, n: any, i: any, a?: boolean): {
+declare function hl(t: any, u: any, i: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -651,10 +651,10 @@ declare function El(t: any, n: any, i: any, a?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Nl(t: any, n: any, i: any, a?: boolean): {
+declare function Tl(t: any, u: any, i: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -722,10 +722,10 @@ declare function Nl(t: any, n: any, i: any, a?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Ml(t: any, n: any, i?: boolean): {
+declare function El(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -793,10 +793,10 @@ declare function Ml(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Ll(t: any, n: any, i?: boolean): {
+declare function Dl(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -864,10 +864,10 @@ declare function Ll(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Tl(t: any, n: any, i?: boolean): {
+declare function Cl(t: any, u: any, i?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -935,15 +935,15 @@ declare function Tl(t: any, n: any, i?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (n: any) => any;
-    doAction: (n: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare namespace Pl {
+declare namespace Rl {
     function install(t: any): void;
 }
-declare function Hl(t: any): boolean;
-declare function Kl(t: any): boolean;
-declare function ql(t: any): void;
-declare function Wl(t: any): boolean;
-import { Field as Pe } from "lkt-field";
-export { F as Column, Dl as createActionColumn, Fl as createCheckColumn, wl as createColumn, Rl as createEmailColumn, Ul as createFileColumn, $l as createFloatColumn, Al as createHiddenColumn, Il as createIntegerColumn, El as createLinkColumn, Nl as createSelectColumn, Ml as createSwitchColumn, Ll as createTelColumn, Tl as createTextColumn, Pl as default, Hl as setTableCreateButtonSlot, Kl as setTableDropButtonSlot, ql as setTableEmptySlot, Wl as setTableNavButtonSlot };
+declare function Fl(t: any): boolean;
+declare function Ll(t: any): boolean;
+declare function Nl(t: any): void;
+declare function Ml(t: any): boolean;
+import { Field as Ae } from "lkt-field";
+export { M as Column, gl as createActionColumn, Vl as createCheckColumn, bl as createColumn, wl as createEmailColumn, Il as createFileColumn, Bl as createFloatColumn, $l as createHiddenColumn, Sl as createIntegerColumn, hl as createLinkColumn, Tl as createSelectColumn, El as createSwitchColumn, Dl as createTelColumn, Cl as createTextColumn, Rl as default, Fl as setTableCreateButtonSlot, Ll as setTableDropButtonSlot, Nl as setTableEmptySlot, Ml as setTableNavButtonSlot };
