@@ -14,6 +14,7 @@ import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
 import {time} from "lkt-date-tools";
 import {Settings} from "../settings/Settings";
+import {TypeOfTable} from "@/enums/TypeOfTable";
 
 const emit = defineEmits(['update:modelValue', 'update:perms', 'sort', 'click', 'save', 'error', 'before-save', 'read-response', 'click-create']);
 
@@ -21,6 +22,7 @@ const slots = useSlots();
 
 const props = withDefaults(defineProps<{
     modelValue: LktObject[]
+    type?: TypeOfTable,
     columns: Column[]
     sorter?: Function
     draggableChecker?: Function
@@ -81,6 +83,7 @@ const props = withDefaults(defineProps<{
     slotItemVar: string
 }>(), {
     modelValue: () => [],
+    type: TypeOfTable.Table,
     columns: () => [],
     sorter: defaultTableSorter,
     draggableChecker: (item: any) => true,
@@ -159,6 +162,11 @@ const Page = ref(props.page),
     editModeEnabled = ref(props.editMode),
     updateTimeStamp = ref(0)
 ;
+
+const Type = ref(props.type);
+if (props.itemMode && Type.value === TypeOfTable.Table) {
+    Type.value = TypeOfTable.Item;
+}
 
 const onResults = (r: any) => {
         //@ts-ignore
@@ -540,7 +548,7 @@ const hasEmptySlot = computed(() => {
             <lkt-loader v-if="loading"/>
 
             <div v-show="!loading && Items.length > 0" class="lkt-table" :data-sortable="sortable">
-                <table v-if="!itemMode">
+                <table v-if="Type === TypeOfTable.Table">
                     <thead>
                     <tr>
                         <th v-if="sortable && editModeEnabled" data-role="drag-indicator"/>
@@ -644,7 +652,7 @@ const hasEmptySlot = computed(() => {
                     </tbody>
                 </table>
 
-                <div v-else class="lkt-table-items-container" :class="itemsContainerClass">
+                <div v-else-if="Type === TypeOfTable.Item" class="lkt-table-items-container" :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
                             <div class="lkt-table-item" v-if="canDisplayItem(item)">
@@ -661,6 +669,42 @@ const hasEmptySlot = computed(() => {
                             </div>
                     </template>
                 </div>
+
+                <ul v-else-if="TypeOfTable.Ul" class="lkt-table-items-container" :class="itemsContainerClass">
+                    <template
+                        v-for="(item, i) in Items">
+                            <li class="lkt-table-item" v-if="canDisplayItem(item)">
+                                <slot name="item"
+                                      v-bind:[slotItemVar]="item"
+                                      v-bind:index="i"
+                                      v-bind:can-create="hasCreatePerm"
+                                      v-bind:can-read="hasReadPerm"
+                                      v-bind:can-update="hasUpdatePerm"
+                                      v-bind:can-drop="hasDropPerm"
+                                      v-bind:is-loading="loading"
+                                      v-bind:do-drop="() => onItemDrop(i)"
+                                />
+                            </li>
+                    </template>
+                </ul>
+
+                <ol v-else-if="TypeOfTable.Ul" class="lkt-table-items-container" :class="itemsContainerClass">
+                    <template
+                        v-for="(item, i) in Items">
+                            <li class="lkt-table-item" v-if="canDisplayItem(item)">
+                                <slot name="item"
+                                      v-bind:[slotItemVar]="item"
+                                      v-bind:index="i"
+                                      v-bind:can-create="hasCreatePerm"
+                                      v-bind:can-read="hasReadPerm"
+                                      v-bind:can-update="hasUpdatePerm"
+                                      v-bind:can-drop="hasDropPerm"
+                                      v-bind:is-loading="loading"
+                                      v-bind:do-drop="() => onItemDrop(i)"
+                                />
+                            </li>
+                    </template>
+                </ol>
             </div>
 
             <div class="lkt-table-empty" v-if="!loading && Items.length === 0">
