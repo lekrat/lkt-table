@@ -14,9 +14,20 @@ import TableHeader from "../components/TableHeader.vue";
 import {__} from "lkt-i18n";
 import {time} from "lkt-date-tools";
 import {Settings} from "../settings/Settings";
-import {TypeOfTable} from "@/enums/TypeOfTable";
+import {TypeOfTable} from "../enums/TypeOfTable";
 
-const emit = defineEmits(['update:modelValue', 'update:perms', 'sort', 'click', 'save', 'error', 'before-save', 'read-response', 'click-create']);
+const emit = defineEmits([
+    'update:modelValue',
+    'update:perms',
+    'sort',
+    'click',
+    'save',
+    'error',
+    'before-save',
+    'read-response',
+    'click-create',
+    'page',
+]);
 
 const slots = useSlots();
 
@@ -162,6 +173,8 @@ const Page = ref(props.page),
     editModeEnabled = ref(props.editMode),
     updateTimeStamp = ref(0)
 ;
+
+watch(Page, (v) => emit('page', v));
 
 const Type = ref(props.type);
 if (props.itemMode && Type.value === TypeOfTable.Table) {
