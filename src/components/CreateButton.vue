@@ -5,7 +5,7 @@ import {Settings} from "../settings/Settings";
 const emit = defineEmits(['click']);
 
 const props = withDefaults(defineProps<{
-    disabled: boolean
+    disabled?: boolean
     text: string
     icon: string
     to: string

@@ -19,6 +19,7 @@ import {TypeOfTable} from "../enums/TypeOfTable";
 const emit = defineEmits([
     'update:modelValue',
     'update:perms',
+    'update:loading',
     'sort',
     'click',
     'save',
@@ -43,6 +44,7 @@ const props = withDefaults(defineProps<{
     initialSorting?: boolean
     draggableItemKey?: string
     itemDisplayChecker?: Function
+    loading?: boolean
 
 
     page?: number
@@ -103,10 +105,11 @@ const props = withDefaults(defineProps<{
     hideEmptyColumns: false,
     initialSorting: false,
     draggableItemKey: 'name',
+    loading: false,
 
 
     page: 1,
-    perms: [],
+    perms: () => [],
     resource: '',
     noResultsText: 'No results',
     title: '',
@@ -164,7 +167,7 @@ const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTa
     Columns = ref(props.columns);
 
 const Page = ref(props.page),
-    loading = ref(false),
+    isLoading = ref(props.loading),
     firstLoadReady = ref(false),
     permissions = ref(props.perms),
     paginator = ref(null),
@@ -173,6 +176,8 @@ const Page = ref(props.page),
     editModeEnabled = ref(props.editMode),
     updateTimeStamp = ref(0)
 ;
+
+watch(isLoading, v => emit('update:loading', v));
 
 watch(Page, (v) => emit('page', v));
 
@@ -184,7 +189,7 @@ if (props.itemMode && Type.value === TypeOfTable.Table) {
 const onResults = (r: any) => {
         //@ts-ignore
         if (Array.isArray(r)) Items.value = r;
-        loading.value = false;
+        isLoading.value = false;
         firstLoadReady.value = true;
         dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
     },
@@ -197,7 +202,7 @@ const onResults = (r: any) => {
     onPaginatorResponse = (r: HTTPResponse) => {
         emit('read-response', r);
     },
-    onLoading = () => nextTick(() => loading.value = true),
+    onLoading = () => nextTick(() => isLoading.value = true),
     doRefresh = () => {
         //@ts-ignore
         paginator.value.doRefresh();
@@ -245,14 +250,14 @@ const emptyColumns = computed(() => {
         return Columns.value.map(c => c.key);
 
     }),
-    colSlots = computed((): LktObject => {
-        let r = [];
+    colSlots = computed((): string[] => {
+        let r:string[] = [];
         for (let k in slots) if (columnKeys.value.indexOf(k) !== -1) r.push(k);
         return r;
     }),
     showSaveButton = computed(() => {
         if (props.hiddenSave) return false;
-        if (loading.value) return false;
+        if (isLoading.value) return false;
         if (!props.saveResource) return false;
         if (editModeEnabled.value && dataState.value.changed()) return true;
 
@@ -370,15 +375,15 @@ const getItemByEvent = (e: any) => {
         }
     },
     onButtonLoading = () => {
-        loading.value = true;
+        isLoading.value = true;
     },
     onButtonLoaded = () => {
-        loading.value = false;
+        isLoading.value = false;
     },
     onSave = ($event: PointerEvent, r: HTTPResponse) => {
         emit('before-save');
         if (props.saveResource) {
-            loading.value = false;
+            isLoading.value = false;
             if (!r.success) {
                 emit('error', r.httpStatus);
                 return;
@@ -416,7 +421,10 @@ const getItemByEvent = (e: any) => {
             handle: '.handle',
             animation: 150,
             onEnd: function (evt: CustomEvent) {
+                //@ts-ignore
                 let oldIndex = evt.oldIndex;
+
+                //@ts-ignore
                 let newIndex = evt.newIndex;
                 Items.value.splice(newIndex, 0, Items.value.splice(oldIndex, 1)[0]);
                 updateTimeStamp.value = time();
@@ -555,12 +563,12 @@ const hasEmptySlot = computed(() => {
             </div>
 
             <div class="lkt-table-page-filters" v-if="firstLoadReady && slots.filters">
-                <slot name="filters" :items="Items" :is-loading="loading"/>
+                <slot name="filters" :items="Items" :is-loading="isLoading"/>
             </div>
 
-            <lkt-loader v-if="loading"/>
+            <lkt-loader v-if="isLoading"/>
 
-            <div v-show="!loading && Items.length > 0" class="lkt-table" :data-sortable="sortable">
+            <div v-show="!isLoading && Items.length > 0" class="lkt-table" :data-sortable="sortable">
                 <table v-if="Type === TypeOfTable.Table">
                     <thead>
                     <tr>
@@ -589,7 +597,7 @@ const hasEmptySlot = computed(() => {
                     </tr>
                     </thead>
                     <tbody
-                        :ref="(el) => tableBody = el"
+                        ref="tableBody"
                         :id="'lkt-table-body-' + uniqueId"
                     >
                     <template
@@ -676,7 +684,7 @@ const hasEmptySlot = computed(() => {
                                       v-bind:can-read="hasReadPerm"
                                       v-bind:can-update="hasUpdatePerm"
                                       v-bind:can-drop="hasDropPerm"
-                                      v-bind:is-loading="loading"
+                                      v-bind:is-loading="isLoading"
                                       v-bind:do-drop="() => onItemDrop(i)"
                                 />
                             </div>
@@ -694,7 +702,7 @@ const hasEmptySlot = computed(() => {
                                       v-bind:can-read="hasReadPerm"
                                       v-bind:can-update="hasUpdatePerm"
                                       v-bind:can-drop="hasDropPerm"
-                                      v-bind:is-loading="loading"
+                                      v-bind:is-loading="isLoading"
                                       v-bind:do-drop="() => onItemDrop(i)"
                                 />
                             </li>
@@ -712,7 +720,7 @@ const hasEmptySlot = computed(() => {
                                       v-bind:can-read="hasReadPerm"
                                       v-bind:can-update="hasUpdatePerm"
                                       v-bind:can-drop="hasDropPerm"
-                                      v-bind:is-loading="loading"
+                                      v-bind:is-loading="isLoading"
                                       v-bind:do-drop="() => onItemDrop(i)"
                                 />
                             </li>
@@ -720,7 +728,7 @@ const hasEmptySlot = computed(() => {
                 </ol>
             </div>
 
-            <div class="lkt-table-empty" v-if="!loading && Items.length === 0">
+            <div class="lkt-table-empty" v-if="!isLoading && Items.length === 0">
                 <template v-if="slots.empty">
                     <slot name="empty"/>
                 </template>
