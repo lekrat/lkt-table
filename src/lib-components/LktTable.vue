@@ -15,6 +15,8 @@ import {__} from "lkt-i18n";
 import {time} from "lkt-date-tools";
 import {Settings} from "../settings/Settings";
 import {TypeOfTable} from "../enums/TypeOfTable";
+import {ValidPermissionType} from "@/types/ValidPermissionType";
+import {Permission} from "@/enums/Permission";
 
 const emit = defineEmits([
     'update:modelValue',
@@ -48,7 +50,7 @@ const props = withDefaults(defineProps<{
 
 
     page?: number
-    perms?: string[]
+    perms?: ValidPermissionType[]
     resource?: string
     noResultsText?: string
     title?: string
@@ -82,7 +84,6 @@ const props = withDefaults(defineProps<{
     createDisabled?: boolean
     canCreate?: boolean
     canCreateWithoutEdition?: boolean
-    canEditButton?: boolean
     canDrop?: boolean
     dropConfirm?: string
     dropResource?: string
@@ -142,7 +143,6 @@ const props = withDefaults(defineProps<{
     switchEditionEnabled: false,
     canCreate: false,
     canCreateWithoutEdition: false,
-    canEditButton: false,
     canDrop: false,
     dropConfirm: '',
     dropResource: '',
@@ -251,7 +251,7 @@ const emptyColumns = computed(() => {
 
     }),
     colSlots = computed((): string[] => {
-        let r:string[] = [];
+        let r: string[] = [];
         for (let k in slots) if (columnKeys.value.indexOf(k) !== -1) r.push(k);
         return r;
     }),
@@ -266,7 +266,7 @@ const emptyColumns = computed(() => {
     showEditionButtons = computed(() => {
         if (computedDisplayCreateButton.value && Items.value.length >= props.requiredItemsForTopCreate) return true;
         if (props.switchEditionEnabled) return true;
-        return showSaveButton.value || (editModeEnabled.value && props.canCreate);
+        return showSaveButton.value || (editModeEnabled.value && hasCreatePerm.value);
     }),
     ableToSave = computed(() => {
         if (props.saveDisabled) return false;
@@ -308,10 +308,15 @@ const emptyColumns = computed(() => {
         }
         return props.editModeText;
     }),
-    hasCreatePerm = computed(() => permissions.value.includes('create')),
+    hasCreatePerm = computed(() => permissions.value.includes(Permission.Create)),
     hasReadPerm = computed(() => permissions.value.includes('read')),
-    hasUpdatePerm = computed(() => permissions.value.includes('update')),
-    hasDropPerm = computed(() => permissions.value.includes('drop'));
+    hasUpdatePerm = computed(() => permissions.value.includes(Permission.Update)),
+    hasEditPerm = computed(() => permissions.value.includes(Permission.Edit)),
+    hasDropPerm = computed(() => permissions.value.includes(Permission.Drop));
+
+let dragTimeout: Timeout | undefined = undefined;
+const dragRefreshing = ref(false);
+const dragRefreshingPositions = ref([]);
 
 
 const getItemByEvent = (e: any) => {
@@ -413,6 +418,9 @@ const getItemByEvent = (e: any) => {
         Items.value.splice(i, 1);
         updateTimeStamp.value = time();
     },
+    stopSortable = () => {
+        if (sortableObject.value) sortableObject.value.destroy();
+    },
     initSortable = () => {
         let tbody = document.getElementById('lkt-table-body-' + uniqueId);
 
@@ -421,6 +429,8 @@ const getItemByEvent = (e: any) => {
             handle: '.handle',
             animation: 150,
             onEnd: function (evt: CustomEvent) {
+                clearTimeout(dragTimeout);
+
                 //@ts-ignore
                 let oldIndex = evt.oldIndex;
 
@@ -428,6 +438,13 @@ const getItemByEvent = (e: any) => {
                 let newIndex = evt.newIndex;
                 Items.value.splice(newIndex, 0, Items.value.splice(oldIndex, 1)[0]);
                 updateTimeStamp.value = time();
+
+                dragRefreshing.value = true;
+                dragRefreshingPositions.value = [oldIndex, newIndex];
+                dragTimeout = setTimeout(() => {
+                    dragRefreshing.value = false;
+                    dragRefreshingPositions.value = [];
+                }, 5)
             },
             onMove: function (evt, originalEvent) {
                 return validDragChecker(evt);
@@ -458,9 +475,10 @@ const getItemByEvent = (e: any) => {
     }),
     computedDisplayCreateButton = computed(() => {
         if (!hasCreatePerm.value) return false;
-        return props.canCreateWithoutEdition || (props.canCreate && editModeEnabled.value);
+        return props.canCreateWithoutEdition || (hasCreatePerm.value && editModeEnabled.value);
     }),
-    canDisplayItem = (item) => {
+    canDisplayItem = (item: LktObject, index: number) => {
+        if (dragRefreshing.value && dragRefreshingPositions.value.includes(index)) return false;
         if (typeof props.itemDisplayChecker === 'function') return props.itemDisplayChecker(item);
         return true;
     };
@@ -474,6 +492,14 @@ onMounted(() => {
         nextTick(() => {
             initSortable();
         })
+    }
+})
+
+watch(() => props.sortable, (v) => {
+    if (v) {
+        initSortable();
+    } else {
+        stopSortable();
     }
 })
 
@@ -521,9 +547,10 @@ const hasEmptySlot = computed(() => {
         >
             <div class="lkt-table-page-buttons" v-show="showEditionButtons">
                 <lkt-button
+                    class="lkt-table--save-button"
                     ref="saveButton"
                     v-show="showSaveButton"
-                    palette="success"
+                    :icon="Settings.defaultSaveIcon"
                     :disabled="!ableToSave"
                     :confirm-modal="saveConfirm"
                     :confirm-data="confirmData"
@@ -591,7 +618,7 @@ const hasEmptySlot = computed(() => {
                             class="lkt-table-col-drop"
                         />
                         <th
-                            v-if="canEditButton && hasUpdatePerm && editModeEnabled"
+                            v-if="hasEditPerm && hasUpdatePerm && editModeEnabled"
                             class="lkt-table-col-edit"
                         />
                     </tr>
@@ -600,11 +627,10 @@ const hasEmptySlot = computed(() => {
                         ref="tableBody"
                         :id="'lkt-table-body-' + uniqueId"
                     >
-                    <template
-                        v-for="(item, i) in Items">
                         <lkt-table-row
-                            v-if="canDisplayItem(item)"
+                            v-for="(item, i) in Items"
                             v-model="Items[i]"
+                            v-if="canDisplayItem(Items[i], i)"
                             :key="getRowKey(item, i)"
                             :i="i"
                             :display-hidden-columns-indicator="displayHiddenColumnsIndicator"
@@ -620,7 +646,7 @@ const hasEmptySlot = computed(() => {
                             :drop-resource="dropResource"
                             :drop-text="dropText"
                             :drop-icon="dropIcon"
-                            :can-edit="canEditButton && hasUpdatePerm && editModeEnabled"
+                            :can-edit="hasEditPerm && hasUpdatePerm && editModeEnabled"
                             :edit-text="editText"
                             :edit-icon="editIcon"
                             :edit-link="editLink"
@@ -669,61 +695,64 @@ const hasEmptySlot = computed(() => {
                                 />
                             </template>
                         </lkt-hidden-row>
-                    </template>
                     </tbody>
                 </table>
 
-                <div v-else-if="Type === TypeOfTable.Item" class="lkt-table-items-container" :class="itemsContainerClass">
+                <div v-else-if="Type === TypeOfTable.Item" class="lkt-table-items-container"
+                     :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
-                            <div class="lkt-table-item" v-if="canDisplayItem(item)">
-                                <slot name="item"
-                                      v-bind:[slotItemVar]="item"
-                                      v-bind:index="i"
-                                      v-bind:can-create="hasCreatePerm"
-                                      v-bind:can-read="hasReadPerm"
-                                      v-bind:can-update="hasUpdatePerm"
-                                      v-bind:can-drop="hasDropPerm"
-                                      v-bind:is-loading="isLoading"
-                                      v-bind:do-drop="() => onItemDrop(i)"
-                                />
-                            </div>
+                        <div class="lkt-table-item" v-if="canDisplayItem(item, i)">
+                            <slot name="item"
+                                  v-bind:[slotItemVar]="item"
+                                  v-bind:index="i"
+                                  v-bind:editing="editModeEnabled"
+                                  v-bind:can-create="hasCreatePerm"
+                                  v-bind:can-read="hasReadPerm"
+                                  v-bind:can-update="hasUpdatePerm"
+                                  v-bind:can-drop="hasDropPerm"
+                                  v-bind:is-loading="isLoading"
+                                  v-bind:do-drop="() => onItemDrop(i)"
+                            />
+                        </div>
                     </template>
                 </div>
 
                 <ul v-else-if="TypeOfTable.Ul" class="lkt-table-items-container" :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
-                            <li class="lkt-table-item" v-if="canDisplayItem(item)">
-                                <slot name="item"
-                                      v-bind:[slotItemVar]="item"
-                                      v-bind:index="i"
-                                      v-bind:can-create="hasCreatePerm"
-                                      v-bind:can-read="hasReadPerm"
-                                      v-bind:can-update="hasUpdatePerm"
-                                      v-bind:can-drop="hasDropPerm"
-                                      v-bind:is-loading="isLoading"
-                                      v-bind:do-drop="() => onItemDrop(i)"
-                                />
-                            </li>
+                        <li class="lkt-table-item" v-if="canDisplayItem(item, i)">
+                            <slot name="item"
+                                  v-bind:[slotItemVar]="item"
+                                  v-bind:index="i"
+                                  v-bind:editing="editModeEnabled"
+                                  v-bind:can-create="hasCreatePerm"
+                                  v-bind:can-read="hasReadPerm"
+                                  v-bind:can-update="hasUpdatePerm"
+                                  v-bind:can-drop="hasDropPerm"
+                                  v-bind:is-loading="isLoading"
+                                  v-bind:do-drop="() => onItemDrop(i)"
+                            />
+                        </li>
                     </template>
                 </ul>
 
                 <ol v-else-if="TypeOfTable.Ul" class="lkt-table-items-container" :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
-                            <li class="lkt-table-item" v-if="canDisplayItem(item)">
-                                <slot name="item"
-                                      v-bind:[slotItemVar]="item"
-                                      v-bind:index="i"
-                                      v-bind:can-create="hasCreatePerm"
-                                      v-bind:can-read="hasReadPerm"
-                                      v-bind:can-update="hasUpdatePerm"
-                                      v-bind:can-drop="hasDropPerm"
-                                      v-bind:is-loading="isLoading"
-                                      v-bind:do-drop="() => onItemDrop(i)"
-                                />
-                            </li>
+                        <li class="lkt-table-item" v-if="canDisplayItem(item, i)">
+                            <slot name="item"
+                                  v-bind:[slotItemVar]="item"
+                                  v-bind:index="i"
+                                  v-bind:editing="editModeEnabled"
+                                  v-bind:can-create="hasCreatePerm"
+                                  v-bind:can-read="hasReadPerm"
+                                  v-bind:can-update="hasUpdatePerm"
+                                  v-bind:can-drop="hasDropPerm"
+                                  v-bind:is-loading="isLoading"
+                                  v-bind:do-drop="() => onItemDrop(i)"
+                            />
+                        </li>
                     </template>
                 </ol>
             </div>
@@ -736,11 +765,12 @@ const hasEmptySlot = computed(() => {
                     <component :is="emptySlot" :message="noResultsText"/>
                 </template>
                 <template v-else-if="noResultsText">
-                    {{noResultsText}}
+                    {{ noResultsText }}
                 </template>
             </div>
 
-            <div v-if="computedDisplayCreateButton || slots.bottomButtons" class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
+            <div v-if="computedDisplayCreateButton || slots.bottomButtons"
+                 class="lkt-table-page-buttons lkt-table-page-buttons-bottom">
                 <create-button
                     v-if="computedDisplayCreateButton && Items.length >= requiredItemsForBottomCreate"
                     :disabled="!createEnabled || createDisabled"

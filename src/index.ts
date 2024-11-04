@@ -60,3 +60,7 @@ export const setTableCreateButtonSlot = (component: string|Component) => {
 export const setTableEmptySlot = (component?: string|Component) => {
     Settings.defaultEmptySlot = component;
 }
+
+export const setTableSaveIcon = (icon: string) => {
+    Settings.defaultSaveIcon = icon;
+}

@@ -6,4 +6,6 @@ export class Settings {
     static editButtonSlot: string|Component = '';
     static createButtonSlot: string|Component = '';
     static defaultEmptySlot: string|Component|undefined = undefined;
+
+    static defaultSaveIcon: string = '';
 }
