@@ -17,6 +17,7 @@ import {Settings} from "../settings/Settings";
 import {TypeOfTable} from "../enums/TypeOfTable";
 import {ValidPermissionType} from "@/types/ValidPermissionType";
 import {Permission} from "@/enums/Permission";
+import {SortDirection} from "@/enums/SortDirection";
 
 const emit = defineEmits([
     'update:modelValue',
@@ -160,10 +161,10 @@ const hiddenColumnsStack: LktObject = {};
 
 const Sorter = ref(typeof props.sorter === 'function' ? props.sorter : defaultTableSorter),
     SortBy = ref(getDefaultSortColumn(props.columns)),
-    SortDirection = ref('asc'),
+    SortingDirection = ref(<SortDirection>SortDirection.Asc),
     Items = ref(props.modelValue),
     Hidden = ref(hiddenColumnsStack),
-    tableBody = ref(null),
+    tableBody = ref(<HTMLElement|null>null),
     Columns = ref(props.columns);
 
 const Page = ref(props.page),
@@ -316,7 +317,7 @@ const emptyColumns = computed(() => {
 
 let dragTimeout: Timeout | undefined = undefined;
 const dragRefreshing = ref(false);
-const dragRefreshingPositions = ref([]);
+const dragRefreshingPositions = ref(<number[]>[]);
 
 
 const getItemByEvent = (e: any) => {
@@ -335,6 +336,12 @@ const getItemByEvent = (e: any) => {
 
         return undefined;
     },
+    getItemByIndex = (index: number) => {
+        return Items.value[index];
+    },
+    getRowByIndex = (index: number) => {
+        return tableBody.value?.querySelector(`tr[data-i="${index}"]`);
+    },
     isVisible = (index: number) => {
         return Hidden.value['tr_' + index] === true;
     },
@@ -342,11 +349,11 @@ const getItemByEvent = (e: any) => {
         if (!column) return;
         if (column.sortable) {
             Items.value = Items.value.sort((a: any, b: any) => {
-                return Sorter.value(a, b, column, SortDirection.value);
+                return Sorter.value(a, b, column, SortingDirection.value);
             });
-            SortDirection.value = SortDirection.value === 'asc' ? 'desc' : 'asc';
+            SortingDirection.value = SortingDirection.value === SortDirection.Asc ? SortDirection.Desc : SortDirection.Asc;
             SortBy.value = column.key;
-            emit('sort', [SortBy.value, SortDirection.value]);
+            emit('sort', [SortBy.value, SortingDirection.value]);
         }
     },
     onClick = ($event: any) => {
@@ -419,7 +426,10 @@ const getItemByEvent = (e: any) => {
         updateTimeStamp.value = time();
     },
     stopSortable = () => {
-        if (sortableObject.value) sortableObject.value.destroy();
+        if (sortableObject.value) {
+            sortableObject.value.destroy();
+            sortableObject.value = {};
+        }
     },
     initSortable = () => {
         let tbody = document.getElementById('lkt-table-body-' + uniqueId);
@@ -478,7 +488,7 @@ const getItemByEvent = (e: any) => {
         return props.canCreateWithoutEdition || (hasCreatePerm.value && editModeEnabled.value);
     }),
     canDisplayItem = (item: LktObject, index: number) => {
-        if (dragRefreshing.value && dragRefreshingPositions.value.includes(index)) return false;
+        // if (dragRefreshing.value && dragRefreshingPositions.value.includes(index)) return false;
         if (typeof props.itemDisplayChecker === 'function') return props.itemDisplayChecker(item);
         return true;
     };
@@ -516,6 +526,8 @@ watch(Items, (v: any) => {
 
 defineExpose({
     getItemByEvent,
+    getItemByIndex,
+    getRowByIndex,
     doRefresh,
 });
 
@@ -607,7 +619,7 @@ const hasEmptySlot = computed(() => {
                                 v-if="emptyColumns.indexOf(column.key) === -1"
                                 :column="column"
                                 :sort-by="SortBy"
-                                :sort-direction="SortDirection"
+                                :sort-direction="SortingDirection"
                                 :amount-of-columns="columns.length"
                                 :items="Items"
                                 v-on:click="sort(column)"
@@ -630,7 +642,7 @@ const hasEmptySlot = computed(() => {
                         <lkt-table-row
                             v-for="(item, i) in Items"
                             v-model="Items[i]"
-                            v-if="canDisplayItem(Items[i], i)"
+                            v-show="canDisplayItem(Items[i], i)"
                             :key="getRowKey(item, i)"
                             :i="i"
                             :display-hidden-columns-indicator="displayHiddenColumnsIndicator"
