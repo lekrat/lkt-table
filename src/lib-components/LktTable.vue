@@ -172,6 +172,7 @@ const Page = ref(props.page),
     firstLoadReady = ref(false),
     permissions = ref(props.perms),
     paginator = ref(null),
+    element = ref(null),
     sortableObject = ref({}),
     dataState = ref(new DataState({items: Items.value}, props.dataStateConfig)),
     editModeEnabled = ref(props.editMode),
@@ -529,6 +530,7 @@ defineExpose({
     getItemByIndex,
     getRowByIndex,
     doRefresh,
+    getHtml: () => element.value,
 });
 
 const hasEmptySlot = computed(() => {
@@ -541,7 +543,7 @@ const hasEmptySlot = computed(() => {
 </script>
 
 <template>
-    <section class="lkt-table-page" :id="'lkt-table-page-' + uniqueId">
+    <section ref="element" class="lkt-table-page" :id="'lkt-table-page-' + uniqueId">
         <header v-if="computedTitle || slots.title" :class="headerClass">
             <component :is="computedTitleTag" v-if="computedTitle">
                 <i v-if="titleIcon" :class="titleIcon"/>
