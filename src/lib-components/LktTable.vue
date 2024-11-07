@@ -716,7 +716,7 @@ const hasEmptySlot = computed(() => {
                      :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
-                        <div class="lkt-table-item" v-if="canDisplayItem(item, i)">
+                        <div class="lkt-table-item" v-if="canDisplayItem(item, i)" :data-i="i">
                             <slot name="item"
                                   v-bind:[slotItemVar]="item"
                                   v-bind:index="i"
@@ -735,7 +735,7 @@ const hasEmptySlot = computed(() => {
                 <ul v-else-if="TypeOfTable.Ul" class="lkt-table-items-container" :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
-                        <li class="lkt-table-item" v-if="canDisplayItem(item, i)">
+                        <li class="lkt-table-item" v-if="canDisplayItem(item, i)" :data-i="i">
                             <slot name="item"
                                   v-bind:[slotItemVar]="item"
                                   v-bind:index="i"
@@ -754,7 +754,7 @@ const hasEmptySlot = computed(() => {
                 <ol v-else-if="TypeOfTable.Ul" class="lkt-table-items-container" :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
-                        <li class="lkt-table-item" v-if="canDisplayItem(item, i)">
+                        <li class="lkt-table-item" v-if="canDisplayItem(item, i)" :data-i="i">
                             <slot name="item"
                                   v-bind:[slotItemVar]="item"
                                   v-bind:index="i"
