@@ -8,4 +8,5 @@ export class Settings {
     static defaultEmptySlot: string|Component|undefined = undefined;
 
     static defaultSaveIcon: string = '';
+    static defaultNoResultsMessage: string = 'No results';
 }

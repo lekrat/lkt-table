@@ -27,6 +27,7 @@ const props = withDefaults(defineProps<{
     canDrop: boolean
     canEdit: boolean
     editModeEnabled: boolean
+    hasInlineEditPerm: boolean
     i: number
     visibleColumns: Column[]
     emptyColumns: string[]
@@ -96,7 +97,7 @@ const onClick = ($event: any) => emit('click', $event),
 
 watch(() => props.modelValue, (v) => Item.value = v);
 watch(Item, (v) => {
-    emit('update:modelValue', v, props.i)
+    emit('update:modelValue', v)
 }, {deep: true});
 </script>
 
@@ -152,6 +153,7 @@ watch(Item, (v) => {
                         :column="column"
                         :columns="visibleColumns"
                         :edit-mode-enabled="editModeEnabled"
+                        :has-inline-edit-perm="hasInlineEditPerm"
                         :i="i"/>
                 </template>
             </td>

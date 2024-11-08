@@ -13,12 +13,14 @@ const props = withDefaults(defineProps<{
     columns: Column[]
     i: number
     editModeEnabled: boolean
+    hasInlineEditPerm: boolean
 }>(), {
     modelValue: () => ({}),
     column: () => (new Column()),
     columns: () => [],
     i: 0,
-    editModeEnabled: false
+    editModeEnabled: false,
+    hasInlineEditPerm: false,
 });
 
 const item = ref(props.modelValue),
@@ -102,7 +104,7 @@ const computedColumnType = computed(() => {
     <template v-else-if="column.type === TypeOfColumn.Action">
         <a href="#" v-on:click="column.doAction(item)">{{ getColumnDisplayContent(column, item, i) }}</a>
     </template>
-    <template v-else-if="column.type !== ''">
+    <template v-else-if="column.type !== '' && hasInlineEditPerm">
         <lkt-field
             v-bind="column.field"
             :icon="computedIcon"
@@ -115,7 +117,22 @@ const computedColumnType = computed(() => {
             :modal-key="computedModalKey"
             :modal-data="computedModalData"
             :options="computedOptions"
-            v-model="value"/>
+            v-model.lazy="value"/>
+    </template>
+    <template v-else-if="column.type !== ''">
+        <lkt-field
+            v-bind="column.field"
+            :icon="computedIcon"
+            :download="computedDownload"
+            :type="computedColumnType"
+            read-mode
+            :ref="(el:any) => inputElement = el"
+            :slot-data="slotData"
+            :label="column.type === 'switch' || column.type === 'check' ? column.label : ''"
+            :modal-key="computedModalKey"
+            :modal-data="computedModalData"
+            :options="computedOptions"
+            :model-value="value"/>
     </template>
     <template v-else>
         {{ getColumnDisplayContent(column, item, i, columns) }}

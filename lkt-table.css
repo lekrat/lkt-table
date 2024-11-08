@@ -6,7 +6,7 @@
 }
 
 .lkt-table-page-content-wrapper {
-    display: flex;
+    display: grid;
     width: 100%;
     flex-direction: column;
     gap: var(--lkt-table-page-gap);
@@ -44,7 +44,10 @@
 }
 
 .lkt-table thead tr {
-    background-color: var(--lkt-table-bg-header)
+    background-color: var(--lkt-table-bg-header);
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .lkt-table tbody tr {

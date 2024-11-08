@@ -15,9 +15,9 @@ import {__} from "lkt-i18n";
 import {time} from "lkt-date-tools";
 import {Settings} from "../settings/Settings";
 import {TypeOfTable} from "../enums/TypeOfTable";
-import {ValidPermissionType} from "@/types/ValidPermissionType";
-import {Permission} from "@/enums/Permission";
-import {SortDirection} from "@/enums/SortDirection";
+import {ValidPermissionType} from "../types/ValidPermissionType";
+import {Permission} from "../enums/Permission";
+import {SortDirection} from "../enums/SortDirection";
 
 const emit = defineEmits([
     'update:modelValue',
@@ -83,9 +83,6 @@ const props = withDefaults(defineProps<{
     editModeText?: string
     switchEditionEnabled?: boolean
     createDisabled?: boolean
-    canCreate?: boolean
-    canCreateWithoutEdition?: boolean
-    canDrop?: boolean
     dropConfirm?: string
     dropResource?: string
     addNavigation?: boolean
@@ -113,7 +110,7 @@ const props = withDefaults(defineProps<{
     page: 1,
     perms: () => [],
     resource: '',
-    noResultsText: 'No results',
+    noResultsText: Settings.defaultNoResultsMessage,
     title: '',
     titleTag: 'h2',
     titleIcon: '',
@@ -142,9 +139,6 @@ const props = withDefaults(defineProps<{
     createRoute: '',
     editModeText: 'Edit mode',
     switchEditionEnabled: false,
-    canCreate: false,
-    canCreateWithoutEdition: false,
-    canDrop: false,
     dropConfirm: '',
     dropResource: '',
     addNavigation: false,
@@ -314,11 +308,10 @@ const emptyColumns = computed(() => {
     hasReadPerm = computed(() => permissions.value.includes('read')),
     hasUpdatePerm = computed(() => permissions.value.includes(Permission.Update)),
     hasEditPerm = computed(() => permissions.value.includes(Permission.Edit)),
+    hasInlineEditPerm = computed(() => permissions.value.includes(Permission.InlineEdit)),
+    hasInlineCreatePerm = computed(() => permissions.value.includes(Permission.InlineCreate)),
+    hasInlineCreateEverPerm = computed(() => permissions.value.includes(Permission.InlineCreateEver)),
     hasDropPerm = computed(() => permissions.value.includes(Permission.Drop));
-
-let dragTimeout: Timeout | undefined = undefined;
-const dragRefreshing = ref(false);
-const dragRefreshingPositions = ref(<number[]>[]);
 
 
 const getItemByEvent = (e: any) => {
@@ -341,7 +334,7 @@ const getItemByEvent = (e: any) => {
         return Items.value[index];
     },
     getRowByIndex = (index: number) => {
-        return tableBody.value?.querySelector(`tr[data-i="${index}"]`);
+        return tableBody.value?.querySelector(`[data-i="${index}"]`);
     },
     isVisible = (index: number) => {
         return Hidden.value['tr_' + index] === true;
@@ -373,7 +366,7 @@ const getItemByEvent = (e: any) => {
         return true;
     },
     onClickAddItem = () => {
-        if (!props.canCreateWithoutEdition) {
+        if (!hasInlineCreateEverPerm.value) {
             if (typeof props.newValueGenerator === 'function') {
                 let newValue = props.newValueGenerator();
 
@@ -406,7 +399,7 @@ const getItemByEvent = (e: any) => {
 
         emit('save', r)
     },
-    moveArrayPosition = (arr, oldIndex, newIndex) => {
+    moveArrayPosition = (arr: any[], oldIndex: number, newIndex: number) => {
         if (newIndex >= arr.length) {
             let k = newIndex - arr.length + 1;
             while (k--) arr.push(undefined);
@@ -440,8 +433,6 @@ const getItemByEvent = (e: any) => {
             handle: '.handle',
             animation: 150,
             onEnd: function (evt: CustomEvent) {
-                clearTimeout(dragTimeout);
-
                 //@ts-ignore
                 let oldIndex = evt.oldIndex;
 
@@ -449,13 +440,6 @@ const getItemByEvent = (e: any) => {
                 let newIndex = evt.newIndex;
                 Items.value.splice(newIndex, 0, Items.value.splice(oldIndex, 1)[0]);
                 updateTimeStamp.value = time();
-
-                dragRefreshing.value = true;
-                dragRefreshingPositions.value = [oldIndex, newIndex];
-                dragTimeout = setTimeout(() => {
-                    dragRefreshing.value = false;
-                    dragRefreshingPositions.value = [];
-                }, 5)
             },
             onMove: function (evt, originalEvent) {
                 return validDragChecker(evt);
@@ -485,11 +469,10 @@ const getItemByEvent = (e: any) => {
         return true;
     }),
     computedDisplayCreateButton = computed(() => {
-        if (!hasCreatePerm.value) return false;
-        return props.canCreateWithoutEdition || (hasCreatePerm.value && editModeEnabled.value);
+        return hasInlineCreateEverPerm.value
+            || (hasInlineCreatePerm.value && editModeEnabled.value);
     }),
     canDisplayItem = (item: LktObject, index: number) => {
-        // if (dragRefreshing.value && dragRefreshingPositions.value.includes(index)) return false;
         if (typeof props.itemDisplayChecker === 'function') return props.itemDisplayChecker(item);
         return true;
     };
@@ -516,10 +499,9 @@ watch(() => props.sortable, (v) => {
 
 watch(() => props.perms, (v) => permissions.value = v);
 watch(permissions, (v) => emit('update:perms', v));
-
 watch(() => props.editMode, (v) => editModeEnabled.value = v);
-watch(() => props.columns, (v) => Columns.value = v);
-watch(() => props.modelValue, (v) => Items.value = v);
+watch(() => props.columns, (v) => Columns.value = v, {deep: true});
+watch(() => props.modelValue, (v) => Items.value = v, {deep: true});
 watch(Items, (v: any) => {
     dataState.value.increment({items: v});
     emit('update:modelValue', v);
@@ -628,7 +610,7 @@ const hasEmptySlot = computed(() => {
                             />
                         </template>
                         <th
-                            v-if="canDrop && hasDropPerm && editModeEnabled"
+                            v-if="hasDropPerm && editModeEnabled"
                             class="lkt-table-col-drop"
                         />
                         <th
@@ -655,7 +637,7 @@ const hasEmptySlot = computed(() => {
                             :add-navigation="addNavigation"
                             :hidden-is-visible="isVisible(i)"
                             :latest-row="i+1 === amountOfItems"
-                            :can-drop="canDrop && hasDropPerm && editModeEnabled"
+                            :can-drop="hasDropPerm && editModeEnabled"
                             :drop-confirm="dropConfirm"
                             :drop-resource="dropResource"
                             :drop-text="dropText"
@@ -665,6 +647,7 @@ const hasEmptySlot = computed(() => {
                             :edit-icon="editIcon"
                             :edit-link="editLink"
                             :edit-mode-enabled="editModeEnabled"
+                            :has-inline-edit-perm="hasInlineEditPerm"
                             v-on:click="onClick"
                             v-on:show="show"
                             v-on:item-up="onItemUp"
@@ -712,11 +695,18 @@ const hasEmptySlot = computed(() => {
                     </tbody>
                 </table>
 
-                <div v-else-if="Type === TypeOfTable.Item" class="lkt-table-items-container"
+                <div v-else-if="Type === TypeOfTable.Item"
+                     ref="tableBody"
+                     :id="'lkt-table-body-' + uniqueId"
+                     class="lkt-table-items-container"
                      :class="itemsContainerClass">
                     <template
                         v-for="(item, i) in Items">
-                        <div class="lkt-table-item" v-if="canDisplayItem(item, i)" :data-i="i">
+                        <div
+                            class="lkt-table-item"
+                            v-if="canDisplayItem(item, i)"
+                            :data-i="i"
+                            :key="getRowKey(item, i)">
                             <slot name="item"
                                   v-bind:[slotItemVar]="item"
                                   v-bind:index="i"
