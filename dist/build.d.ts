@@ -15,7 +15,7 @@ declare class N {
     getHref(r: any): any;
     doAction(r: any): any;
 }
-declare function Ll(t: any, r: any, i: any, a?: boolean): {
+declare function Ml(t: any, r: any, i: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -583,7 +583,7 @@ declare function Fl(t: any, r: any, i?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Ml(t: any, r: any, i: any, a?: boolean): {
+declare function Ll(t: any, r: any, i: any, a?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -947,4 +947,4 @@ declare function Ql(t: any): void;
 declare function Gl(t: any): boolean;
 declare function Xl(t: any): void;
 import { Field as Je } from "lkt-field";
-export { N as Column, Ll as createActionColumn, Wl as createCheckColumn, Rl as createColumn, Al as createEmailColumn, ql as createFileColumn, Ul as createFloatColumn, jl as createHiddenColumn, Fl as createIntegerColumn, Ml as createLinkColumn, Kl as createSelectColumn, Hl as createSwitchColumn, Pl as createTelColumn, Nl as createTextColumn, zl as default, Ol as setTableCreateButtonSlot, Jl as setTableDropButtonSlot, Ql as setTableEmptySlot, Gl as setTableNavButtonSlot, Xl as setTableSaveIcon };
+export { N as Column, Ml as createActionColumn, Wl as createCheckColumn, Rl as createColumn, Al as createEmailColumn, ql as createFileColumn, Ul as createFloatColumn, jl as createHiddenColumn, Fl as createIntegerColumn, Ll as createLinkColumn, Kl as createSelectColumn, Hl as createSwitchColumn, Pl as createTelColumn, Nl as createTextColumn, zl as default, Ol as setTableCreateButtonSlot, Jl as setTableDropButtonSlot, Ql as setTableEmptySlot, Gl as setTableNavButtonSlot, Xl as setTableSaveIcon };

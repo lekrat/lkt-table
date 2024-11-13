@@ -117,7 +117,7 @@ const computedColumnType = computed(() => {
             :modal-key="computedModalKey"
             :modal-data="computedModalData"
             :options="computedOptions"
-            v-model.lazy="value"/>
+            v-model="value"/>
     </template>
     <template v-else-if="column.type !== ''">
         <lkt-field
