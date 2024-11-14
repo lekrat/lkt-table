@@ -117,6 +117,7 @@ const computedColumnType = computed(() => {
             :modal-key="computedModalKey"
             :modal-data="computedModalData"
             :options="computedOptions"
+            :data="item"
             v-model="value"/>
     </template>
     <template v-else-if="column.type !== ''">
@@ -132,6 +133,7 @@ const computedColumnType = computed(() => {
             :modal-key="computedModalKey"
             :modal-data="computedModalData"
             :options="computedOptions"
+            :data="item"
             :model-value="value"/>
     </template>
     <template v-else>
