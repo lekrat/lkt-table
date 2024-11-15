@@ -57,30 +57,6 @@ const computedModalData = computed(() => {
     return props.column.field?.modalData;
 });
 
-// const computedModalKey = computed(() => {
-//     if (props.column.field?.modalKey.startsWith('prop:')) {
-//         let prop = props.column.field?.modalKey.substring(5);
-//         return item.value[prop];
-//     }
-//     return props.column.field?.modalKey;
-// });
-//
-// const computedIcon = computed(() => {
-//     if (typeof props.column.field?.icon === 'string' && props.column.field?.icon.startsWith('prop:')) {
-//         let prop = props.column.field?.icon.substring(5);
-//         return item.value[prop];
-//     }
-//     return props.column.field?.icon;
-// });
-//
-// const computedDownload = computed(() => {
-//     if (typeof props.column.field?.download === 'string' && props.column.field?.download.startsWith('prop:')) {
-//         let prop = props.column.field?.download.substring(5);
-//         return item.value[prop];
-//     }
-//     return props.column.field?.download;
-// });
-
 const computedOptions = computed(() => {
     if (typeof props.column.field?.options === 'string' && props.column.field?.options.startsWith('prop:')) {
         let prop = props.column.field?.options.substring(5);
