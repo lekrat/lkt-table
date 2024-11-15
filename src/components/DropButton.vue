@@ -6,7 +6,7 @@ import {LktObject} from "lkt-ts-interfaces";
 const emit = defineEmits(['click']);
 
 const props = withDefaults(defineProps<{
-    disabled: boolean
+    disabled?: boolean
     text: string
     icon: string
     confirm: string

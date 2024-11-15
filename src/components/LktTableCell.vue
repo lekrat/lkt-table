@@ -57,29 +57,29 @@ const computedModalData = computed(() => {
     return props.column.field?.modalData;
 });
 
-const computedModalKey = computed(() => {
-    if (props.column.field?.modalKey.startsWith('prop:')) {
-        let prop = props.column.field?.modalKey.substring(5);
-        return item.value[prop];
-    }
-    return props.column.field?.modalKey;
-});
-
-const computedIcon = computed(() => {
-    if (typeof props.column.field?.icon === 'string' && props.column.field?.icon.startsWith('prop:')) {
-        let prop = props.column.field?.icon.substring(5);
-        return item.value[prop];
-    }
-    return props.column.field?.icon;
-});
-
-const computedDownload = computed(() => {
-    if (typeof props.column.field?.download === 'string' && props.column.field?.download.startsWith('prop:')) {
-        let prop = props.column.field?.download.substring(5);
-        return item.value[prop];
-    }
-    return props.column.field?.download;
-});
+// const computedModalKey = computed(() => {
+//     if (props.column.field?.modalKey.startsWith('prop:')) {
+//         let prop = props.column.field?.modalKey.substring(5);
+//         return item.value[prop];
+//     }
+//     return props.column.field?.modalKey;
+// });
+//
+// const computedIcon = computed(() => {
+//     if (typeof props.column.field?.icon === 'string' && props.column.field?.icon.startsWith('prop:')) {
+//         let prop = props.column.field?.icon.substring(5);
+//         return item.value[prop];
+//     }
+//     return props.column.field?.icon;
+// });
+//
+// const computedDownload = computed(() => {
+//     if (typeof props.column.field?.download === 'string' && props.column.field?.download.startsWith('prop:')) {
+//         let prop = props.column.field?.download.substring(5);
+//         return item.value[prop];
+//     }
+//     return props.column.field?.download;
+// });
 
 const computedOptions = computed(() => {
     if (typeof props.column.field?.options === 'string' && props.column.field?.options.startsWith('prop:')) {
@@ -107,33 +107,27 @@ const computedColumnType = computed(() => {
     <template v-else-if="column.type !== '' && hasInlineEditPerm">
         <lkt-field
             v-bind="column.field"
-            :icon="computedIcon"
-            :download="computedDownload"
             :type="computedColumnType"
             :read-mode="!column.editable || !editModeEnabled"
             :ref="(el:any) => inputElement = el"
             :slot-data="slotData"
             :label="column.type === 'switch' || column.type === 'check' ? column.label : ''"
-            :modal-key="computedModalKey"
             :modal-data="computedModalData"
             :options="computedOptions"
-            :data="item"
+            :prop="item"
             v-model="value"/>
     </template>
     <template v-else-if="column.type !== ''">
         <lkt-field
             v-bind="column.field"
-            :icon="computedIcon"
-            :download="computedDownload"
             :type="computedColumnType"
             read-mode
             :ref="(el:any) => inputElement = el"
             :slot-data="slotData"
             :label="column.type === 'switch' || column.type === 'check' ? column.label : ''"
-            :modal-key="computedModalKey"
             :modal-data="computedModalData"
             :options="computedOptions"
-            :data="item"
+            :prop="item"
             :model-value="value"/>
     </template>
     <template v-else>

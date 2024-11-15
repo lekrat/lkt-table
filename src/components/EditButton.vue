@@ -6,13 +6,13 @@ import {LktObject} from "lkt-ts-interfaces";
 const emit = defineEmits(['click']);
 
 const props = withDefaults(defineProps<{
-    disabled: boolean
+    disabled?: boolean
     text: string
-    icon: string
-    confirm: string
-    link: string
-    resource: string
-    resourceData: LktObject
+    icon?: string
+    confirm?: string
+    link?: string
+    resource?: string
+    resourceData?: LktObject
 }>(), {
     disabled: false,
     text: '',

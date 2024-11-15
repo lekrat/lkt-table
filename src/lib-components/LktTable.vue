@@ -18,6 +18,7 @@ import {TypeOfTable} from "../enums/TypeOfTable";
 import {ValidPermissionType} from "../types/ValidPermissionType";
 import {Permission} from "../enums/Permission";
 import {SortDirection} from "../enums/SortDirection";
+import {RowDisplayType} from "../enums/RowDisplayType";
 
 const emit = defineEmits([
     'update:modelValue',
@@ -31,6 +32,7 @@ const emit = defineEmits([
     'read-response',
     'click-create',
     'page',
+    'drag-end',
 ]);
 
 const slots = useSlots();
@@ -93,6 +95,8 @@ const props = withDefaults(defineProps<{
     requiredItemsForBottomCreate: number
 
     slotItemVar: string
+    rowDisplayType: RowDisplayType|Function
+
 }>(), {
     modelValue: () => [],
     type: TypeOfTable.Table,
@@ -149,6 +153,7 @@ const props = withDefaults(defineProps<{
     requiredItemsForBottomCreate: 0,
 
     slotItemVar: 'item',
+    rowDisplayType: RowDisplayType.Auto
 });
 
 const hiddenColumnsStack: LktObject = {};
@@ -170,8 +175,11 @@ const Page = ref(props.page),
     sortableObject = ref({}),
     dataState = ref(new DataState({items: Items.value}, props.dataStateConfig)),
     editModeEnabled = ref(props.editMode),
-    updateTimeStamp = ref(0)
+    updateTimeStamp = ref(0),
+    sortableContainer = ref(<HTMLElement|null>null)
 ;
+
+const dataStateChanged = ref(false);
 
 watch(isLoading, v => emit('update:loading', v));
 
@@ -188,6 +196,7 @@ const onResults = (r: any) => {
         isLoading.value = false;
         firstLoadReady.value = true;
         dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
+        dataStateChanged.value = false;
     },
     onPerms = (r: string[]) => {
         permissions.value = r;
@@ -255,7 +264,7 @@ const emptyColumns = computed(() => {
         if (props.hiddenSave) return false;
         if (isLoading.value) return false;
         if (!props.saveResource) return false;
-        if (editModeEnabled.value && dataState.value.changed()) return true;
+        if (editModeEnabled.value && dataStateChanged.value) return true;
 
         return editModeEnabled.value;
     }),
@@ -267,7 +276,7 @@ const emptyColumns = computed(() => {
     ableToSave = computed(() => {
         if (props.saveDisabled) return false;
         if (typeof props.saveValidator === 'function' && !props.saveValidator(Items.value)) return false;
-        return dataState.value.changed();
+        return dataStateChanged.value;
     }),
     amountOfItems = computed(() => {
         return Items.value.length;
@@ -396,6 +405,7 @@ const getItemByEvent = (e: any) => {
             }
         }
         dataState.value.turnStoredIntoOriginal();
+        dataStateChanged.value = false;
 
         emit('save', r)
     },
@@ -426,9 +436,11 @@ const getItemByEvent = (e: any) => {
         }
     },
     initSortable = () => {
-        let tbody = document.getElementById('lkt-table-body-' + uniqueId);
+        if (!sortableContainer.value) {
+            sortableContainer.value = document.getElementById('lkt-table-body-' + uniqueId);
+        }
 
-        sortableObject.value = new Sortable(tbody, {
+        sortableObject.value = new Sortable(sortableContainer.value, {
             direction: 'vertical',
             handle: '.handle',
             animation: 150,
@@ -440,6 +452,7 @@ const getItemByEvent = (e: any) => {
                 let newIndex = evt.newIndex;
                 Items.value.splice(newIndex, 0, Items.value.splice(oldIndex, 1)[0]);
                 updateTimeStamp.value = time();
+                emit('drag-end');
             },
             onMove: function (evt, originalEvent) {
                 return validDragChecker(evt);
@@ -482,6 +495,7 @@ onMounted(() => {
         sort(getColumnByKey(props.columns, SortBy.value));
     }
     dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
+    dataStateChanged.value = false;
     if (props.sortable) {
         nextTick(() => {
             initSortable();
@@ -504,6 +518,7 @@ watch(() => props.columns, (v) => Columns.value = v, {deep: true});
 watch(() => props.modelValue, (v) => Items.value = v, {deep: true});
 watch(Items, (v: any) => {
     dataState.value.increment({items: v});
+    dataStateChanged.value = dataState.value.changed();
     emit('update:modelValue', v);
 }, {deep: true});
 
@@ -648,12 +663,27 @@ const hasEmptySlot = computed(() => {
                             :edit-link="editLink"
                             :edit-mode-enabled="editModeEnabled"
                             :has-inline-edit-perm="hasInlineEditPerm"
+                            :row-display-type="rowDisplayType"
                             v-on:click="onClick"
                             v-on:show="show"
                             v-on:item-up="onItemUp"
                             v-on:item-down="onItemDown"
                             v-on:item-drop="onItemDrop"
                         >
+                            <template v-if="slots[`item-${i}`]" v-slot:[`item-${i}`]="row">
+                                <slot
+                                    :name="`item-${i}`"
+                                    :[slotItemVar]="row.item"
+                                    v-bind:index="i"
+                                />
+                            </template>
+                            <template v-else-if="slots.item" #item="row">
+                                <slot
+                                    name="item"
+                                    :[slotItemVar]="row.item"
+                                    v-bind:index="i"
+                                />
+                            </template>
                             <template
                                 v-for="column in colSlots"
                                 v-slot:[column]="row">

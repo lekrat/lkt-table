@@ -7,13 +7,15 @@ import {
 } from "../functions/table-functions";
 import {Column} from "../instances/Column";
 import LktTableCell from "./LktTableCell.vue";
-import {computed, ref, watch} from "vue";
+import {computed, ref, useSlots, watch} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
 import {Settings} from "../settings/Settings";
 import DropButton from "./DropButton.vue";
 import EditButton from "./EditButton.vue";
 import {replaceAll} from "lkt-string-tools";
+import {RowDisplayType} from "../enums/RowDisplayType";
 
+const slots = useSlots();
 const emit = defineEmits(['update:modelValue', 'click', 'show', 'item-up', 'item-down', 'item-drop']);
 
 const props = withDefaults(defineProps<{
@@ -38,6 +40,7 @@ const props = withDefaults(defineProps<{
     editText: string
     editIcon: string
     editLink: string
+    rowDisplayType: RowDisplayType|Function
 }>(), {
     modelValue: () => ({}),
     isDraggable: true,
@@ -59,9 +62,16 @@ const props = withDefaults(defineProps<{
     editText: '',
     editIcon: '',
     editLink: '',
+    rowDisplayType: RowDisplayType.Auto
 });
 
 const Item = ref(props.modelValue);
+
+let calculatedRowDisplayType = typeof props.rowDisplayType === 'function' ? props.rowDisplayType(Item.value, props.i) : props.rowDisplayType;
+if (!calculatedRowDisplayType) calculatedRowDisplayType = RowDisplayType.Auto;
+
+const canCustomItem = [RowDisplayType.Auto, RowDisplayType.PreferCustomItem].includes(calculatedRowDisplayType);
+const canItem = [RowDisplayType.Auto, RowDisplayType.PreferItem].includes(calculatedRowDisplayType);
 
 const parsedEditLink = ref(props.editLink);
 for (let k in Item.value) parsedEditLink.value = replaceAll(parsedEditLink.value, ':'+k , Item.value[k]);
@@ -71,7 +81,7 @@ const onClick = ($event: any) => emit('click', $event),
         emit('show', $event, i)
     },
     classes = computed(() => {
-        let r = [];
+        let r:string[] = [];
         if (props.sortable && props.isDraggable) r.push('handle');
         return r.join(' ');
     }),
@@ -102,7 +112,7 @@ watch(Item, (v) => {
 </script>
 
 <template>
-    <tr :data-i="i" :data-draggable="isDraggable">
+    <tr :data-i="i" :data-draggable="isDraggable" :class="{'type-custom-item': canCustomItem, 'type-item': canItem}">
         <td v-if="sortable && isDraggable && editModeEnabled" data-role="drag-indicator" :class="classes" />
         <td v-else-if="sortable && editModeEnabled" data-role="invalid-drag-indicator"/>
         <td v-if="addNavigation && editModeEnabled" class="lkt-table-nav-cell">
@@ -132,13 +142,29 @@ watch(Item, (v) => {
         <td v-if="displayHiddenColumnsIndicator"
             v-on:click="onShow($event, i)" data-role="show-more"
             v-bind:class="hiddenIsVisible ? 'state-open' : ''"/>
-        <template v-for="column in visibleColumns">
+        <template v-if="canCustomItem && slots[`item-${i}`]">
+            <td :key="'td' + i" :colspan="visibleColumns.length">
+                <slot
+                    :name="`item-${i}`"
+                    :item="Item"
+                    v-bind:index="i"/>
+            </td>
+        </template>
+        <template v-else-if="canItem && slots.item">
+            <td :key="'td' + i" :colspan="visibleColumns.length">
+                <slot
+                    name="item"
+                    :item="Item"
+                    v-bind:index="i"/>
+            </td>
+        </template>
+        <template v-else v-for="column in visibleColumns">
             <td v-if="canRenderColumn(column, emptyColumns, Item)"
                 :key="'td' + i"
                 :data-column="column.key"
                 :colspan="getHorizontalColSpan(column,Item)"
                 :title="getColumnDisplayContent (column, Item, i, visibleColumns)"
-                v-on:click="onClick($event, Item, column)"
+                v-on:click="onClick($event)"
             >
                 <template v-if="!!$slots[column.key] && colPreferSlot(column, Item)">
                     <slot :name="column.key"
@@ -176,5 +202,4 @@ watch(Item, (v) => {
                 @click="onClickEdit"/>
         </td>
     </tr>
-
 </template>
