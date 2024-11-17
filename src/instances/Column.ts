@@ -12,7 +12,7 @@ export class Column {
     checkEmpty?: Function = undefined;
     colspan?: Function | boolean | number = undefined;
     preferSlot?: Function | boolean = true;
-    type: '' | TypeOfColumn = '';
+    type: TypeOfColumn = TypeOfColumn.None;
     link: string | Function = '';
     action?: Function = undefined;
     isForRowKey: boolean = false;

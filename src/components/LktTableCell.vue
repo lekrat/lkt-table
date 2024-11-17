@@ -27,6 +27,9 @@ const item = ref(props.modelValue),
     value = ref(item.value[props.column.key]),
     inputElement = ref(null);
 
+let calculatedColumnType = props.column.type;
+if ([TypeOfColumn.Integer, TypeOfColumn.Float].includes(calculatedColumnType)) calculatedColumnType = TypeOfColumn.Number;
+
 watch(value, (v) => {
     const payload = JSON.parse(JSON.stringify(item.value));
     payload[props.column.key] = v;
@@ -56,19 +59,6 @@ const computedModalData = computed(() => {
     }
     return props.column.field?.modalData;
 });
-
-const computedOptions = computed(() => {
-    if (typeof props.column.field?.options === 'string' && props.column.field?.options.startsWith('prop:')) {
-        let prop = props.column.field?.options.substring(5);
-        return item.value[prop];
-    }
-    return props.column.field.options;
-});
-
-const computedColumnType = computed(() => {
-    if ([TypeOfColumn.Integer, TypeOfColumn.Float].includes(props.column.type)) return TypeOfColumn.Number;
-    return props.column.type;
-})
 </script>
 
 <template>
@@ -83,26 +73,24 @@ const computedColumnType = computed(() => {
     <template v-else-if="column.type !== '' && hasInlineEditPerm">
         <lkt-field
             v-bind="column.field"
-            :type="computedColumnType"
+            :type="calculatedColumnType"
             :read-mode="!column.editable || !editModeEnabled"
             :ref="(el:any) => inputElement = el"
             :slot-data="slotData"
             :label="column.type === 'switch' || column.type === 'check' ? column.label : ''"
             :modal-data="computedModalData"
-            :options="computedOptions"
             :prop="item"
             v-model="value"/>
     </template>
     <template v-else-if="column.type !== ''">
         <lkt-field
             v-bind="column.field"
-            :type="computedColumnType"
+            :type="calculatedColumnType"
             read-mode
             :ref="(el:any) => inputElement = el"
             :slot-data="slotData"
             :label="column.type === 'switch' || column.type === 'check' ? column.label : ''"
             :modal-data="computedModalData"
-            :options="computedOptions"
             :prop="item"
             :model-value="value"/>
     </template>

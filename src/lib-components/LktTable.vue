@@ -556,7 +556,9 @@ const hasEmptySlot = computed(() => {
             class="lkt-table-page-content-wrapper"
             :class="wrapContentClass"
         >
-            <div class="lkt-table-page-buttons" v-show="showEditionButtons">
+            <div
+                class="lkt-table-page-buttons"
+                v-if="showEditionButtons">
                 <lkt-button
                     class="lkt-table--save-button"
                     ref="saveButton"
@@ -596,11 +598,13 @@ const hasEmptySlot = computed(() => {
                 </div>
             </div>
 
-            <div class="lkt-table-page-buttons" v-if="slots.buttons">
+            <div class="lkt-table-page-buttons"
+                 v-if="slots.buttons">
                 <slot name="buttons"/>
             </div>
 
-            <div class="lkt-table-page-filters" v-if="firstLoadReady && slots.filters">
+            <div class="lkt-table-page-filters"
+                 v-if="firstLoadReady && slots.filters">
                 <slot name="filters" :items="Items" :is-loading="isLoading"/>
             </div>
 

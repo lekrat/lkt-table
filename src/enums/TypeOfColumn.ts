@@ -12,4 +12,5 @@ export enum TypeOfColumn {
     Action = 'action',
     Integer = 'int',
     Float = 'float',
+    None = '',
 }
