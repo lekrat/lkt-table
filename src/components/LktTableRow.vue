@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {
     canRenderColumn,
-    colPreferSlot,
+    colPreferSlot, getColumnClasses,
     getColumnDisplayContent,
     getHorizontalColSpan
 } from "../functions/table-functions";
@@ -164,6 +164,7 @@ watch(Item, (v) => {
                 :data-column="column.key"
                 :colspan="getHorizontalColSpan(column,Item)"
                 :title="getColumnDisplayContent (column, Item, i, visibleColumns)"
+                :class="getColumnClasses(column)"
                 v-on:click="onClick($event)"
             >
                 <template v-if="!!$slots[column.key] && colPreferSlot(column, Item)">

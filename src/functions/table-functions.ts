@@ -227,3 +227,10 @@ export const getColumnByKey = (columns: Column[], key: string): Column | null =>
     }
     return null;
 }
+
+export const getColumnClasses = (column: Column) => {
+    if (column.type) {
+        return `is-${column.type}`;
+    }
+    return '';
+}

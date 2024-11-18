@@ -190,22 +190,19 @@ if (props.itemMode && Type.value === TypeOfTable.Table) {
     Type.value = TypeOfTable.Item;
 }
 
-const onResults = (r: any) => {
+const onPerms = (r: string[]) => {
+        permissions.value = r;
+    },
+    onPaginatorResponse = (r: HTTPResponse) => {
         //@ts-ignore
-        if (Array.isArray(r)) Items.value = r;
+        if (Array.isArray(r.data)) Items.value = r.data;
         isLoading.value = false;
         firstLoadReady.value = true;
         dataState.value.store({items: Items.value}).turnStoredIntoOriginal();
         dataStateChanged.value = false;
-    },
-    onPerms = (r: string[]) => {
-        permissions.value = r;
-    },
-    onCustomReceived = (r: LktObject) => {
-        // permissions = r;
-    },
-    onPaginatorResponse = (r: HTTPResponse) => {
-        emit('read-response', r);
+        nextTick(() => {
+            emit('read-response', r);
+        })
     },
     onLoading = () => nextTick(() => isLoading.value = true),
     doRefresh = () => {
@@ -826,10 +823,8 @@ const hasEmptySlot = computed(() => {
                 v-model="Page"
                 :resource="resource"
                 :filters="filters"
-                v-on:results="onResults"
                 v-on:loading="onLoading"
                 v-on:perms="onPerms"
-                v-on:custom="onCustomReceived"
                 v-on:response="onPaginatorResponse"
             />
 

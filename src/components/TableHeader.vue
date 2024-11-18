@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getVerticalColSpan} from "../functions/table-functions";
+import {getColumnClasses, getVerticalColSpan} from "../functions/table-functions";
 import {Column} from "../instances/Column";
 import {computed} from "vue";
 import {LktObject} from "lkt-ts-interfaces";
@@ -49,6 +49,7 @@ const onClick = () => emit('click', props.column)
         :data-sort="computedSortDirection"
         :colspan="computedColSpan"
         :title="computedLabel"
+        :class="getColumnClasses(column)"
         v-on:click="onClick"
     >
         <div>{{ computedLabel }}</div>
