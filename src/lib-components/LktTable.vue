@@ -376,7 +376,7 @@ const getItemByEvent = (e: any) => {
             if (typeof props.newValueGenerator === 'function') {
                 let newValue = props.newValueGenerator();
 
-                if (typeof newValue === 'object') {
+                if (typeof newValue === 'object' || Type.value !== TypeOfTable.Table) {
                     Items.value.push(newValue);
                     return;
                 }
