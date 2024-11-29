@@ -15,7 +15,7 @@ declare class U {
     getHref(r: any): any;
     doAction(r: any): any;
 }
-declare function Hl(t: any, r: any, s: any, o?: boolean): {
+declare function Hl(t: any, r: any, d: any, o?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -86,7 +86,7 @@ declare function Hl(t: any, r: any, s: any, o?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Gl(t: any, r: any, s?: boolean): {
+declare function Gl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -228,7 +228,7 @@ declare function Ul(t: any): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function jl(t: any, r: any, s?: boolean): {
+declare function jl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -299,7 +299,7 @@ declare function jl(t: any, r: any, s?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Xl(t: any, r: any, s?: boolean): {
+declare function Xl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -370,7 +370,7 @@ declare function Xl(t: any, r: any, s?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Kl(t: any, r: any, s?: boolean): {
+declare function Kl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -441,7 +441,7 @@ declare function Kl(t: any, r: any, s?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Yl(t: any, r: any, s?: boolean): {
+declare function Yl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -512,7 +512,7 @@ declare function Yl(t: any, r: any, s?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function ql(t: any, r: any, s?: boolean): {
+declare function ql(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -583,7 +583,7 @@ declare function ql(t: any, r: any, s?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Pl(t: any, r: any, s: any, o?: boolean): {
+declare function Pl(t: any, r: any, d: any, o?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -654,7 +654,7 @@ declare function Pl(t: any, r: any, s: any, o?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Ql(t: any, r: any, s: any, o?: boolean): {
+declare function Ql(t: any, r: any, d: any, o?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -725,7 +725,7 @@ declare function Ql(t: any, r: any, s: any, o?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Jl(t: any, r: any, s?: boolean): {
+declare function Jl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -796,7 +796,7 @@ declare function Jl(t: any, r: any, s?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function zl(t: any, r: any, s?: boolean): {
+declare function zl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -867,7 +867,7 @@ declare function zl(t: any, r: any, s?: boolean): {
     getHref: (r: any) => any;
     doAction: (r: any) => any;
 };
-declare function Wl(t: any, r: any, s?: boolean): {
+declare function Wl(t: any, r: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;

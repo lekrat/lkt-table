@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<{
     icon?: string
     to?: string
     modal?: string
+    modalData?: LktObject
 }>(), {
     disabled: false,
     text: '',
@@ -22,7 +23,8 @@ const props = withDefaults(defineProps<{
 const hasCreateButtonSlot = computed(() => Settings.createButtonSlot !== ''),
     createButtonSlot = computed(() => Settings.createButtonSlot);
 
-const modalData = {
+const calculatedModalData = {
+    ...props.modalData,
     beforeClose: (data: LktObject) => {
         // Checks lkt-item-crud as modal flow
         if ('itemCreated' in data && data.itemCreated === true) {
@@ -46,7 +48,7 @@ const onClick = () => {
         :icon="hasCreateButtonSlot ? '' : icon"
         :text="hasCreateButtonSlot ? '' : text"
         :modal="modal"
-        :modal-data="modalData"
+        :modal-data="calculatedModalData"
         :on-click-to="to"
         @click="onClick">
         <template v-if="hasCreateButtonSlot">

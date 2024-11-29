@@ -97,6 +97,7 @@ const props = withDefaults(defineProps<{
     slotItemVar?: string
     rowDisplayType?: RowDisplayType|Function
     modal?: string,
+    modalData?: LktObject,
 
 }>(), {
     modelValue: () => [],
@@ -591,6 +592,7 @@ const hasEmptySlot = computed(() => {
                     :icon="createIcon"
                     :to="createRoute"
                     :modal="modal"
+                    :modal-data="modalData"
                     @click="onClickAddItem"
                     @append="onAppend"
                 />
@@ -822,6 +824,7 @@ const hasEmptySlot = computed(() => {
                     :icon="createIcon"
                     :to="createRoute"
                     :modal="modal"
+                    :modal-data="modalData"
                     @click="onClickAddItem"
                     @append="onAppend"
                 />
