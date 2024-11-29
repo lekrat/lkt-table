@@ -91,11 +91,12 @@ const props = withDefaults(defineProps<{
     itemMode?: boolean
     createEnabledValidator?: Function
     newValueGenerator?: Function
-    requiredItemsForTopCreate: number
-    requiredItemsForBottomCreate: number
+    requiredItemsForTopCreate?: number
+    requiredItemsForBottomCreate?: number
 
-    slotItemVar: string
-    rowDisplayType: RowDisplayType|Function
+    slotItemVar?: string
+    rowDisplayType?: RowDisplayType|Function
+    modal?: string,
 
 }>(), {
     modelValue: () => [],
@@ -153,7 +154,8 @@ const props = withDefaults(defineProps<{
     requiredItemsForBottomCreate: 0,
 
     slotItemVar: 'item',
-    rowDisplayType: RowDisplayType.Auto
+    rowDisplayType: RowDisplayType.Auto,
+    modal: ''
 });
 
 const hiddenColumnsStack: LktObject = {};
@@ -315,6 +317,7 @@ const emptyColumns = computed(() => {
     hasUpdatePerm = computed(() => permissions.value.includes(Permission.Update)),
     hasEditPerm = computed(() => permissions.value.includes(Permission.Edit)),
     hasInlineEditPerm = computed(() => permissions.value.includes(Permission.InlineEdit)),
+    hasModalCreatePerm = computed(() => permissions.value.includes(Permission.ModalCreate)),
     hasInlineCreatePerm = computed(() => permissions.value.includes(Permission.InlineCreate)),
     hasInlineCreateEverPerm = computed(() => permissions.value.includes(Permission.InlineCreateEver)),
     hasDropPerm = computed(() => permissions.value.includes(Permission.Drop));
@@ -385,6 +388,9 @@ const getItemByEvent = (e: any) => {
         } else {
             emit('click-create');
         }
+    },
+    onAppend = (data: LktObject) => {
+        Items.value.push(data);
     },
     onButtonLoading = () => {
         isLoading.value = true;
@@ -480,7 +486,8 @@ const getItemByEvent = (e: any) => {
     }),
     computedDisplayCreateButton = computed(() => {
         return hasInlineCreateEverPerm.value
-            || (hasInlineCreatePerm.value && editModeEnabled.value);
+            || (hasInlineCreatePerm.value && editModeEnabled.value)
+            || (hasModalCreatePerm.value && editModeEnabled.value);
     }),
     canDisplayItem = (item: LktObject, index: number) => {
         if (typeof props.itemDisplayChecker === 'function') return props.itemDisplayChecker(item);
@@ -583,7 +590,9 @@ const hasEmptySlot = computed(() => {
                     :text="createText"
                     :icon="createIcon"
                     :to="createRoute"
+                    :modal="modal"
                     @click="onClickAddItem"
+                    @append="onAppend"
                 />
 
                 <div class="switch-edition-mode">
@@ -812,7 +821,9 @@ const hasEmptySlot = computed(() => {
                     :text="createText"
                     :icon="createIcon"
                     :to="createRoute"
+                    :modal="modal"
                     @click="onClickAddItem"
+                    @append="onAppend"
                 />
                 <slot name="bottom-buttons"/>
             </div>

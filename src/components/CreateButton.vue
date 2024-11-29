@@ -1,23 +1,42 @@
 <script setup lang="ts">
 import {computed} from "vue";
 import {Settings} from "../settings/Settings";
+import {LktObject} from "lkt-ts-interfaces";
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(['click', 'append']);
 
 const props = withDefaults(defineProps<{
     disabled?: boolean
-    text: string
-    icon: string
-    to: string
+    text?: string
+    icon?: string
+    to?: string
+    modal?: string
 }>(), {
     disabled: false,
     text: '',
     icon: '',
     to: '',
+    modal: '',
 });
 
 const hasCreateButtonSlot = computed(() => Settings.createButtonSlot !== ''),
-    createButtonSlot = computed(() => Settings.createButtonSlot)
+    createButtonSlot = computed(() => Settings.createButtonSlot);
+
+const modalData = {
+    beforeClose: (data: LktObject) => {
+        // Checks lkt-item-crud as modal flow
+        if ('itemCreated' in data && data.itemCreated === true) {
+            emit('append', data.item);
+        }
+    }
+};
+
+const onClick = () => {
+    if (!props.modal) {
+        emit('click');
+        return;
+    }
+}
 </script>
 
 <template>
@@ -26,8 +45,10 @@ const hasCreateButtonSlot = computed(() => Settings.createButtonSlot !== ''),
         :disabled="disabled"
         :icon="hasCreateButtonSlot ? '' : icon"
         :text="hasCreateButtonSlot ? '' : text"
+        :modal="modal"
+        :modal-data="modalData"
         :on-click-to="to"
-        @click="emit('click')">
+        @click="onClick">
         <template v-if="hasCreateButtonSlot">
             <component
                 :is="createButtonSlot"/>
