@@ -1,4 +1,4 @@
-declare class U {
+declare class P {
     constructor(r?: {});
     key: string;
     label: string;
@@ -947,4 +947,4 @@ declare function ea(t: any): void;
 declare function Ol(t: any): boolean;
 declare function ta(t: any): void;
 import { Field as Ze } from "lkt-field";
-export { U as Column, Hl as createActionColumn, Gl as createCheckColumn, Ul as createColumn, jl as createEmailColumn, Xl as createFileColumn, Kl as createFloatColumn, Yl as createHiddenColumn, ql as createIntegerColumn, Pl as createLinkColumn, Ql as createSelectColumn, Jl as createSwitchColumn, zl as createTelColumn, Wl as createTextColumn, Zl as default, xl as setTableCreateButtonSlot, _l as setTableDropButtonSlot, ea as setTableEmptySlot, Ol as setTableNavButtonSlot, ta as setTableSaveIcon };
+export { P as Column, Hl as createActionColumn, Gl as createCheckColumn, Ul as createColumn, jl as createEmailColumn, Xl as createFileColumn, Kl as createFloatColumn, Yl as createHiddenColumn, ql as createIntegerColumn, Pl as createLinkColumn, Ql as createSelectColumn, Jl as createSwitchColumn, zl as createTelColumn, Wl as createTextColumn, Zl as default, xl as setTableCreateButtonSlot, _l as setTableDropButtonSlot, ea as setTableEmptySlot, Ol as setTableNavButtonSlot, ta as setTableSaveIcon };

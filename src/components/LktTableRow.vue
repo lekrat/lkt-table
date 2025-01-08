@@ -41,6 +41,7 @@ const props = withDefaults(defineProps<{
     editIcon: string
     editLink: string
     rowDisplayType: RowDisplayType|Function
+    renderDrag?: boolean
 }>(), {
     modelValue: () => ({}),
     isDraggable: true,
@@ -62,7 +63,8 @@ const props = withDefaults(defineProps<{
     editText: '',
     editIcon: '',
     editLink: '',
-    rowDisplayType: RowDisplayType.Auto
+    rowDisplayType: RowDisplayType.Auto,
+    renderDrag: true,
 });
 
 const Item = ref(props.modelValue);
@@ -109,12 +111,17 @@ watch(() => props.modelValue, (v) => Item.value = v);
 watch(Item, (v) => {
     emit('update:modelValue', v)
 }, {deep: true});
+
+const canRenderDragIndicator = computed(() => {
+    if (typeof props.renderDrag === 'function') return props.renderDrag(Item.value);
+    return props.renderDrag === true;
+})
 </script>
 
 <template>
     <tr :data-i="i" :data-draggable="isDraggable" :class="{'type-custom-item': canCustomItem, 'type-item': canItem}">
-        <td v-if="sortable && isDraggable && editModeEnabled" data-role="drag-indicator" :class="classes" />
-        <td v-else-if="sortable && editModeEnabled" data-role="invalid-drag-indicator"/>
+        <td v-if="sortable && isDraggable && editModeEnabled && canRenderDragIndicator" data-role="drag-indicator" :class="classes" />
+        <td v-else-if="sortable && editModeEnabled && canRenderDragIndicator" data-role="invalid-drag-indicator"/>
         <td v-if="addNavigation && editModeEnabled" class="lkt-table-nav-cell">
             <div class="lkt-table-nav-container">
                 <lkt-button palette="table-nav" :disabled="i === 0" @click="onClickUp">

@@ -44,6 +44,7 @@ const props = withDefaults(defineProps<{
     sorter?: Function
     draggableChecker?: Function
     checkValidDrag?: Function
+    renderDrag?: boolean|Function
     sortable?: boolean
     hideEmptyColumns?: boolean
     initialSorting?: boolean
@@ -106,6 +107,7 @@ const props = withDefaults(defineProps<{
     sorter: defaultTableSorter,
     draggableChecker: (item: any) => true,
     checkValidDrag: undefined,
+    renderDrag: true,
     sortable: false,
     hideEmptyColumns: false,
     initialSorting: false,
@@ -676,6 +678,7 @@ const hasEmptySlot = computed(() => {
                             :edit-mode-enabled="editModeEnabled"
                             :has-inline-edit-perm="hasInlineEditPerm"
                             :row-display-type="rowDisplayType"
+                            :render-drag="renderDrag"
                             v-on:click="onClick"
                             v-on:show="show"
                             v-on:item-up="onItemUp"
