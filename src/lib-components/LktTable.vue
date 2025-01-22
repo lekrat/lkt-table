@@ -378,6 +378,11 @@ const getItemByEvent = (e: any) => {
         return true;
     },
     onClickAddItem = () => {
+        if (hasCreatePerm.value) {
+            emit('click-create');
+            return;
+        }
+
         if (!hasInlineCreateEverPerm.value) {
             if (typeof props.newValueGenerator === 'function') {
                 let newValue = props.newValueGenerator();
@@ -489,6 +494,7 @@ const getItemByEvent = (e: any) => {
     }),
     computedDisplayCreateButton = computed(() => {
         return hasInlineCreateEverPerm.value
+            || (hasCreatePerm.value && editModeEnabled.value)
             || (hasInlineCreatePerm.value && editModeEnabled.value)
             || (hasModalCreatePerm.value && editModeEnabled.value);
     }),
