@@ -74,6 +74,8 @@ const props = withDefaults(defineProps<{
     confirmData?: LktObject
     saveResource?: string
     saveResourceData?: LktObject
+    saveTooltipEngine?: string
+    splitSave?: boolean
     saveText?: string
     createText?: string
     createIcon?: string
@@ -126,6 +128,7 @@ const props = withDefaults(defineProps<{
     wrapContentTag: 'div',
     wrapContentClass: '',
     itemsContainerClass: '',
+    saveTooltipEngine: 'absolute',
     filters: () => [],
     dataStateConfig: () => ({}),
     hiddenSave: false,
@@ -136,6 +139,7 @@ const props = withDefaults(defineProps<{
     confirmData: () => ({}),
     saveResource: '',
     saveResourceData: () => ({}),
+    splitSave: false,
     saveText: 'Save',
     dropText: 'Delete',
     dropIcon: '',
@@ -582,6 +586,8 @@ const hasEmptySlot = computed(() => {
                     :confirm-data="confirmData"
                     :resource="saveResource"
                     :resource-data="computedSaveResourceData"
+                    :split="splitSave"
+                    :tooltip-engine="saveTooltipEngine"
                     v-on:loading="onButtonLoading"
                     v-on:loaded="onButtonLoaded"
                     v-on:click="onSave">
@@ -591,6 +597,14 @@ const hasEmptySlot = computed(() => {
                           :edit-mode="editMode"
                           :can-update="!saveDisabled"></slot>
                     <span v-else>{{ computedSaveText }}</span>
+
+                    <template v-slot:split="{doClose, doRootClick}">
+                        <slot name="button-save-split"
+                              :do-close="doClose"
+                              :do-root-click="doRootClick"
+                              :on-button-loading="onButtonLoading"
+                              :on-button-loaded="onButtonLoaded" />
+                    </template>
                 </lkt-button>
 
                 <create-button

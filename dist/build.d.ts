@@ -1,4 +1,4 @@
-declare class P {
+declare class H {
     constructor(r?: {});
     key: string;
     label: string;
@@ -11,7 +11,7 @@ declare class P {
     isForRowKey: boolean;
     extractTitleFromColumn: string;
     slotData: {};
-    field: Ze;
+    field: _e;
     getHref(r: any): any;
     doAction(r: any): any;
 }
@@ -946,5 +946,5 @@ declare function _l(t: any): boolean;
 declare function ea(t: any): void;
 declare function Ol(t: any): boolean;
 declare function ta(t: any): void;
-import { Field as Ze } from "lkt-field";
-export { P as Column, Hl as createActionColumn, Gl as createCheckColumn, Ul as createColumn, jl as createEmailColumn, Xl as createFileColumn, Kl as createFloatColumn, Yl as createHiddenColumn, ql as createIntegerColumn, Pl as createLinkColumn, Ql as createSelectColumn, Jl as createSwitchColumn, zl as createTelColumn, Wl as createTextColumn, Zl as default, xl as setTableCreateButtonSlot, _l as setTableDropButtonSlot, ea as setTableEmptySlot, Ol as setTableNavButtonSlot, ta as setTableSaveIcon };
+import { Field as _e } from "lkt-field";
+export { H as Column, Hl as createActionColumn, Gl as createCheckColumn, Ul as createColumn, jl as createEmailColumn, Xl as createFileColumn, Kl as createFloatColumn, Yl as createHiddenColumn, ql as createIntegerColumn, Pl as createLinkColumn, Ql as createSelectColumn, Jl as createSwitchColumn, zl as createTelColumn, Wl as createTextColumn, Zl as default, xl as setTableCreateButtonSlot, _l as setTableDropButtonSlot, ea as setTableEmptySlot, Ol as setTableNavButtonSlot, ta as setTableSaveIcon };

@@ -156,7 +156,7 @@
     gap: var(--lkt-table-gap-buttons);
     transition: all linear .150s;
     background: transparent;
-    z-index: 2;
+    z-index: 6;
 }
 
 .lkt-table-page-buttons-bottom {
