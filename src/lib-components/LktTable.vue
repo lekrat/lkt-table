@@ -45,6 +45,7 @@ const props = withDefaults(defineProps<{
     draggableChecker?: Function
     checkValidDrag?: Function
     renderDrag?: boolean|Function
+    disabledDrag?: boolean|Function
     sortable?: boolean
     hideEmptyColumns?: boolean
     initialSorting?: boolean
@@ -374,6 +375,9 @@ const getItemByEvent = (e: any) => {
         Hidden.value[k] = typeof Hidden.value[k] === 'undefined' ? true : !Hidden.value[k];
     },
     validDragChecker = (evt: any) => {
+        let targetIndex = parseInt(evt?.originalEvent?.toElement?.closest('tr')?.dataset?.i);
+        if (typeof props.disabledDrag === 'function' && props.disabledDrag(Items.value[targetIndex])) return false;
+        if (typeof props.disabledDrag === 'boolean' && props.disabledDrag) return false;
         if (typeof props.checkValidDrag === 'function') return props.checkValidDrag(evt);
         return true;
     },
@@ -467,7 +471,7 @@ const getItemByEvent = (e: any) => {
                 let newIndex = evt.newIndex;
                 Items.value.splice(newIndex, 0, Items.value.splice(oldIndex, 1)[0]);
                 updateTimeStamp.value = time();
-                emit('drag-end');
+                emit('drag-end', Items.value[newIndex]);
             },
             onMove: function (evt, originalEvent) {
                 return validDragChecker(evt);
@@ -602,6 +606,7 @@ const hasEmptySlot = computed(() => {
                         <slot name="button-save-split"
                               :do-close="doClose"
                               :do-root-click="doRootClick"
+                              :data-state="dataState"
                               :on-button-loading="onButtonLoading"
                               :on-button-loaded="onButtonLoaded" />
                     </template>
@@ -699,6 +704,7 @@ const hasEmptySlot = computed(() => {
                             :has-inline-edit-perm="hasInlineEditPerm"
                             :row-display-type="rowDisplayType"
                             :render-drag="renderDrag"
+                            :disabled-drag="disabledDrag"
                             v-on:click="onClick"
                             v-on:show="show"
                             v-on:item-up="onItemUp"

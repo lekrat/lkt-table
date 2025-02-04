@@ -1,5 +1,5 @@
 declare class H {
-    constructor(r?: {});
+    constructor(u?: {});
     key: string;
     label: string;
     sortable: boolean;
@@ -12,10 +12,10 @@ declare class H {
     extractTitleFromColumn: string;
     slotData: {};
     field: _e;
-    getHref(r: any): any;
-    doAction(r: any): any;
+    getHref(u: any): any;
+    doAction(u: any): any;
 }
-declare function Hl(t: any, r: any, d: any, o?: boolean): {
+declare function Wa(t: any, u: any, d: any, o?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -83,10 +83,10 @@ declare function Hl(t: any, r: any, d: any, o?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Gl(t: any, r: any, d?: boolean): {
+declare function Ja(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -154,10 +154,10 @@ declare function Gl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Ul(t: any): {
+declare function Pa(t: any): {
     key: string;
     label: string;
     sortable: boolean;
@@ -225,10 +225,10 @@ declare function Ul(t: any): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function jl(t: any, r: any, d?: boolean): {
+declare function za(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -296,10 +296,10 @@ declare function jl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Xl(t: any, r: any, d?: boolean): {
+declare function Ya(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -367,10 +367,10 @@ declare function Xl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Kl(t: any, r: any, d?: boolean): {
+declare function ja(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -438,10 +438,10 @@ declare function Kl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Yl(t: any, r: any, d?: boolean): {
+declare function Za(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -509,10 +509,10 @@ declare function Yl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function ql(t: any, r: any, d?: boolean): {
+declare function Ka(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -580,10 +580,10 @@ declare function ql(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Pl(t: any, r: any, d: any, o?: boolean): {
+declare function Ha(t: any, u: any, d: any, o?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -651,10 +651,10 @@ declare function Pl(t: any, r: any, d: any, o?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Ql(t: any, r: any, d: any, o?: boolean): {
+declare function Xa(t: any, u: any, d: any, o?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -722,10 +722,10 @@ declare function Ql(t: any, r: any, d: any, o?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Jl(t: any, r: any, d?: boolean): {
+declare function Qa(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -793,10 +793,10 @@ declare function Jl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function zl(t: any, r: any, d?: boolean): {
+declare function Ga(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -864,10 +864,10 @@ declare function zl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare function Wl(t: any, r: any, d?: boolean): {
+declare function qa(t: any, u: any, d?: boolean): {
     key: string;
     label: string;
     sortable: boolean;
@@ -935,16 +935,16 @@ declare function Wl(t: any, r: any, d?: boolean): {
         modalKey: string;
         modalData: {};
     };
-    getHref: (r: any) => any;
-    doAction: (r: any) => any;
+    getHref: (u: any) => any;
+    doAction: (u: any) => any;
 };
-declare namespace Zl {
+declare namespace Oa {
     function install(t: any): void;
 }
-declare function xl(t: any): boolean;
-declare function _l(t: any): boolean;
-declare function ea(t: any): void;
-declare function Ol(t: any): boolean;
-declare function ta(t: any): void;
+declare function el(t: any): boolean;
+declare function xa(t: any): boolean;
+declare function tl(t: any): void;
+declare function _a(t: any): boolean;
+declare function al(t: any): void;
 import { Field as _e } from "lkt-field";
-export { H as Column, Hl as createActionColumn, Gl as createCheckColumn, Ul as createColumn, jl as createEmailColumn, Xl as createFileColumn, Kl as createFloatColumn, Yl as createHiddenColumn, ql as createIntegerColumn, Pl as createLinkColumn, Ql as createSelectColumn, Jl as createSwitchColumn, zl as createTelColumn, Wl as createTextColumn, Zl as default, xl as setTableCreateButtonSlot, _l as setTableDropButtonSlot, ea as setTableEmptySlot, Ol as setTableNavButtonSlot, ta as setTableSaveIcon };
+export { H as Column, Wa as createActionColumn, Ja as createCheckColumn, Pa as createColumn, za as createEmailColumn, Ya as createFileColumn, ja as createFloatColumn, Za as createHiddenColumn, Ka as createIntegerColumn, Ha as createLinkColumn, Xa as createSelectColumn, Qa as createSwitchColumn, Ga as createTelColumn, qa as createTextColumn, Oa as default, el as setTableCreateButtonSlot, xa as setTableDropButtonSlot, tl as setTableEmptySlot, _a as setTableNavButtonSlot, al as setTableSaveIcon };

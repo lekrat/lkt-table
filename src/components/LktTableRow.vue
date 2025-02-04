@@ -40,8 +40,9 @@ const props = withDefaults(defineProps<{
     editText: string
     editIcon: string
     editLink: string
-    rowDisplayType: RowDisplayType|Function
-    renderDrag?: boolean
+    rowDisplayType: RowDisplayType | Function
+    renderDrag?: boolean | Function
+    disabledDrag?: boolean | Function
 }>(), {
     modelValue: () => ({}),
     isDraggable: true,
@@ -65,6 +66,7 @@ const props = withDefaults(defineProps<{
     editLink: '',
     rowDisplayType: RowDisplayType.Auto,
     renderDrag: true,
+    disabledDrag: true,
 });
 
 const Item = ref(props.modelValue);
@@ -76,15 +78,20 @@ const canCustomItem = [RowDisplayType.Auto, RowDisplayType.PreferCustomItem].inc
 const canItem = [RowDisplayType.Auto, RowDisplayType.PreferItem].includes(calculatedRowDisplayType);
 
 const parsedEditLink = ref(props.editLink);
-for (let k in Item.value) parsedEditLink.value = replaceAll(parsedEditLink.value, ':'+k , Item.value[k]);
+for (let k in Item.value) parsedEditLink.value = replaceAll(parsedEditLink.value, ':' + k, Item.value[k]);
 
 const onClick = ($event: any) => emit('click', $event),
     onShow = ($event: any, i: any) => {
         emit('show', $event, i)
     },
     classes = computed(() => {
-        let r:string[] = [];
-        if (props.sortable && props.isDraggable) r.push('handle');
+        let r: string[] = [];
+
+        let disabledDrag = false;
+        if (typeof props.disabledDrag === 'function') disabledDrag = props.disabledDrag(Item.value);
+        else disabledDrag = props.disabledDrag === true;
+        if (!disabledDrag && props.sortable && props.isDraggable) r.push('handle');
+        else if (disabledDrag) r.push('disabled');
         return r.join(' ');
     }),
     hasNavButtonSlot = computed(() => {
@@ -113,14 +120,19 @@ watch(Item, (v) => {
 }, {deep: true});
 
 const canRenderDragIndicator = computed(() => {
-    if (typeof props.renderDrag === 'function') return props.renderDrag(Item.value);
-    return props.renderDrag === true;
-})
+        if (typeof props.renderDrag === 'function') return props.renderDrag(Item.value);
+        return props.renderDrag === true;
+    }),
+    computedDisabledDrag = computed(() => {
+        if (typeof props.disabledDrag === 'function') return props.disabledDrag(Item.value);
+        return props.disabledDrag === true;
+    })
 </script>
 
 <template>
     <tr :data-i="i" :data-draggable="isDraggable" :class="{'type-custom-item': canCustomItem, 'type-item': canItem}">
-        <td v-if="sortable && isDraggable && editModeEnabled && canRenderDragIndicator" data-role="drag-indicator" :class="classes" />
+        <td v-if="sortable && isDraggable && editModeEnabled && canRenderDragIndicator"
+            data-role="drag-indicator" :class="classes" :data-i="i"/>
         <td v-else-if="sortable && editModeEnabled && canRenderDragIndicator" data-role="invalid-drag-indicator"/>
         <td v-if="addNavigation && editModeEnabled" class="lkt-table-nav-cell">
             <div class="lkt-table-nav-container">
